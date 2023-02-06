@@ -46,7 +46,7 @@
 
 **Milana Boutique** store i deployed web eCommerce app. At that time all configs is same as Publishing features. ``appsettings.json`` includes all hosting connection string datas. For example ``Server name, ID and Password``. At the same time ``appsettigs.json`` has local **SA** server connection string. You can unComment Hosting Connection String and use this local server's connection string.
 
-## Note.: Remember importing each SQL files, if using MSSQL for Production.
+## Note : Remember importing each SQL files, if using MSSQL for Production.
 
 * **Username:** SA
 * **Password:** query
