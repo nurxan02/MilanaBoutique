@@ -192,6 +192,7 @@ namespace MilanaBoutique.Controllers
             byte[] imageArray = System.IO.File.ReadAllBytes($"wwwroot/assets/images/products/{productSizeColor.MainImage}");
             string base64ImageRepresentation = Convert.ToBase64String(imageArray);
 
+
             string body = string.Empty;
           
             using (StreamReader reader = new StreamReader("wwwroot/assets/template/NewProduct.html"))
