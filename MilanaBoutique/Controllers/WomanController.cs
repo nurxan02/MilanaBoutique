@@ -33,10 +33,6 @@ namespace MilanaBoutique.Controllers
         {
             Category category = context.Categories.Include(c => c.Products).Include(c => c.Gender).Include(c => c.SubCategories).ThenInclude(s => s.Products).FirstOrDefault(c => c.Id == catid);
 
-            //ViewBag.CurrentPages = page;
-            //ViewBag.TotalPages = Math.Ceiling((decimal)context.ProductColors.Where(p => p.Product.CategoryId == catid && p.Product.GenderId == 2).Count() / 6);
-
-
             if (sortval == 1)
             {
                 ShopVM shopVM = new ShopVM

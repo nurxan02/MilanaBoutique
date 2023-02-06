@@ -61,7 +61,6 @@ namespace MilanaBoutique.Controllers
                 }
                 return View(wishlist);
 
-                //return PartialView("_wishPartialView", wishlist);
             }
             else
             {
@@ -114,7 +113,7 @@ namespace MilanaBoutique.Controllers
                 AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
                 List<WishlistItem> list = _context.WishlistItems.Include(c => c.ProductColor).ThenInclude(c => c.Product).Where(w => w.AppUserId == user.Id).ToList();
 
-                //WishlistVM wishlistVM = 
+
 
 
                 return Json(list.Count);
@@ -222,7 +221,7 @@ namespace MilanaBoutique.Controllers
 
 
 
-            //return RedirectToAction("Index", "Home");
+
         }
 
        
@@ -236,12 +235,10 @@ namespace MilanaBoutique.Controllers
             if (User.Identity.IsAuthenticated && User.IsInRole("Member"))
             {
                 AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-                //ProductColor product = _context.ProductColors.FirstOrDefault(c => c.Id == id);
+
                 WishlistItem removable = _context.WishlistItems.Include(c=>c.AppUser).FirstOrDefault(c => c.ProductColorId == id && c.AppUserId == user.Id);
 
-                //List<WishlistItem> wishlistItems = _context.WishlistItems.Where(c => c.AppUserId == user.Id).ToList();
 
-                //wishlistItems.Remove(removable);
                 user.WishlistItems.Remove(removable);
                 _context.WishlistItems.Remove(removable);
                 _context.SaveChanges();
@@ -275,7 +272,7 @@ namespace MilanaBoutique.Controllers
             else
             {
                 List<WishlistCookieItemVM> wishlistCookieItems = JsonConvert.DeserializeObject<List<WishlistCookieItemVM>>(wishlists);
-                //WishlistItem removable = _context.WishlistItems.FirstOrDefault(c => c.ProductColorId == id);
+
 
                 WishlistCookieItemVM removable = wishlistCookieItems.FirstOrDefault(c => c.Id == id);
 
@@ -365,12 +362,6 @@ namespace MilanaBoutique.Controllers
 
 
 
-
-
-
-                    //string wishlistStr = JsonConvert.SerializeObject(wishlistCookieItems);
-                    //HttpContext.Response.Cookies.Append("Wishlists", wishlistStr);
-
                     foreach (var item in wishlistCookieItems)
                     {
                         ProductColor productColor = _context.ProductColors.Include(c => c.Product).ThenInclude(p => p.ProductSizeColors).Include(p => p.Product).ThenInclude(p => p.Gender).FirstOrDefault(c => c.Id == item.Id);
@@ -398,17 +389,6 @@ namespace MilanaBoutique.Controllers
             }
         }
 
-        //public IActionResult EmptyWIsh()
-        //{
-        //    return View();
-        //}
 
-        //public async Task<IActionResult> Testo()
-        //{
-        //    AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
-        //    return Json(_context.WishlistItems.Where(c => c.AppUserId == user.Id).Count());
-
-
-        //}
     }
 }

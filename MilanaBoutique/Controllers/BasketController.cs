@@ -183,7 +183,7 @@ namespace MilanaBoutique.Controllers
                 List<BasketCookieItemVM> basketCookieItems = JsonConvert.DeserializeObject<List<BasketCookieItemVM>>(basket);
                 return Json(basketCookieItems.Count);
             }
-            //return Content("okay");
+
         }
 
         public async Task<IActionResult> GetTotalPrice()

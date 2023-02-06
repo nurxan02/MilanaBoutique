@@ -36,36 +36,6 @@ namespace MilanaBoutique.Controllers
         [HttpPost]
         [AutoValidateAntiforgeryToken]
 
-        //public IActionResult Send(string name, string mail , string subject , string phone ,string message)
-        //{
-
-
-        //    ContactVM vm = new ContactVM
-        //    {
-        //        Contact = context.Contact.FirstOrDefault(),
-        //        Stores = context.Stores.ToList()
-        //    };
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(vm);
-        //    }
-
-        //    Questions questionnew = new Questions
-        //    {
-        //        IsAcces = false,
-        //        Mail = mail,
-        //        Message = message,
-        //        Name = name,
-        //        Phone = phone,
-        //        Subject =  subject
-        //    };
-
-        //    context.Questions.Add(questionnew);
-        //    context.SaveChanges();
-        //    return Json(new {status=200 });
-        //}
-
         public IActionResult Index(Questions question)
         {
 
