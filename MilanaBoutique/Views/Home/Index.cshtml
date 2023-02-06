@@ -497,8 +497,8 @@ else
                 <div class="product-body">
                     <h3 class="product-title"><a asp-controller="@Model.Product.Gender.Name" asp-action="details" asp-route-id="@Model.Product.ProductSizeColors.FirstOrDefault().Id">@Model.Product.Name</a></h3>
                     <div class="product-price">
-                        <span class="new-price">Now $@Model.Product.Price</span>
-                        <span class="old-price">Was $@(Model.Product.Price - (Model.Product.Price * (Model.Product.Discount / 100)))</span>
+                        <span class="new-price">Now $@(Model.Product.Price - (Model.Product.Price * (Model.Product.Discount / 100)))</span>
+                        <span class="old-price">Was $@Model.Product.Price</span>
                     </div>
                 </div>
                 <a asp-controller="@Model.Product.Gender.Name" asp-action="details" asp-route-id="@Model.Product.ProductSizeColors.FirstOrDefault().Id" class="action">shop now</a>
