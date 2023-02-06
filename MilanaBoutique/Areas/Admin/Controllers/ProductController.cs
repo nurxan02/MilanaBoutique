@@ -186,8 +186,8 @@ namespace MilanaBoutique.Controllers
            
             context.Products.Add(prodVM.Product);
             context.SaveChanges();
-            //string prodlink = $"https://localhost:44388/{prodVM.Product.Gender.Name}/Details/" + $"{productSizeColor.Id}";
-            string prodlink = $"http://nurxan02-001-site1.atempurl.com/{prodVM.Product.Gender.Name}/Details/" + $"{productSizeColor.Id}";
+            string prodlink = $"https://localhost:44388/{prodVM.Product.Gender.Name}/Details/" + $"{productSizeColor.Id}";
+            //string prodlink = $"http://nurxan02-001-site1.atempurl.com/{prodVM.Product.Gender.Name}/Details/" + $"{productSizeColor.Id}";
             MailMessage mail = new MailMessage();
             byte[] imageArray = System.IO.File.ReadAllBytes($"wwwroot/assets/images/products/{productSizeColor.MainImage}");
             string base64ImageRepresentation = Convert.ToBase64String(imageArray);

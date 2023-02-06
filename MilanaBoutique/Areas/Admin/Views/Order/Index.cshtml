@@ -100,40 +100,7 @@
     </nav>
 </div>
 
-@*@section Scripts{
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            $(".delete-btn").click(function (e) {
-                e.preventDefault()
-                console.log($(this).attr("href"))
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var link = $(this).attr("href");
-                        fetch(link).then(response => response.json()).then(data => {
-                            if (data.status == 200) {
-                                location.reload(true)
-                            } else {
-                                Swal.fire(
-                                    'Not found!',
-                                    'Your file can not be deleted.',
-                                    'Failed'
-                                )
-                            }
-                        }
-                        );
-                    }
-                })
-            })
-        </script>
-    }*@
+
 
 
 
