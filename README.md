@@ -30,6 +30,17 @@
 | Remove a Item | &#10004; | Ability of Remove a Item from the Cart |
 | Checkout | &#10004; | Ability to Checkout |
 
+
+<b>Other Features</b>
+
+| Feature  |  Coded?       | Description  |
+|----------|:-------------:|:-------------|
+| Users Registration | &#10004; | User register, login, edit all user infos |
+| Status Track | &#10004; | User track order status |
+| Wish List | &#10004; | Adding to wishlist |
+| Admin Panel | &#10004; | Good and easy administration |
+| Personalization | &#10004; | Personalize your eCommerce app features easily|
+
 ## Documentation
 
 **Milana Boutique** store i deployed web eCommerce app. At that time all configs is same as Publishing features. ``appsettings.json`` includes all hosting connection string datas. For example ``Server name, ID and Password``. At the same time ``appsettigs.json`` has local **SA** server connection string. You can unComment Hosting Connection String and use this local server's connection string.
@@ -41,6 +52,8 @@
 * **Database:** Milnana
 * **Port:** 44388
 * **Server:** ``{your local server name}``
+
+![](https://user-images.githubusercontent.com/90649844/217049546-433ffde2-7c90-4ec0-9814-8f07ac6f057d.png)
 
 You can change all for your using.
 
@@ -55,6 +68,9 @@ This link provide all members, **deal of the day** with email. This feature only
 
 ![](https://user-images.githubusercontent.com/90649844/217045572-1f045301-07f3-4401-854e-2d425f1955bd.png)
 
+## Additional 
+`` MilanaBoutique/responsive-viewer-chrome-extension.json `` You can use this extension for see all devices adaptations and responsive design of this project. 
+Extension link: <a href="https://chrome.google.com/webstore/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb">Click for Responsive Viewer Chrome extension</a>
 
 ## Credits
 
