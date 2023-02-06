@@ -1,0 +1,151 @@
+﻿@model CheckoutVM
+@{ 
+    double? totalPrice = 0;
+}
+    <div class="page-header text-center" style="background-image: url('../.././assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Checkout</h1>
+        </div>
+    </div>
+   
+
+    <div class="page-content">
+        <div class="checkout">
+            <div class="container">
+
+                @if (Model.BasketItems.Count == 0)
+                {
+                <div style="display: flex;height:150px;flex-direction:column; justify-content:space-around; align-items: center; margin-top: 9rem" >
+                    <i style="transform:scale(3.0)" class="fa-solid fa-basket-shopping"></i>
+                    <h3 style="margin:0 !important">Your basket is empty!</h3>
+                </div>
+                }
+                else
+                {
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h2 class="checkout-title">Billing Details</h2>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label>First Name *</label>
+                                        <input asp-for="Firstname" class="form-control">
+                                        <span class="text text-danger" asp-validation-for="Firstname"></span>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label>Last Name *</label>
+                                        <input asp-for="Surname" class="form-control">
+                                        <span class="text text-danger" asp-validation-for="Surname"></span>
+                                    </div>
+                                </div>
+
+
+
+                                <label>Country *</label>
+                                <input asp-for="Country" class="form-control">
+                                <span class="text text-danger" asp-validation-for="Country"></span>
+
+                                <label>Street address *</label>
+                                <input asp-for="Address" class="form-control">
+                                <span class="text text-danger" asp-validation-for="Address"></span>
+
+                                <label>Town / City *</label>
+                                <input asp-for="City" class="form-control">
+                                <span class="text text-danger" asp-validation-for="City"></span>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label>Postcode / ZIP *</label>
+                                        <input asp-for="Zip" class="form-control">
+                                        <span class="text text-danger" asp-validation-for="Zip"></span>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label>Phone *</label>
+                                        <input asp-for="Phone" class="form-control">
+                                        <span class="text text-danger" asp-validation-for="Phone"></span>
+                                    </div>
+                                </div>
+
+                                <label>Email address *</label>
+                                <input asp-for="Email" class="form-control">
+                                <span class="text text-danger" asp-validation-for="Email"></span>
+
+
+                                <label>Order notes (optional)</label>
+                                <textarea class="form-control" asp-for="MessagesToAdmin" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+                                <span class="text text-danger" asp-validation-for="MessagesToAdmin"></span>
+
+                            </div>
+                            <aside class="col-lg-3">
+
+
+                                <div class="summary">
+                                    <h3 class="summary-title">Your Order</h3>
+
+                                    <table class="table table-summary">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach (BasketItem item in Model.BasketItems)
+                                            {
+                                                @if (item.ProductSizeColor.TotalStock > 5)
+
+                                                {
+                                                    totalPrice += (item.ProductSizeColor.Product.Discount == null ? item.Count * item.ProductSizeColor.Product.Price : item.Count * (item.ProductSizeColor.Product.Price - (item.ProductSizeColor.Product.Price * item.ProductSizeColor.Product.Discount / 100)));
+                                                }
+
+                                                <tr>
+                                                    <td>
+                                                        @*<a asp-controller="@item.ProductSizeColor.Product.Gender.Name" asp-action="details" asp-route-id="@item.ProductSizeColorId"><img style="width:50px;height:60px;" src="~/assets/images/products/@item.ProductSizeColor.MainImage" /> </a>*@
+
+                                                        <a style="display:flex;align-items:center" asp-controller="@item.ProductSizeColor.Product.Gender.Name" asp-action="details" asp-route-id="@item.ProductSizeColorId"><img style="width:50px;height:60px;" src="~/assets/images/products/@item.ProductSizeColor.MainImage" /> @item.ProductSizeColor.Product.Name </a>
+                                                        <p>@item.Count x</p>
+                                                        <p>@item.ProductSizeColor.Color.Name - @item.ProductSizeColor.Size.Name</p>
+
+                                                    </td>
+                                                    <td>
+
+                                                        $@String.Format("{0:0.00}", item.ProductSizeColor.Product.Discount == null ? item.Count * item.ProductSizeColor.Product.Price : item.Count * (item.ProductSizeColor.Product.Price - (item.ProductSizeColor.Product.Price * item.ProductSizeColor.Product.Discount / 100)))
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                            
+
+
+
+                                            <tr>
+                                                <td>Shipping:</td>
+                                                <td>Free shipping</td>
+                                            </tr>
+                                            <tr class="summary-total">
+                                                <td>Total:</td>
+                                                <td>$@String.Format("{0:0.00}", totalPrice)</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+
+                                    <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                        <span class="btn-text">Place Order</span>
+                                        <span class="btn-hover-text">Proceed to Checkout</span>
+                                    </button>
+                                </div>
+
+                                
+                            </aside>
+                        </div>
+                    </form>
+                }
+
+            </div>
+        </div>
+    </div>
+

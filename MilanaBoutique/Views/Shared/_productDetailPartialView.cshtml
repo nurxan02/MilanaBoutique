@@ -1,0 +1,159 @@
+﻿@model ShopVM
+
+
+
+
+
+<input hidden class="firstLoadId" value="@Model.ProductSizeColor.Id" />
+
+<div class="row forheight">
+    <div class="col-md-6">
+        <div class="product-gallery product-gallery-vertical">
+            <div class="row formodal">
+                <figure class="product-main-image">
+                    <img style="height: 457px !important; object-fit: cover;" class="product-zoom" src="~/assets/images/products/@Model.ProductSizeColor.MainImage" alt="product image">
+
+                    <a data-toggle="modal" data-target="#exampleModalCenter" style="cursor:pointer" id="btn-product-gallery" class="btn-product-gallery">
+                        <i class="icon-arrows"></i>
+                    </a>
+
+                   
+                </figure>
+            
+                <div id="product-zoom-gallery" class="product-image-gallery">
+                    <a  style="width:106px;height:106px!important;overflow:hidden !important" class="product-gallery-item active changeable" href="#" data-image="~/assets/images/products/@Model.ProductSizeColor.MainImage" data-zoom-image="~/assets/images/products/@Model.ProductSizeColor.MainImage">
+                        <img style="width:106px;height:106px!important;object-fit:cover" src="~/assets/images/products/@Model.ProductSizeColor.MainImage" alt="product side">
+                    </a>
+
+                    @foreach (var item in Model.ProductSizeColor.ProductImages)
+                    {
+                        <a style="width:106px;height:106px!important;overflow:hidden !important" class="product-gallery-item changeable" href="#" data-image="~/assets/images/products/@item.Image" data-zoom-image="~/assets/images/products/@item.Image">
+                            <img style="width:106px;height:106px!important;object-fit:cover" src="~/assets/images/products/@item.Image" alt="product back">
+                        </a>
+                    }
+
+
+
+                </div>
+            </div>
+        </div>
+      
+    </div>
+
+    <div class="col-md-6">
+        <div class="product-details">
+            <h1 class="product-title">@Model.ProductSizeColor.Product.Name.ToUpper()</h1>
+
+           
+
+            <div class="product-price">
+                @if (Model.ProductSizeColor.Product.Discount != null && Model.ProductSizeColor.Product.Discount != 0)
+                {
+                    <span class="new-price" style="color: #e64747">@((Model.ProductSizeColor.Product.Price - (Model.ProductSizeColor.Product.Price * Model.ProductSizeColor.Product.Discount / 100) ) )$ </span> <span class="old-price" style="text-decoration:line-through">was @Model.ProductSizeColor.Product.Price$</span>
+
+                }
+                else
+                {
+                    <span style="color: #e64747">@Model.ProductSizeColor.Product.Price $</span>
+                }
+
+            </div>
+
+            <div class="product-content">
+                <p>@Model.ProductSizeColor.Product.Subtitle</p>
+            </div>
+
+            <div class="details-filter-row details-row-size">
+                <label>Color:</label>
+
+                <div class="product-nav product-nav-thumbs">
+                    <a style="height:52px;width:40px" class="active">
+                        <img style="height:52px;width:40px;object-fit:cover" src="~/assets/images/products/@Model.ProductSizeColor.MainImage" alt="product desc">
+                    </a>
+                    @foreach (var prd in Model.ProductSizeColor.Product.ProductColors.Where(p => p.ColorId != Model.ProductSizeColor.ColorId))
+                    {
+                        <a style="height:52px;width:40px" class="noMainForColorChange" asp-controller="@Model.ProductSizeColor.Product.Gender.Name" asp-action="details" asp-route-id="@Model.ProductSizeColor.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId == prd.ColorId).Id">
+                            <img style="height:52px;width:40px;object-fit:cover" src="~/assets/images/products/@Model.ProductSizeColor.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId == prd.ColorId).MainImage" alt="product desc">
+                            <input class="hiddenId" hidden value="@Model.ProductSizeColor.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId == prd.ColorId).Id" />
+
+                        </a>
+                    }
+                </div>
+            </div>
+
+            <div class="details-filter-row details-row-size">
+                <label for="size">Size:</label>
+                <div class="select-custom">
+                    <select name="size" id="size" class="form-control">
+                        <option value="0">Select size</option>
+                        @foreach (var item in Model.ProductSizeColor.Product.ProductSizeColors.Where(p => p.ColorId == Model.ProductSizeColor.ColorId))
+                        {
+                            @if (item.TotalStock < 5)
+                            {
+                                <option style="color:grey" disabled value="@item.Size.Id">@item.Size.Name </option>
+
+                            }
+                            else
+                            {
+                                <option style="color:black" value="@item.Size.Id">@item.Size.Name</option>
+
+                            }
+
+
+
+                        }
+
+
+                    </select>
+                </div>
+
+                <a href="#" class="size-guide" data-toggle="modal" data-target="#modalSize"><i class="icon-th-list"></i>size guide</a>
+            </div>
+
+            <div class="details-filter-row details-row-size">
+                <label for="qty">Qty:</label>
+                <div class="product-details-quantity">
+                    <input type="number" id="qty" class="form-control qtyforme" value="1" min="1" max="10" step="1" data-decimals="0" required>
+                </div>
+            </div>
+
+            <div class="product-details-action">
+                <a asp-controller="@Model.ProductSizeColor.Product.Gender.Name" asp-action="setbasket" class="btn-product btn-cart add-to-cart"><span>add to cart</span></a>
+                <input class="forSizeId" hidden />
+                <input hidden class="forProductId" value="@Model.ProductSizeColor.ProductId" />
+                <input hidden class="forCount" />
+                <input class="forColorId" hidden value="@Model.ProductSizeColor.ColorId" />
+              
+            </div>
+
+            <div class="product-details-footer">
+                <div class="product-cat">
+                    <span>Category:</span>
+                    <a asp-controller="@Model.ProductSizeColor.Product.Gender.Name" asp-action="shop" asp-route-id="@Model.ProductSizeColor.Product.CategoryId">@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ProductSizeColor.Product.Category.Name.ToLower())    </a>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <img id="changeForModal" style="object-fit:cover;width:575px;height:575px" src="~/assets/images/products/@Model.ProductSizeColor.MainImage" alt="product side">
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/assets/js/bootstrap-input-spinner.js"></script>
+<script src="~/assets/js/jquery.magnific-popup.min.js"></script>
+}

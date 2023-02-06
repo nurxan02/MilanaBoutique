@@ -1,0 +1,23 @@
+﻿@model BlogVM
+@foreach (var item in Model.Blog.Comments.Where(c=>c.IsAccepted == true))
+{
+    <li>
+
+        <div class="comment">
+
+
+            <div class="comment-body">
+
+                <div class="comment-user">
+                    <h4><p>@item.AppUser.Firstname  @item.AppUser.Surname</p></h4>
+                    <span class="comment-date">@item.CreatedTime.ToString("dd MMMM yyyy , HH:mm")</span>
+                </div>
+
+                <div class="comment-content">
+                    <p>@item.Message</p>
+                </div>
+            </div>
+        </div>
+
+    </li>
+}

@@ -1,0 +1,227 @@
+﻿@model BestsellerVM
+<div class="row">
+    <div style="display:flex;justify-content:center" class="col-lg-3">
+        <div style="height: 80px; -webkit-box-shadow: 0px 0px 15px -4px gray; box-shadow: 0px 0px 15px -4px gray; border-radius: 20px; background-color: white; padding: 10px; display: flex; justify-content: space-around; align-items: center" class="col-lg-9">
+            <div class="cardHeader">
+
+
+                <i style="font-size:35px;color:red" class="fa-solid fa-bag-shopping"></i>
+
+            </div>
+            <div class="cardBody">
+                <p style="margin:0 !important">Daily Order</p>
+                <p id="dailyorder" style="margin:0 !important">5</p>
+
+
+            </div>
+        </div>
+    </div>
+    <div style="display:flex;justify-content:center" class="col-lg-3">
+
+        <div style="height: 80px; -webkit-box-shadow: 0px 0px 15px -4px gray; box-shadow: 0px 0px 15px -4px gray; border-radius: 20px; border-radius: 20px; background-color: white; padding: 10px; display: flex; justify-content: space-around; align-items: center " class="col-lg-9">
+            <div class="cardHeader">
+                <i style="font-size: 35px; color: purple" class="fa-solid fa-wallet"></i>
+
+
+            </div>
+
+            <div class="cardBody">
+                <p style="margin:0 !important">Daily Revenue</p>
+                <p id="dailyrevenue" style="margin:0 !important">5</p>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div style="display:flex;justify-content:center" class="col-lg-3">
+
+        <div style="height: 80px; -webkit-box-shadow: 0px 0px 15px -4px gray; box-shadow: 0px 0px 15px -4px gray; border-radius: 20px; background-color: white; padding: 10px; display: flex; justify-content: space-around; align-items: center " class="col-lg-9">
+            <div class="cardHeader">
+
+                <i style="font-size: 35px; color: orange" class="fa-solid fa-clock"></i>
+
+
+            </div>
+
+            <div class="cardBody">
+                <p style="margin:0 !important">Pending Orders</p>
+                <p id="pendingcount" style="margin:0 !important">5</p>
+
+
+            </div>
+        </div>
+
+    </div>
+    <div style="display:flex;justify-content:center" class="col-lg-3">
+        <div style="height: 80px; -webkit-box-shadow: 0px 0px 15px -4px gray; box-shadow: 0px 0px 15px -4px gray; border-radius: 20px; background-color: white; padding: 10px; display: flex; justify-content: space-around; align-items: center " class="col-lg-9">
+            <div class="cardHeader">
+
+                <i style="font-size:35px;color:green" class="fa-solid fa-sack-dollar"></i>
+
+            </div>
+
+            <div class="cardBody">
+                <p style="margin:0 !important">Monthly Revenue</p>
+                <p id="monthlyrevenue" style="margin:0 !important">5</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="justify-content:space-between">
+    <div class="col-lg-6" style="margin-top: 30px; background-color:white; ">
+        <h5 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  margin-top:10px; text-align:center;"> Sales By Product Gender:</h5>
+        <div id="chartGender">
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-6" style="margin-top: 30px; background-color:white;">
+        <h5 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  margin-top:10px; text-align:center;"> Sales By Brands:</h5>
+        <div id="chartBrand">
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-6 dailySellerDiv" style="padding: 18px; background-color: #362000; margin-top: 30px; box-shadow: 0px 0px 15px -10px rgba(0,0,0,0.86); border-radius: 5px; height: max-content ">
+        <div class="cardTop" style="position:relative">
+            <button data-toggle="modal" data-target="#forImage" type="button" class="btn btn-primary" style="background-color: #ef0663; position: absolute; top: 57%; right: 3%; "><i class="bi bi-arrows-fullscreen"></i></button>
+            <img style="height:200px ; object-fit:cover" src="~/assets/images/products/@Model.Daily.MainImage" class="card-img-top" alt="...">
+
+            <h3 style="color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;margin:0 !important">Today`s best seller</h3>
+            <p style="margin:0 !important; color: white; font-family: 'Segoe UI' , Tahoma, Geneva, Verdana, sans-serif" ;margin:0 !important">Sold count : @Model.Daily.DailySoldCount</p>
+
+            <p style="margin:0 !important; color: white; font-family: 'Segoe UI' , Tahoma, Geneva, Verdana, sans-serif" ;>Revenue : $@(String.Format("{0:0.00}",ViewBag.Daily))</p>
+        </div>
+        <div class="cardBottom">
+            <h3 style="color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;margin:0 !important">@Model.Daily.Product.Name</h3>
+            <div style="display:flex;justify-content:space-between;" class="spans">
+                <span style="color:white;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Brand : @Model.Daily.Product.Brand.Name</span>
+                <span style="color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Size : @Model.Daily.Size.Name</span>
+                <span style="color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ">Color : @Model.Daily.Color.Name</span>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="forImage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+           <img style="height:550px;object-fit:cover" src="~/assets/images/products/@Model.Daily.MainImage" />
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var base = window.location.origin;
+            var url = `${base}/admin/order/dailycount`
+            var pending = `${base}/admin/order/pendingcount`
+            var dlyrevenue = `${base}/admin/order/dailyrevenue`
+            var monthrevenue = `${base}/admin/order/monthlyrevenue`
+            var mancount = `${base}/admin/order/orderedman`
+            var womancount = `${base}/admin/order/orderedwoman`
+            var brandsaling = `${base}/admin/order/brandtest`
+            var orderedwoman;
+            var orderedman;
+
+
+            fetch(url).then(res => res.text()).then(data => {
+                $("#dailyorder").empty();
+                $("#dailyorder").append(data)
+
+            })
+            fetch(pending).then(res => res.text()).then(data => {
+                $("#pendingcount").empty();
+                $("#pendingcount").append(data)
+
+            })
+            fetch(dlyrevenue).then(res => res.text()).then(data => {
+                $("#dailyrevenue").empty();
+                var nrml = parseFloat(data).toFixed(2);
+                $("#dailyrevenue").append(`${nrml} $`)
+
+            })
+            fetch(monthrevenue).then(res => res.text()).then(data => {
+                $("#monthlyrevenue").empty();
+                var nrml = parseInt(data).toFixed(2);
+                $("#monthlyrevenue").append(`${nrml} $`)
+
+            })
+
+            fetch(womancount).then(res => res.text()).then(woman => {
+                fetch(mancount).then(res => res.text()).then(man => {
+                    new Morris.Donut({
+
+                        element: 'chartGender',
+
+
+                        data: [
+
+                            { label: "MAN", value: man },
+                            { label: "WOMAN", value: woman }
+
+                        ],
+                        colors: ['#362000', '#d68209']
+
+                    })
+                })
+
+            })
+
+            var morrisdata = [];
+
+            fetch(brandsaling).then(res => res.json()).then(data => {
+                data.map(c => {
+
+                    morrisdata.push({ label: c.brand, value: c.count });
+
+
+                })
+
+                console.log(morrisdata)
+                new Morris.Donut({
+
+                    element: 'chartBrand',
+
+
+                    data: morrisdata,
+                    colors: ['#362000', '#d68209', '#f24e8f', '#85239e', '#bda960', '#a63b2d', '#35448c','#358c45']
+                    
+
+                })
+            })
+
+
+
+        })
+
+
+
+    </script>
+
+
+
+
+
+}
+
+
+@section Styles{
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+}

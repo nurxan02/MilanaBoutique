@@ -1,0 +1,165 @@
+﻿@model AboutVM
+
+    <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Home</a></li>
+
+                <li class="breadcrumb-item active" aria-current="page">About us</li>
+            </ol>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="page-header page-header-big text-center" style="background-image: url('assets/images/@Model.AboutUs.Banner')">
+            <h1 class="page-title text-white">@Model.AboutUs.Title<span class="text-white">@Model.AboutUs.SubTitle</span></h1>
+        </div>
+    </div>
+
+    <div class="page-content pb-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-3 mb-lg-0">
+                    <h2 class="title">Our Vision</h2>
+                    <p>@Model.AboutUs.Vision</p>
+                </div>
+
+                <div class="col-lg-6">
+                    <h2 class="title">Our Mission</h2>
+                    <p>@Model.AboutUs.Mission</p>
+
+                </div>
+            </div>
+
+            <div class="mb-5"></div>
+        </div>
+
+        <div class="bg-light-2 pt-6 pb-5 mb-6 mb-lg-8">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 mb-3 mb-lg-0">
+                        <h2 class="title">Who We Are</h2>
+                        <p class="lead text-primary mb-3">Pellentesque odio nisi, euismod pharetra a ultricies <br>in diam. Sed arcu. Cras consequat</p>
+                        <p class="mb-2">Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Suspendisse potenti. Sed egestas, ante et vulputate volutpat, uctus metus libero eu augue. </p>
+
+                        <a href="@Model.AboutUs.NewsLink" class="btn btn-sm btn-minwidth btn-outline-primary-2">
+                            <span>VIEW OUR NEWS</span>
+                            <i class="icon-long-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-6 offset-lg-1">
+                        <div class="about-images">
+                            <img src="~/assets/images/about/img-1.png" alt="photo" class="about-img-front">
+                            <img src="~/assets/images/about/img-2.png" alt="photo" class="about-img-back">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="brands-text">
+                        <h2 class="title">The world's premium design brands in one destination.</h2>
+                        <p>Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nis</p>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="brands-display">
+                        <div class="row justify-content-center">
+
+                            @foreach (var item in Model.Brands)
+                            {
+                                <div class="col-6 col-sm-4">
+                                    <a  class="brand">
+                                        <img  src="~/assets/images/logos/@item.Image" alt="Brand Name">
+                                    </a>
+                                </div>
+                            }
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt-4 mb-6">
+
+            <h2 class="title text-center mb-4">Our Investors</h2>
+
+            <div class="row">
+                @foreach (var item in Model.Members)
+                {
+                    <div class="col-md-4">
+                        <div class="member member-anim text-center">
+                            <figure class="member-media">
+                                <img style="width:376px;height:500px;object-fit:cover" src="~/assets/images/team/@item.Image " alt="member photo">
+
+                                <figcaption class="member-overlay">
+                                    <div class="member-overlay-content">
+                                        <h3 class="member-title">@item.Firstname @item.Lastname<span>@item.Speciality</span></h3>
+                                        <p>@item.Info</p>
+                                        <div class="social-icons social-icons-simple">
+
+                                            @foreach (var oke in item.SocialMedias)
+                                            {
+                                                <a href="@oke.Link" class="social-icon"  target="_blank"><i class="@oke.Icon"></i></a>
+
+                                            }
+
+                                        </div>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                            <div class="member-content">
+                                <h3 class="member-title">@item.Firstname @item.Lastname<span>@item.Speciality</span></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+
+        <div class="mb-2"></div>
+
+        <div class="about-testimonials bg-light-2 pt-6 pb-6">
+            <div class="container">
+                <h2 class="title text-center mb-3">What Customer Say About Us</h2>
+
+                <div class="owl-carousel owl-simple owl-testimonials-photo" data-toggle="owl"
+                     data-owl-options='{
+                                "nav": false,
+                                "dots": true,
+                                "margin": 20,
+                                "loop": true,
+                                "responsive": {
+                                    "1200": {
+                                        "nav": true
+                                    }
+                                }
+                            }'>
+
+                    @foreach (var item in Model.Questions)
+                    {
+                        <blockquote class="testimonial text-center">
+                          
+                            <p>“ @item.Message ”</p>
+                            <cite>
+                               @item.Name
+                                <span>Customer</span>
+                            </cite>
+                        </blockquote>
+                    }
+
+            
+
+
+                </div>
+            </div>
+        </div>
+    </div>

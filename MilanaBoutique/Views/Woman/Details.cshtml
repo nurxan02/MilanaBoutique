@@ -1,0 +1,628 @@
+﻿@model ShopVM
+
+<nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+    <div class="container d-flex align-items-center">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="woman" asp-action="index">Women</a></li>
+
+            <li class="breadcrumb-item"><a asp-controller="woman" asp-action="shop" asp-route-id="@Model.ProductSizeColor.Product.CategoryId">@Model.ProductSizeColor.Product.Category.Name</a></li>
+
+        </ol>
+
+
+    </div>
+</nav>
+<div class="page-content">
+    <div class="container">
+        <div class="product-details-top">
+            @await Html.PartialAsync("_productDetailPartialView", Model)
+
+        </div>
+        <div class="product-details-tab">
+            <ul class="nav nav-pills justify-content-center" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="product-shipping-link" data-toggle="tab" href="#product-shipping-tab" role="tab" aria-controls="product-shipping-tab" aria-selected="false">Shipping & Returns</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Reviews (@ViewBag.Comments)</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
+                    <div class="product-desc-content">
+                        @Model.ProductSizeColor.Product.Description
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="product-shipping-tab" role="tabpanel" aria-labelledby="product-shipping-link">
+                    <div class="product-desc-content">
+                        <h3>Delivery & returns</h3>
+                        <p>
+                            We deliver to over 100 countries around the world. For full details of the delivery options we offer, please view our <a href="#">Delivery information</a><br>
+                            We hope you’ll love every purchase, but if you ever need to return an item you can do so within a month of receipt. For full details of how to make a return, please view our <a href="#">Returns information</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
+                    <div class="reviews">
+                        <div class="col-md-12" style="margin-bottom:30px">
+                            <div id="review-form">
+
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <form asp-action="AddComment" method="post">
+                                        <div class="row">
+
+                                            <div style="padding:0!important" class="col-md-12">
+
+                                                <div class="input-rating">
+                                                    <span>Your Rating: </span>
+                                                    <div class="stars">
+                                                        <i style="cursor:pointer" id="star1" class="fa-solid fa-star starRate"></i>
+                                                        <i style="cursor:pointer" id="star2" class="fa-solid fa-star starRate"></i>
+                                                        <i style="cursor:pointer" id="star3" class="fa-solid fa-star starRate"></i>
+                                                        <i style="cursor:pointer" id="star4" class="fa-solid fa-star starRate"></i>
+                                                        <i style="cursor:pointer" id="star5" class="fa-solid fa-star starRate"></i>
+                                                        <input hidden class="starhidden" value="1" />
+                                                    </div>
+                                                </div>
+                                                <p id="subj">Subject</p>
+
+
+                                                <input asp-for="@Model.ProductSizeColor.Product.Comments.FirstOrDefault().Subject" style="width:100%">
+                                                <span class="text text-danger subjWarning"></span>
+                                                <p id="message">Message</p>
+
+                                                <textarea asp-for="@Model.ProductSizeColor.Product.Comments.FirstOrDefault().Message" style="width:100%;height:125px" cols="15" rows="10"></textarea>
+                                                <span class="text text-danger textWarning"></span>
+
+                                                <p style="display:none">@Model.ProductSizeColor.ProductId</p>
+
+                                                @*<p style="display:none">@Model.ProductSizeColor.ProductId</p>*@
+
+                                                <button class="btn btn-primary forcommentbtn">Send</button>
+                                                @*<a asp-controller="Course" asp-action="AddComment" id="SendMessage">Send</a>*@
+
+                                                <input type="hidden" class="forFetch" value="@Model.ProductSizeColor.ProductId" />
+                                                <input type="hidden" asp-for="@Model.Comments.FirstOrDefault().ProductId" value="@Model.ProductSizeColor.ProductId" />
+                                            </div>
+
+                                        </div>
+
+
+                                        <p class="form-messege"></p>
+                                    </form>
+
+                                }
+                            </div>
+                        </div>
+                        @*<h3>Reviews (@Model.Product.Comments.Count)</h3>*@
+
+                        <div class="review-place">
+                            @await Html.PartialAsync("_commentPartialView", Model)
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div><!-- End .tab-content -->
+        </div>
+
+
+        <h2 class="title text-center mb-4">You May Also Like</h2><!-- End .title text-center -->
+        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
+             data-owl-options='{
+                            "nav": false,
+                            "dots": true,
+                            "margin": 20,
+                            "loop": false,
+                            "responsive": {
+                                "0": {
+                                    "items":1
+                                },
+                                "480": {
+                                    "items":2
+                                },
+                                "768": {
+                                    "items":3
+                                },
+                                "992": {
+                                    "items":4
+                                },
+                                "1200": {
+                                    "items":4,
+                                    "nav": true,
+                                    "dots": false
+                                }
+                            }
+                        }'>
+
+
+            @foreach (var item in Model.ProductColors)
+            {
+                <div class="product product-7 text-center">
+                    <figure class="product-media">
+                        @if (item.Product.CreatedDate.AddDays(3) >= DateTime.Now)
+                        {
+                            <span class="product-label label-new">New</span>
+                        }
+                        <a class="until" asp-controller="woman" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">
+                            <img style="height:353px !important;object-fit:cover" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).MainImage" alt="Product image" class="product-image product-main">
+                        </a>
+
+                        <div class="product-action-vertical">
+                            <a asp-controller="wishlist" asp-action="SetWishlist" asp-route-id="@item.Id" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                          
+                        </div>
+
+                    
+                    </figure>
+
+                    <div class="product-body">
+
+                        <h3 class="product-title"><a asp-controller="woman" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">@item.Product.Name</a></h3>
+                        <div class="product-price">
+
+                            @if (item.Product.Discount != null && item.Product.Discount != 0)
+                            {
+                                <span class="new-price" style="color:orangered">@((item.Product.Price - (item.Product.Price * item.Product.Discount / 100) ) ) $ </span> <span class="old-price" style="text-decoration:line-through">was @item.Product.Price$</span>
+
+                            }
+                            else
+                            {
+                                <span style="color: #e64747">@item.Product.Price $</span>
+                            }
+                        </div>
+
+
+                        <div class="ratings-container">
+                            <div class="rating">
+
+                                @if (item.Product.Rating != null && item.Product.Comments.Count != 0)
+                                {
+                                    @for (int i = 0; i < Math.Ceiling((decimal)item.Product.Rating / item.Product.Comments.Where(c => c.Star != 0).Count()); i++)
+                                    {
+                                        <i style="color:#c94" class="fa-solid fa-star"></i>
+
+                                    }
+                                    @for (int i = 0; i < (5 - Math.Ceiling((decimal)item.Product.Rating / item.Product.Comments.Where(c => c.Star != 0).Count())); i++)
+                                    {
+                                        <i class="fa-solid fa-star"></i>
+
+                                    }
+
+                                }
+                                else
+                                {
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+
+                                    <i class="fa-solid fa-star"></i>
+
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+
+
+                                }
+
+
+                            </div>
+                            <span class="ratings-text">( @item.Product.Comments.Where(c=>c.IsAccepted==true).Count() Reviews )</span>
+                        </div>
+
+
+                        <div class="product-nav product-nav-thumbs">
+                            <a style="height:52px;width:40px" asp-controller="woman" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).Id" class="active product-notMain">
+                                <img class="nmSrc" style="height:52px;width:40px" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).MainImage" alt="product desc">
+                            </a>
+
+
+                            @foreach (var prd in item.Product.ProductColors.Where(p => p.ProductId == item.ProductId && p.ColorId != item.ColorId))
+                            {
+
+
+                                <a style="height:52px;width:40px" asp-controller="woman" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId==prd.ColorId).Id" class="product-notMain">
+                                    <img class="nmSrc" style="height:52px;width:40px" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId == prd.ColorId).MainImage" alt="product desc">
+
+                                </a>
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            }
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <img id="changeForModal" style="object-fit:cover;width:575px;height:575px" src="~/assets/images/products/@Model.ProductSizeColor.MainImage" alt="product side">
+    </div>
+</div>
+<div class="modal fade" id="modalSize" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <img style="width:100%" src="~/assets/images/category/@Model.Category.SizeGuideImage" />
+    </div>
+</div>
+
+@section Scripts{
+    <script src = "~/assets/js/bootstrap-input-spinner.js" ></script>
+    <script src="~/assets/js/jquery.elevateZoom.min.js"></script>
+    <script>
+        $(document).ready(function () {
+          
+
+
+
+
+
+            var b = window.location.origin;
+            var vl = $(".firstLoadId").val()
+
+            var ul = `${b}/woman/changecolor/${vl}`
+
+            fetch(ul).then(res => res.text()).then(data => {
+
+                $(".product-details-top").html('');
+                $(".product-details-top").html(data);
+                var minus = `<i class="icon-minus"></i>`
+                var plus = `<i class="icon-plus"></i>`
+
+                $("input[type='number']").inputSpinner();
+                $("input[type='number']").next().addClass("input-spinner")
+                $("input[type='number']").next().children().last().children().removeClass("btn-outline-secondary").addClass("btn-spinner").empty().html(plus)
+                $("input[type='number']").next().children().first().children().removeClass("btn-outline-secondary").addClass("btn-spinner").empty().html(minus)
+
+                $(".product-zoom").elevateZoom({
+                    zoomType: "inner",
+                    cursor: "crosshair"
+                });
+            })
+
+
+
+
+            $("#subj").next().val('');
+            $("#message").next().val('');
+
+            $(".product-zoom").elevateZoom({
+                zoomType: "inner",
+                cursor: "crosshair"
+            });
+
+           
+
+
+            $(document).on("click", ".changeable", function (e) {
+                e.preventDefault();
+                let newSrc = $(this).children().attr("src")
+                $(this).addClass("active");
+                $(".changeable").not(this).removeClass("active")
+                $(".product-zoom").attr("src", newSrc);
+                $("#changeForModal").attr("src", newSrc)
+
+
+
+
+                let newurl = window.location.origin;
+
+                let newlink = `${newurl}${newSrc}`
+
+
+                $(".product-zoom").data('zoom-image', newlink).elevateZoom({
+                    zoomType: "inner",
+                    cursor: "crosshair"
+                });
+
+
+                //let newimg = $(".product-zoom");
+                //let newurl = window.location.origin;
+                //let newsrc = $(newimg).attr("src");
+                //let newlink = `${newurl}${newsrc}`
+
+                //$(".product-zoom").removeAttr("data-zoom-image");
+
+                //$(".product-zoom").elevateZoom({
+                //    zoomType: "inner",
+                //    cursor: "crosshair"
+                //});
+            })
+
+            $(".product-notMain").click(function (e) {
+                console.log("sa")
+                e.preventDefault();
+                var parent = $(this).closest(".product-body").prev().children(".until").children(".product-main")
+                var newHref = $(this).attr("href")
+                $(parent).closest(".until").removeAttr("href").attr("href", newHref)
+                var closestNav = $(this).closest(".product-nav");
+                $(closestNav.children(".product-notMain")).not(this).removeClass("active");
+
+                $(this).addClass("active")
+                var notmain = $(this).children(".nmSrc").attr("src")
+                $(parent).attr("src", notmain)
+
+
+            })
+
+            $(document).on('click', ".noMainForColorChange", function (e) {
+
+                e.preventDefault();
+                var base = window.location.origin
+                var href = $(this).children(".hiddenId").val()
+                var link = `${base}/woman/changecolor/${href}`
+                //console.log(link)
+                $(".zoomContainer").remove();
+                fetch(link).then(res => res.text()).then(data => {
+
+               
+
+                    console.log('fie')
+                    $(".product-details-top").html('');
+                    $(".product-details-top").html(data)
+                       
+
+                    var minus = `<i class="icon-minus"></i>`
+                    var plus = `<i class="icon-plus"></i>`
+
+
+
+                    $("input[type='number']").inputSpinner();
+                    $("input[type='number']").next().addClass("input-spinner")
+                    $("input[type='number']").next().children().last().children().removeClass("btn-outline-secondary").addClass("btn-spinner").empty().html(plus)
+                    $("input[type='number']").next().children().first().children().removeClass("btn-outline-secondary").addClass("btn-spinner").empty().html(minus)
+
+                    //.removeClass("btn-outline-secondary")
+                    //$("input[type='number']").next().children(".input-group-append button").removeClass("btn-outline-secondary")
+
+
+                    
+                    $(".product-zoom").elevateZoom({
+                        zoomType: "inner",
+                        cursor: "crosshair"
+                    });
+                    //btn - outline - secondary
+
+
+})
+
+
+
+            })
+
+            $(document).on("click", "#star1", function (e) {
+                e.preventDefault();
+                $(".starRate").removeClass("active-star")
+                $(this).addClass("active-star")
+                $(".starhidden").val(1);
+            })
+            $(document).on("click", "#star2", function (e) {
+                e.preventDefault();
+                $(".starRate").removeClass("active-star")
+
+                $(this).addClass("active-star")
+                $("#star1").addClass("active-star")
+                $(".starhidden").val(2);
+
+            })
+            $(document).on("click", "#star3", function (e) {
+                e.preventDefault();
+                $(".starRate").removeClass("active-star")
+
+                $(this).addClass("active-star")
+                $("#star1").addClass("active-star")
+                $("#star2").addClass("active-star")
+                $(".starhidden").val(3);
+
+            })
+            $(document).on("click", "#star4", function (e) {
+                e.preventDefault();
+                $(".starRate").removeClass("active-star")
+
+                $(this).addClass("active-star")
+                $("#star1").addClass("active-star")
+                $("#star2").addClass("active-star")
+                $("#star3").addClass("active-star")
+                $(".starhidden").val(4);
+
+            })
+            $(document).on("click", "#star5", function (e) {
+                e.preventDefault();
+                $(".starRate").removeClass("active-star")
+
+                $(this).addClass("active-star")
+                $("#star1").addClass("active-star")
+                $("#star2").addClass("active-star")
+                $("#star3").addClass("active-star")
+                $("#star4").addClass("active-star")
+                $(".starhidden").val(5);
+
+            })
+
+            $(document).on("click", ".forcommentbtn", function (e) {
+
+                e.preventDefault();
+                $(".subjWarning").empty()
+                $(".textWarning").empty()
+
+
+
+
+                var subject = $("#subj").next().val();
+                var message = $("#message").next().val();
+                var productit = $(this).next().val();
+                var star = $(".starhidden").val();
+                var base = window.location.origin;
+                var pszid = $(".forFetch").val();
+
+
+
+                if (!subject || !message || message.trim() == '' || subject.trim() == '') {
+                    if (!subject) {
+                        $(".subjWarning").append("Fill this field!")
+                    }
+                    else {
+                        $(".subjWarning").empty()
+
+                        if (subject.trim() == '') {
+                            $(".subjWarning").append("Fill this field!")
+                        }
+                        else {
+                            $(".subjWarning").empty()
+
+                        }
+                    }
+
+
+                    if (!message) {
+                        $(".textWarning").append("Fill this field!")
+                    } else {
+                        $(".textWarning").empty()
+                        if (message.trim() == '') {
+                            $(".textWarning").append("Fill this field!")
+                        } else {
+
+                            $(".textWarning").empty()
+
+                        }
+                    }
+
+                }
+                else {
+
+                    if ($("#message").next().val().length > 350 || $("#subj").next().val().length > 60) {
+                        let timerInterval;
+                        Swal.fire({
+
+                            title: 'Dont mess with inputs :)',
+                            width: 600,
+                            padding: '3em',
+                            color: '#716add',
+                            background: '#fff url(/assets/images/tree-image.png)',
+                            backdrop: `
+            rgba(0,0,123,0.4)
+            url("/assets/images/nyannn.gif")
+            left top
+            no-repeat
+          `
+
+                            , html: 'I will close in <b></b> milliseconds.',
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.showLoading()
+                                const b = Swal.getHtmlContainer().querySelector('b')
+                                timerInterval = setInterval(() => {
+                                    b.textContent = Swal.getTimerLeft()
+                                }, 100)
+                            },
+                            willClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                        }).then((result) => {
+
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                console.log('I was closed by the timer')
+                            }
+                        })
+                        setTimeout(window.location.reload.bind(window.location), 2000);
+
+                    } else {
+                        var url = `${base}/man/AddComment?Subject=${subject}&Message=${message}&ProductId=${productit}&Star=${star}`
+                        var forpartial = base + '/Comment/GetPartial' + '?id=' + productit
+                        var link = base + '/Comment/AddComment' + '?Subject=' + subject + '&Message=' + message + '&ProductId=' + productit + '&Star=' + star
+
+                        fetch(link).then(res => res.text()).then(data => {
+
+
+
+                            if (data != "exist") {
+                                $(".review-place").empty();
+                                $(".review-place").append(data);
+                                //console.log(data)
+
+                                $(".starRate").removeClass("active-star");
+
+                                $(".starhidden").val(1)
+                                $("#subj").next().val('');
+                                $("#message").next().val('');
+
+                                Command: toastr["success"]("Your comment added successfully!")
+
+                                toastr.options = {
+                                    "closeButton": false,
+                                    "debug": false,
+                                    "newestOnTop": false,
+                                    "progressBar": false,
+                                    "positionClass": "toast-top-center",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "300",
+                                    "hideDuration": "1000",
+                                    "timeOut": "5000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                }
+
+                                fetch(forpartial).then(res => res.json()).then(data => {
+                                    $("#product-review-link").empty();
+                                    $("#product-review-link").append(`Reviews(${data})`);
+                                })
+
+                                $(".forcommentbtn").css("background-color", "#c94")
+
+                            }
+                            else {
+                                swal({
+                                    title: "You have already voted!",
+                                    icon: "error",
+                                    buttons: false,
+                                    timer: 1000,
+
+                                });
+                            }
+
+
+
+
+
+
+                        })
+
+                    }
+
+
+
+
+                }
+
+            })
+
+
+
+
+        
+        })
+    </script>
+
+
+}

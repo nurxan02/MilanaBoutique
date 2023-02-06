@@ -1,0 +1,167 @@
+﻿@model Settings
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container mt-3">
+    <h1 class="text text-success">Edit settings</h1>
+    <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
+
+    <form method="post" class="mt-2" enctype="multipart/form-data">
+        <div class="mb-2">
+            <div>
+                <h2>CURRENT NAVBAR LOGO :</h2>
+                <img style="width:100px;" src="~/assets/images/logos/@Model.HeaderLogoImage" />
+            </div>
+            <label asp-for="@Model.HeaderLogoImageFile" class="form-label">Header logo</label>
+            <input asp-for="@Model.HeaderLogoImageFile" accept="image/*" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.HeaderLogoImageFile"></span>
+        </div>
+        <div class="mb-2">
+            <div>
+                <h2>CURRENT FOOTER LOGO :</h2>
+                <img style="width:100px;" src="~/assets/images/logos/@Model.FooterLogoImage" />
+            </div>
+            <label asp-for="@Model.FooterLogoImageFile" class="form-label">Footer logo</label>
+            <input asp-for="@Model.FooterLogoImageFile" accept="image/*" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.FooterLogoImageFile"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.YtLink" class="form-label">Youtube link</label>
+            <input asp-for="@Model.YtLink" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.YtLink"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.YoutubeIcon" class="form-label">Youtube Icon</label>
+            <input asp-for="@Model.YoutubeIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.YoutubeIcon"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.Phone" class="form-label">Phone</label>
+            <input asp-for="@Model.Phone" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.Phone"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.SearchIcon" class="form-label">Search icon</label>
+            <input asp-for="@Model.SearchIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.SearchIcon"></span>
+        </div>
+
+
+
+        <div class="mb-2">
+            <label asp-for="@Model.InstaIcon" class="form-label">InstaIcon</label>
+            <input asp-for="@Model.InstaIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.InstaIcon"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.InstaLink" class="form-label">InstaLink</label>
+            <input asp-for="@Model.InstaLink" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.InstaLink"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.TwitIcon" class="form-label">TwitIcon</label>
+            <input asp-for="@Model.TwitIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.TwitIcon"></span>
+        </div>
+
+
+
+
+        <div class="mb-2">
+            <label asp-for="@Model.TwitLink" class="form-label">TwitLink</label>
+            <input asp-for="@Model.TwitLink" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.TwitLink"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.FbIcon" class="form-label">FbIcon</label>
+            <input asp-for="@Model.FbIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.FbIcon"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.FbLink" class="form-label">FbLink</label>
+            <input asp-for="@Model.FbLink" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.FbLink"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.PinterestIcon" class="form-label">PinterestIcon</label>
+            <input asp-for="@Model.PinterestIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.PinterestIcon"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.PinterestLink" class="form-label">PinterestLink</label>
+            <input asp-for="@Model.PinterestLink" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.PinterestLink"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.WishlistIcon" class="form-label">WishlistIcon</label>
+            <input asp-for="@Model.WishlistIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.WishlistIcon"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="@Model.LittleWishlist" class="form-label">LittleWishlist</label>
+            <input asp-for="@Model.LittleWishlist" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.LittleWishlist"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="@Model.BasketIcon" class="form-label">BasketIcon</label>
+            <input asp-for="@Model.BasketIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.BasketIcon"></span>
+        </div>
+
+
+
+
+
+
+        <div class="mb-2">
+            <label asp-for="@Model.FooterDesc" class="form-label">FooterDesc</label>
+            <input asp-for="@Model.FooterDesc" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.FooterDesc"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.UserIcon" class="form-label">UserIcon</label>
+            <input asp-for="@Model.UserIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.UserIcon"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.HomePageRefundIcon" class="form-label">HomePageRefundIcon</label>
+            <input asp-for="@Model.HomePageRefundIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.HomePageRefundIcon"></span>
+        </div> <div class="mb-2">
+            <label asp-for="@Model.HomePageDeliveryIcon" class="form-label">HomePageDeliveryIcon</label>
+            <input asp-for="@Model.HomePageDeliveryIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.HomePageDeliveryIcon"></span>
+        </div> <div class="mb-2">
+            <label asp-for="@Model.HomePageSupportIcon" class="form-label">HomePageSupportIcon</label>
+            <input asp-for="@Model.HomePageSupportIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.HomePageSupportIcon"></span>
+        </div> <div class="mb-2">
+            <label asp-for="@Model.HomePagePaymentIcon" class="form-label">HomePagePaymentIcon</label>
+            <input asp-for="@Model.HomePagePaymentIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.HomePagePaymentIcon"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="@Model.Copyright" class="form-label">Copyright</label>
+            <input asp-for="@Model.Copyright" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.Copyright"></span>
+        </div>
+
+
+
+
+
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+}
+

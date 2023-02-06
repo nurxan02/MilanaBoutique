@@ -1,0 +1,389 @@
+﻿@model CheckoutVM
+@{
+    double? totalprice = 0;
+    foreach (var item in Model.BasketItems)
+    {
+        {
+            totalprice += (item.ProductSizeColor.Product.Discount == null ? item.Count * item.ProductSizeColor.Product.Price : item.Count * (item.ProductSizeColor.Product.Price - (item.ProductSizeColor.Product.Price * item.ProductSizeColor.Product.Discount / 100)));
+
+        }
+    }
+}
+
+
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('../../assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Shopping Cart<span>Shop</span></h1>
+        </div>
+    </div>
+
+
+
+    <div class="page-content">
+
+        @if (Model.BasketItems.Count == 0)
+        {
+            <div style="display: flex;height:150px;flex-direction:column; justify-content:space-around; align-items: center; margin-top: 9rem">
+                <i style="transform:scale(3.0)" class="fa-solid fa-basket-shopping"></i>
+                <h3 style="margin:0 !important">Your basket is empty!</h3>
+            </div>
+        }
+        else
+        {
+            <div class="cart">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <table class="table table-cart table-mobile">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Color</th>
+                                        <th>Size</th>
+                                        <th>Price</th>
+
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="forPartial">
+
+                                    @await Html.PartialAsync("_cartPartialView", Model)
+
+
+                                </tbody>
+                            </table>
+
+                           
+                        </div>
+                        <aside class="col-lg-3">
+                            <div class="summary summary-cart">
+                                <h3 class="summary-title">Cart Total</h3>
+
+                                <table class="table table-summary">
+                                    <tbody>
+                                        <tr class="summary-subtotal">
+                                            <td>Subtotal:</td>
+                                            <td class="totalPriceAppend">
+                                                $@String.Format("{0:0.00}", totalprice)
+
+                                            </td>
+                                        </tr>
+
+
+
+                                        <tr class="summary-total">
+                                            <td>Total:</td>
+                                            <td class="totalPriceAppend">
+                                                $@String.Format("{0:0.00}", totalprice)
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <a asp-controller="order" asp-action="checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+                            </div>
+
+                        </aside>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+    </div>
+</main>
+
+@section Scripts{ 
+@*<script>window.location.reload</script>*@
+<script>
+
+    //window.location.reload();
+    $(document).ready(function () {
+        var base = window.location.origin;
+
+        console.log("cart ready")
+
+
+        var partialurl = `${base}/Basket/CartPartial`
+        var urlforpartial = `${base}/Basket/GetPartial`
+        var urlforcount = `${base}/Basket/ForTotalCount`
+
+
+
+
+
+
+        fetch(partialurl).then(res => res.text()).then(data => {
+            console.log(data)
+
+            fetch(partialurl).then(res => res.text()).then(data => {
+                $(".forPartial").empty();
+                $(".forPartial").append(data);
+
+
+
+                $(".quantityClick").attr("readonly")
+
+                var minus = `<i class="icon-minus"></i>`
+                var plus = `<i class="icon-plus"></i>`
+
+                $("input[type='number']").inputSpinner();
+                $("input[type='number']").next().addClass("input-spinner")
+                $(".btn-outline-secondary").removeClass("btn-outline-secondary")
+                $(".btn-outline-secondary").removeClass("btn-outline-secondary")
+
+                var urlforprice = `${base}/Basket/GetTotalPrice`
+
+
+                fetch(urlforprice).then(res => res.text()).then(data => {
+
+                    $(".cart-total-price").empty();
+                    var monet = parseFloat(data).toFixed(2)
+                    $(".cart-total-price").append(`$${monet}`);
+
+
+                    $(".totalPriceAppend").empty()
+
+                    $(".totalPriceAppend").append(`$${monet}`)
+
+                    $(".quantityClick").attr("readonly")
+
+                })
+
+                fetch(urlforpartial).then(res => res.text()).then(data => {
+
+                    $(".dropdown-cart-products").empty();
+                    $(".dropdown-cart-products").append(data);
+                    $(".quantityClick").attr("readonly")
+
+                })
+
+                fetch(urlforcount).then(res => res.text()).then(data => {
+
+                    $(".cart-count").empty();
+                    $(".cart-count").append(data);
+                    $(".quantityClick").attr("readonly")
+
+                })
+
+                $(".input-group-prepend").next().attr("readonly", "true")
+            })
+
+           
+
+        })
+
+        $(document).on("click", ".quantityClick", function (e) {
+
+            console.log("hey")
+            $(".input-group-prepend").next().attr("readonly", "true")
+
+        })
+
+
+
+
+
+        $(document).on("change", ".quantityClick", function (e) {
+            //console.log(e.keyCode)
+            console.log("salam")
+
+            var sizeId = $(this).next().next().val();
+            var colorId = $(this).next().next().next().val();
+            var productId = $(this).next().next().next().next().val();
+
+
+            var value = $(this).val();
+
+
+            var uruuul = window.location.origin;
+            var url = uruuul + '/Basket/CartCounter' + '?sizeId=' + sizeId + '&colorId=' + colorId + '&productId=' + productId + '&quantity=' + value
+
+
+            var urlforcount = `${uruuul}/Basket/ForTotalCount`
+
+            var urlforprice = `${uruuul}/Basket/GetTotalPrice`
+            var urlforpartial = `${uruuul}/Basket/GetPartial`
+
+
+
+            fetch(url).then(res => res.text()).then(data => {
+
+                
+
+                $(".forPartial").empty();
+                $(".forPartial").append(data);
+
+
+                
+
+
+                var minus = `<i class="icon-minus"></i>`
+                var plus = `<i class="icon-plus"></i>`
+
+                $("input[type='number']").inputSpinner();
+                $("input[type='number']").next().addClass("input-spinner")
+                $(".btn-outline-secondary").removeClass("btn-outline-secondary")
+                $(".btn-outline-secondary").removeClass("btn-outline-secondary")
+              
+                
+
+
+                var price = $(".total-col").children().last().text()
+
+                var updatedPrice = parseFloat(price).toFixed(2);
+                $(".total-col").children().last().empty()
+                $(".total-col").children().last().append(updatedPrice)
+
+                fetch(urlforcount).then(res => res.text()).then(data => {
+
+                    $(".cart-count").empty();
+                    $(".cart-count").append(data);
+
+                })
+                fetch(urlforprice).then(res => res.text()).then(data => {
+
+                    $(".cart-total-price").empty();
+                    var monet = parseFloat(data).toFixed(2)
+                    $(".cart-total-price").append(`$${monet}`);
+                    
+
+                    $(".totalPriceAppend").empty()
+
+                    $(".totalPriceAppend").append(`$${monet}`)
+
+
+                })
+
+                fetch(urlforpartial).then(res => res.text()).then(data => {
+
+                    $(".dropdown-cart-products").empty();
+                    $(".dropdown-cart-products").append(data);
+
+                })
+                //console.log(updatedPrice)
+                $(".input-group-prepend").next().attr("readonly","true")
+
+            })
+
+
+        })
+
+
+        $(document).on("click", ".cart-remove-btn", function (e) {
+
+            e.preventDefault();
+            var linkk = $(this).parent().attr("href");
+            var base = window.location.origin
+            //var prodid = $(".hiddenProdId").val();
+            console.log(`${base}${linkk}`)
+            var comp = `${base}${linkk}`
+
+            $(".quantityClick").attr("readonly")
+
+
+            var urlstrt = window.location.origin;
+            var urlforcount = `${urlstrt}/Basket/ForTotalCount`
+            var urlforpartial = `${urlstrt}/Basket/GetPartial`
+            var urlforprice = `${urlstrt}/Basket/GetTotalPrice`
+
+
+            fetch(comp).then(res => res.text()).then(data => {
+                console.log(data)
+                $(".quantityClick").attr("readonly")
+
+
+                fetch(urlforcount).then(res => res.text()).then(data => {
+
+                    $(".cart-count").empty();
+                    $(".cart-count").append(data);
+                    $(".quantityClick").attr("readonly")
+
+                })
+                fetch(urlforpartial).then(res => res.text()).then(data => {
+
+                    $(".quantityClick").attr("readonly")
+                    $(".dropdown-cart-products").empty();
+                    $(".dropdown-cart-products").append(data);
+
+                })
+                fetch(urlforprice).then(res => res.text()).then(data => {
+                    $(".quantityClick").attr("readonly")
+
+                    $(".cart-total-price").empty();
+                    var monet = parseFloat(data).toFixed(2)
+                    $(".cart-total-price").append(`$${monet}`);
+
+                })
+
+
+                var base = window.location.origin;
+
+
+                var partialurl = `${base}/Basket/CartPartial`
+                var urlforpartial = `${base}/Basket/GetPartial`
+                $(".quantityClick").attr("readonly")
+
+
+                fetch(partialurl).then(res => res.text()).then(data => {
+
+                    $(".forPartial").empty();
+                    $(".forPartial").append(data);
+
+                    var minus = `<i class="icon-minus"></i>`
+                    var plus = `<i class="icon-plus"></i>`
+
+                    $("input[type='number']").inputSpinner();
+                    $("input[type='number']").next().addClass("input-spinner")
+                    $(".btn-outline-secondary").removeClass("btn-outline-secondary")
+                    $(".btn-outline-secondary").removeClass("btn-outline-secondary")
+
+                    var urlforprice = `${base}/Basket/GetTotalPrice`
+                    $(".quantityClick").attr("readonly")
+
+
+                    fetch(urlforprice).then(res => res.text()).then(data => {
+
+                        $(".cart-total-price").empty();
+                        var monet = parseFloat(data).toFixed(2)
+                        $(".cart-total-price").append(`$${monet}`);
+
+
+                        $(".totalPriceAppend").empty()
+
+                        $(".totalPriceAppend").append(`$${monet}`)
+
+                        $(".quantityClick").attr("readonly")
+
+                    })
+
+                    fetch(urlforpartial).then(res => res.text()).then(data => {
+
+                        $(".dropdown-cart-products").empty();
+                        $(".dropdown-cart-products").append(data);
+                        $(".quantityClick").attr("readonly")
+
+
+                    })
+                    $(".input-group-prepend").next().attr("readonly", "true")
+
+
+
+
+                })
+
+
+
+            })
+        })
+
+    
+
+    })
+</script>
+}

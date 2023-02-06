@@ -1,0 +1,168 @@
+﻿@model List<AppUser>
+
+<div class="container">
+
+    <div class="mt-2 d-flex" style="justify-content:flex-end">
+
+    </div>
+
+
+    <table class="table table-dark mt-3">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+
+                <th scope="col">Is admin</th>
+
+                <th scope="col">Settings</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (AppUser user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+
+                    <td>@user.UserName</td>
+                    <td>@user.Firstname</td>
+                    <td>@user.Surname</td>
+                    @*<td>@System.Web.Security</td>*@
+
+                    <td>@user.IsAdmin</td>
+
+
+
+
+                    <td>
+                        @if (!user.IsBlocked)
+                        {
+                            @if (!user.IsAdmin == true)
+                            {
+                                <a asp-controller="account" asp-action="AdminStatus" asp-route-id="@user.Id" class="btn btn-success btn-icon-text cllls">
+                                    <i class="mdi mdi-file-check btn-icon-append"></i>
+                                    GiveAdminRole
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="account" asp-action="AdminStatus" asp-route-id="@user.Id" class="btn btn-danger btn-icon-text cllls">
+                                    <i class="mdi mdi-file-check btn-icon-append"></i>
+                                    TakeAdminRole
+                                </a>
+                            }
+                        }
+
+                        @if (user.IsBlocked == false)
+                        {<a asp-controller="account" asp-action="blockstatus" asp-route-id="@user.Id" class="btn btn-warning btn-icon-text blocking">
+                                <i class="mdi mdi-file-check btn-icon-append"></i>
+                                Block user
+                            </a>
+
+                        }
+                        else
+                        {
+                            <a asp-controller="account" asp-action="blockstatus" asp-route-id="@user.Id" class="btn btn-primary btn-icon-text blocking">
+                                <i class="mdi mdi-file-check btn-icon-append"></i>
+                                UnBlock user
+                            </a>
+                        }
+
+
+
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+    <div class="row justify-content-center mt-4">
+        <nav aria-label="...">
+            <ul class="pagination" style="justify-content:center">
+
+                <li class="page-item @(ViewBag.Currentpage == 1 ? "disabled" : "")">
+                    <a class="page-link" asp-controller="account" asp-action="userlist" asp-route-page="@(ViewBag.CurrentPage-1)">Previous</a>
+                </li>
+
+                @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                {
+                    <li class="page-item  @(ViewBag.CurrentPage == i ? "active" : "")" style="pointer-events: @(ViewBag.CurrentPage == i ? "none" : "")"><a class="page-link" asp-controller="account" asp-action="userlist" asp-route-page="@i">@i</a></li>
+                }
+
+                <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPage ? "disabled" : "")">
+                    <a class="page-link" asp-controller="account" asp-action="userlist" asp-route-page="@(ViewBag.CurrentPage +1)">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@section Scripts{ 
+<script>
+    $(document).ready(function () {
+        $(document).on("click", ".cllls", function (e) {
+
+            e.preventDefault();
+            var href = $(this).attr("href");
+            var base = window.location.origin;
+            var url = `${base}${href}`
+            console.log(url);
+
+            fetch(url).then(res => res.json()).then(data => {
+                if (data.status == 500) {
+                    swal({
+                        title: "You can not touch superadmin!",
+                        icon: "error",
+                        buttons: false,
+                        timer: 1000,
+
+                    });
+                } else {
+                    location.reload(true)
+                }
+            })
+
+
+        })
+
+        $(document).on("click", ".blocking", function (e) {
+            e.preventDefault();
+            var href = $(this).attr("href");
+            var base = window.location.origin;
+            var url = `${base}${href}`
+            console.log(url);
+
+            fetch(url).then(res => res.json()).then(data => {
+                if (data.status == 500) {
+                    swal({
+                        title: "You can not touch admin/superadmin!",
+                        icon: "error",
+                        buttons: false,
+                        timer: 1000,
+
+                    });
+                } else {
+                    if (data.status == 60) {
+                        swal({
+                            title: "You can not change your own role!",
+                            icon: "error",
+                            buttons: false,
+                            timer: 1000,
+
+                        });
+                    }
+                    else {
+                        location.reload(true)
+
+                    }
+                }
+            })
+        })
+    })
+</script>
+}

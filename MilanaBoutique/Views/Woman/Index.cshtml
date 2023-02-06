@@ -1,0 +1,60 @@
+﻿@model CountVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Shop<span>Woman</span></h1>
+
+        </div>
+    </div>
+    <nav aria-label="breadcrumb" class="breadcrumb-nav breadcrumb-with-filter">
+        <div class="container">
+
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Home</a></li>
+                <li class="breadcrumb-item"><a asp-controller="woman" asp-action="index">Woman</a></li>
+            </ol>
+        </div>
+    </nav>
+
+    <div class="page-content">
+        <div class="categories-page">
+            <div class="container">
+                <div class="row">
+
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            @foreach (var item in Model.Categories)
+                            {
+                                <div class="col-sm-4">
+                                    <div class="banner banner-cat banner-badge">
+                                        <a asp-controller="woman" asp-action="shop" asp-route-id="@item.Id">
+                                            <img src="assets/images/category/@item.Image" alt="categoryImage">
+                                        </a>
+
+                                        <a class="banner-link" asp-controller="woman" asp-action="shop" asp-route-id="@item.Id">
+                                            <h3 class="banner-title">@item.Name</h3>
+                                            <h4 class="banner-subtitle">@Model.Colors.Where(c=>c.Product.CategoryId == item.Id).Count() Products</h4>
+                                            <span class="banner-link-text">Shop Now</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</main>

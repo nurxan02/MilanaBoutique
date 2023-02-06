@@ -1,0 +1,85 @@
+﻿@model List<Comment>
+@{
+    ViewData["Title"] = "Comments";
+}
+
+<div class="container">
+
+
+
+
+    <table class="table table-dark mt-3">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">Text</th>
+                <th scope="col">CreatedTime</th>
+                <th scope="col">Status</th>
+                <th scope="col">Settings</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (Comment comment in Model)
+            {
+                <tr>
+                    <th scope="row">@comment.Id</th>
+                    <td>@comment.AppUser.UserName</td>
+                    <td>@comment.Message</td>
+                    <td>@comment.CreatedTime</td>
+                    <td>@comment.IsAccepted</td>
+                    @if (comment.IsAccepted == true)
+                    {
+                        <td>
+                            <a asp-controller="comment" asp-action="CommentStatus" asp-route-id="@comment.Id" class="btn btn-danger btn-icon-text">
+                                <i class="mdi mdi-alert btn-icon-prepend"></i>
+                                Reject
+                            </a>
+                        </td>
+
+                    }
+                    else
+                    {
+                        <td>
+                            <a asp-controller="comment" asp-action="CommentStatus" asp-route-id="@comment.Id" class="btn btn-success btn-icon-text">
+                                <i class="mdi mdi-file-check btn-icon-append"></i>
+                                Accept
+                            </a>
+                        </td>
+                    }
+
+
+                </tr>
+
+
+            }
+
+
+        </tbody>
+    </table>
+    @if (Model.Count != 0)
+    {
+        <div class="row justify-content-center mt-4">
+            <nav aria-label="...">
+                <ul class="pagination" style="justify-content:center">
+
+                    <li class="page-item @(ViewBag.Currentpage == 1 ? "disabled" : "")">
+                        <a class="page-link" asp-controller="comment" asp-action="index" asp-route-productid="@Model.FirstOrDefault().ProductId" asp-route-page="@(ViewBag.CurrentPage-1)">Previous</a>
+                    </li>
+
+                    @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                    {
+                        <li class="page-item  @(ViewBag.CurrentPage == i ? "active" : "")" style="pointer-events: @(ViewBag.CurrentPage == i ? "none" : "")"><a class="page-link" asp-controller="comment" asp-action="index" asp-route-productid="@Model.FirstOrDefault().ProductId" asp-route-page="@i">@i</a></li>
+                    }
+
+                    <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPage ? "disabled" : "")">
+                        <a class="page-link" asp-controller="comment" asp-action="index" asp-route-productid="@Model.FirstOrDefault().ProductId" asp-route-page="@(ViewBag.CurrentPage +1)">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+</div>

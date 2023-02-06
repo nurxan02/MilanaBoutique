@@ -1,0 +1,143 @@
+﻿@model BlogVM
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Blog</h1>
+        </div>
+    </div>
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Home</a></li>
+                <li class="breadcrumb-item"><a >Blog</a></li>
+            </ol>
+        </div>
+    </nav>
+    <div class="page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+
+                    @foreach (var item in Model.Blogs)
+                    {
+                        <article class="entry entry-list">
+                            <div class="row align-items-center">
+                                <div class="col-md-5">
+                                    <figure class="entry-media">
+                                        <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">
+                                            <img style="width:376px;height:265px;object-fit:cover" src="~/assets/images/blog/@item.Image" alt="image desc">
+                                        </a>
+                                    </figure>
+                                </div>
+
+                                <div class="col-md-7">
+                                    <div class="entry-body">
+                                        <div class="entry-meta">
+                                            <span class="entry-author">
+                                                by <a>@item.Author</a>
+                                            </span>
+                                            <span class="meta-separator">|</span>
+                                            <a>@item.CreatedTime.ToString("dd MMMM yyyy, HH:mm")</a>
+                                            <span class="meta-separator">|</span>
+                                            <a>@item.Comments.Where(c=>c.IsAccepted==true).Count() Comments</a>
+                                        </div>
+
+                                        <h2 class="entry-title">
+                                            <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">@item.Name</a>
+                                        </h2>
+
+                                        <div class="entry-cats">
+                                            in @foreach (var itvarem in item.BlogTags)
+                                            {
+                                                <a asp-controller="blog" asp-action="index" asp-route-tagid="@itvarem.TagId">@itvarem.Tag.Name</a>
+                                            }
+                                        </div>
+
+                                        <div class="entry-content">
+
+                                            <p>@(item.Description.Length <= 140 ? item.Description : item.Description.Substring(0,140))...</p>
+                                            <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id" class="read-more">Continue Reading</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    }
+
+
+
+
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li class="page-item @(ViewBag.Currentpage == 1 ? "disabled" : "")">
+                            <a class="page-link page-link-prev" asp-controller="product" asp-action="index" asp-route-page="@(ViewBag.CurrentPage-1)" aria-label="Previous" tabindex="-1" >
+                                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
+                            </a>
+                        </li>
+                        @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                        {
+                            <li class="page-item  @(ViewBag.CurrentPage == i ? "active" : "")" style="pointer-events: @(ViewBag.CurrentPage == i ? "none" : "")"><a class="page-link" asp-controller="product" asp-action="index" asp-route-page="@i">@i</a></li>
+                        }
+
+                        <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPage ? "disabled" : "")">
+                            <a class="page-link page-link-next" asp-controller="product" asp-action="index" asp-route-page="@(ViewBag.CurrentPage +1)" aria-label="Next">
+                                Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+                            </a>
+                        </li>
+                    </ul>
+
+                 
+                </nav>
+                </div>
+
+                <aside class="col-lg-3">
+                    <div class="sidebar">
+                       
+                        <div class="widget">
+                            <h3 class="widget-title">Browse Tags</h3>
+
+                            <div class="tagcloud">
+                                @foreach (var item in Model.Tags)
+                                {
+                                    <a asp-controller="blog" asp-action="index" asp-route-tagid="@item.Id">@item.Name</a>
+
+                                }
+                            </div>
+                        </div>
+
+
+                        <div class="widget">
+                            <h3 class="widget-title">Latest Posts</h3>
+
+                            <ul class="posts-list">
+
+                                @foreach (var item in Model.Blogs.OrderByDescending(c => c.Id).Take(3))
+                                {
+                                    <li>
+                                        <figure>
+                                            <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">
+                                                <img style="object-fit:cover;width:80px;height:80px" src="~/assets/images/blog/@item.Image " alt="post">
+                                            </a>
+                                        </figure>
+
+                                        <div>
+                                            <span>@item.CreatedTime.ToString("dd MMMM yyyy, HH:mm")</span>
+                                            <h4><a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                        </div>
+                                    </li>
+
+                                }
+
+                            </ul>
+                        </div>
+
+
+
+
+
+                        
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+

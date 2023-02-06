@@ -1,0 +1,37 @@
+﻿@model Slider
+
+
+<div class="container mt-3">
+    <h1 class="text text-success">Create  slider</h1>
+    <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
+    <form method="post" class="mt-2" enctype="multipart/form-data">
+        <div class="mb-2">
+            <label asp-for="@Model.ImageFile" class="form-label">Slider image</label>
+            <input asp-for="@Model.ImageFile" accept="image/*" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.ImageFile"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.TextSmall" class="form-label">Slider title</label>
+            <input asp-for="@Model.TextSmall" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.TextSmall"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.TextBig" class="form-label">Slider subtitle</label>
+            <input asp-for="@Model.TextBig" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.TextBig"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.Link" class="form-label">Redirect link</label>
+            <input asp-for="@Model.Link" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.Link"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+}
+
+

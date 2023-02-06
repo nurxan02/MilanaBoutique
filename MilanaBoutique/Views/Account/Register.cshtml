@@ -1,0 +1,104 @@
+﻿@model RegisterVM
+
+
+<div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('../assets/images/backgrounds/login-bg.jpg')">
+    <div class="container">
+        <div class="form-box">
+            <div class="form-tab">
+                <ul class="nav nav-pills nav-fill" role="tablist">
+                    <li class="nav-item ">
+                        <a class="nav-link active" style="pointer-events:none" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="false">Register</a>
+                    </li>
+
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+
+
+                       
+                        <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
+                        <form method="post">
+
+                            <input asp-for="Username" class="form-control" placeholder="Username*">
+                            <span asp-validation-for="Username" class="text text-danger"></span>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input asp-for="Firstname" class="form-control" placeholder="First name*">
+                                    <span asp-validation-for="Firstname" class="text text-danger"></span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input asp-for="Surname" class="form-control" placeholder="Last name*">
+                                    <span asp-validation-for="Surname" class="text text-danger"></span>
+                                </div>
+
+                            </div>
+                               
+                            
+
+                         
+
+                           
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input asp-for="Password" class="form-control" placeholder="Password*">
+                                    <span asp-validation-for="Password" class="text text-danger"></span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm password*">
+                                    <span asp-validation-for="ConfirmPassword" class="text text-danger"></span>
+                                </div>
+                            </div>
+
+                            <input asp-for="Email" class="form-control" placeholder="Email*">
+                            <span asp-validation-for="Email" class="text text-danger"></span>
+                           
+                          
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input asp-for="Country" class="form-control" placeholder="Country*">
+                                    <span asp-validation-for="Country" class="text text-danger"></span>
+                                </div>
+                                <div class="col-lg-6">
+
+                                    <input asp-for="City" class="form-control" placeholder="City*">
+                                    <span asp-validation-for="City" class="text text-danger"></span>
+                                </div>
+
+                            </div>
+
+                           
+                            <input asp-for="Address" class="form-control" placeholder="Address*">
+                            <span asp-validation-for="Address" class="text text-danger"></span>
+                            <input asp-for="Zip" class="form-control" placeholder="Zip*">
+                            <span asp-validation-for="Zip" class="text text-danger"></span>
+                            <input asp-for="Phone" class="form-control" placeholder="Phone*">
+                            <span asp-validation-for="Phone" class="text text-danger"></span>
+
+
+
+
+
+                            <div class="form-footer">
+                                <button type="submit" class="btn btn-outline-primary-2">
+                                    <span>REGISTER</span>
+                                    <i class="icon-long-arrow-right"></i>
+                                </button>
+
+                                <input asp-for="TermsAndConditions">
+                                <label style="margin:0;margin-left:10px" for="terms">I agree with terms</label>
+                                <span asp-validation-for="TermsAndConditions" class="text text-danger"></span>
+
+
+
+                            </div>
+
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,1013 @@
+﻿@model HomeVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+@if (TempData["Verify"] != null)
+{
+    <input type="hidden" id="VerifyEmail" />
+}
+@if (TempData["Verified"] != null)
+{
+    <input type="hidden" id="VerifiedEmail" />
+}
+
+@if (TempData["Reseted"] != null)
+{
+    <input type="hidden" id="Reseted" />
+
+}
+@if (TempData["BlackToken"] != null)
+{
+    <input type="hidden" id="TokenFailed" />
+
+}
+@if (TempData["Succeeded"] != null)
+{
+    <input type="hidden" id="toastrJs" data-succeed="@TempData["Succeeded"]" />
+}
+
+
+
+
+
+<main class="main">
+    <div class="intro-slider-container">
+        <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" data-owl-options='{
+                        "dots": false,
+                        "nav": false,
+                        "responsive": {
+                            "992": {
+                                "nav": true
+                            }
+                        }
+                    }'>
+
+            @foreach (var item in Model.Sliders)
+            {
+<div class="intro-slide" style="background-image: url(assets/images/slider/@item.Image);">
+    <div class="container intro-content text-center">
+        <h3 style="font-size:1.3rem;font-weight:bolder" class="intro-subtitle text-white">@item.TextSmall</h3>
+        <h1 style="font-size:9rem;letter-spacing:5px" class="intro-title text-white">@item.TextBig</h1>
+
+        <a href="@item.Link" class="btn btn-outline-white-4">
+            <span>Discover More</span>
+        </a>
+    </div>
+</div>      }
+
+
+        </div>
+
+        <span class="slider-loader"></span>
+    </div>
+    <div class="mb-5"></div>
+    <div class="container">
+        <div class="heading heading-center mb-3">
+            <h2 class="title">Trending</h2>
+
+            <ul class="nav nav-pills justify-content-center" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="trending-all-link" data-toggle="tab" href="#trending-all-tab" role="tab" aria-controls="trending-all-tab" aria-selected="true">All</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="trending-women-link" data-toggle="tab" href="#trending-women-tab" role="tab" aria-controls="trending-women-tab" aria-selected="false">Women</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="trending-men-link" data-toggle="tab" href="#trending-men-tab" role="tab" aria-controls="trending-men-tab" aria-selected="false">Men</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tab-content tab-content-carousel">
+            <div class="tab-pane p-0 fade show active" id="trending-all-tab" role="tabpanel" aria-labelledby="trending-all-link">
+                <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                     data-owl-options='{
+                                "nav": false,
+                                "dots": true,
+                                "margin": 20,
+                                "loop": true,
+                                "responsive": {
+                                    "0": {
+                                        "items":2
+                                    },
+                                    "480": {
+                                        "items":2
+                                    },
+                                    "768": {
+                                        "items":3
+                                    },
+                                    "992": {
+                                        "items":4
+                                    },
+                                    "1200": {
+                                        "items":4,
+                                        "nav": true,
+                                        "dots": true
+                                    }
+                                }
+                            }'>
+                    @foreach (var item in Model.ProductColors.OrderByDescending(c => c.Product.AvgStar).Take(8))
+                    {
+
+
+        <div class="product product-7 text-center">
+            <figure class="product-media">
+                @if (item.Product.CreatedDate.AddDays(3) >= DateTime.Now)
+                {
+<span class="product-label label-new">New</span>}
+                <a class="until" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">
+                    <img style="height:353px ;object-fit:cover" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).MainImage" alt="Product image" class="product-image product-main">
+                </a>
+
+                <div class="product-action-vertical">
+                    <a asp-controller="wishlist" asp-action="SetWishlist" asp-route-id="@item.Id" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                    <a class="btn-product-icon btn-quickview " title="Quick view" data-target="#productModal" data-toggle="modal" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">
+                        <span>Quick view</span>
+                    </a>
+                    <input hidden value="@item.Product.Gender.Name" />
+                    <input hidden value="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id" />
+
+                </div>
+
+            </figure>
+
+            <div class="product-body">
+
+                <h3 class="product-title"><a asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">@item.Product.Name</a></h3>
+                <div class="product-price">
+
+                    @if (item.Product.Discount != null && item.Product.Discount != 0)
+                    {
+    <span class="new-price" style="color:orangered">@((item.Product.Price - (item.Product.Price * item.Product.Discount / 100) ) ) $ </span> <span class="old-price" style="text-decoration:line-through">was @item.Product.Price$</span> }
+else
+{
+<span style="color: #e64747">@item.Product.Price $</span>}
+                </div>
+
+
+                <div class="ratings-container">
+                    <div class="rating">
+
+                        @if (item.Product.Rating != null && item.Product.Comments.Count != 0)
+                        {
+        @for (int i = 0; i < Math.Ceiling((decimal)item.Product.Rating / item.Product.Comments.Where(c => c.Star != 0).Count()); i++)
+        {
+<i style="color:#c94" class="fa-solid fa-star"></i>}
+                            @for (int i = 0; i < (5 - Math.Ceiling((decimal)item.Product.Rating / item.Product.Comments.Where(c => c.Star != 0).Count())); i++)
+                            {
+        <i class="fa-solid fa-star"></i>} }
+                        else
+                        {
+        <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+
+                                                <i class="fa-solid fa-star"></i>
+
+                                                                    <i class="fa-solid fa-star"></i>
+                                                                                        <i class="fa-solid fa-star"></i>}
+
+
+                    </div>
+                    <span class="ratings-text">( @item.Product.Comments.Where(c => c.IsAccepted == true).Count() Reviews )</span>
+                </div>
+
+                <div class="product-nav product-nav-thumbs">
+                    <a style="height:52px;width:40px" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).Id" class="active product-notMain">
+                        <img class="nmSrc" style="height:52px;width:40px" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).MainImage" alt="product desc">
+                    </a>
+
+
+
+                    @foreach (var prd in Model.ProductColors2.Where(p => p.ProductId == item.ProductId && p.ColorId != item.ColorId))
+                    {
+
+
+    <a style="height:52px;width:40px" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId==prd.ColorId).Id" class="product-notMain">
+        <img class="nmSrc" style="height:52px;width:40px" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId == prd.ColorId).MainImage" alt="product desc">
+
+    </a>}
+
+
+                </div>
+            </div>
+        </div>}
+
+
+
+                </div>
+            </div>
+            <div class="tab-pane p-0 fade" id="trending-women-tab" role="tabpanel" aria-labelledby="trending-women-link">
+                <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                     data-owl-options='{
+                                "nav": false,
+                                "dots": true,
+                                "margin": 20,
+                                "loop": true,
+                                "responsive": {
+                                    "0": {
+                                        "items":0
+                                    },
+                                    "480": {
+                                        "items":2
+                                    },
+                                    "768": {
+                                        "items":3
+                                    },
+                                    "992": {
+                                        "items":4
+                                    },
+                                    "1200": {
+                                        "items":4,
+                                        "nav": true,
+                                        "dots": false
+                                    }
+                                }
+                            }'>
+                    @foreach (var item in Model.ProductColors.Where(p => p.Product.GenderId == 2).OrderByDescending(c => c.Product.AvgStar).Take(8))
+                    {
+
+        <div class="product product-7 text-center">
+            <figure class="product-media">
+                @if (item.Product.CreatedDate.AddDays(3) >= DateTime.Now)
+                {
+<span class="product-label label-new">New</span>}
+                <a class="until" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">
+                    <img style="height:353px ;object-fit:cover" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).MainImage" alt="Product image" class="product-image product-main">
+                </a>
+
+                <div class="product-action-vertical">
+                    <a asp-controller="wishlist" asp-action="SetWishlist" asp-route-id="@item.Id" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                    <a class="btn-product-icon btn-quickview " title="Quick view" data-target="#productModal" data-toggle="modal" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">
+                        <span>Quick view</span>
+                    </a>
+                    <input hidden value="@item.Product.Gender.Name" />
+                    <input hidden value="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id" />
+
+                </div>
+
+            </figure>
+
+            <div class="product-body">
+
+                <h3 class="product-title"><a asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">@item.Product.Name</a></h3>
+                <div class="product-price">
+
+                    @if (item.Product.Discount != null && item.Product.Discount != 0)
+                    {
+    <span class="new-price" style="color:orangered">@((item.Product.Price - (item.Product.Price * item.Product.Discount / 100) ) ) $ </span> <span class="old-price" style="text-decoration:line-through">was @item.Product.Price$</span> }
+else
+{
+<span style="color: #e64747">@item.Product.Price $</span>}
+                </div>
+
+
+                <div class="ratings-container">
+                    <div class="rating">
+
+                        @if (item.Product.Rating != null && item.Product.Comments.Count != 0)
+                        {
+        @for (int i = 0; i < Math.Ceiling((decimal)item.Product.Rating / item.Product.Comments.Where(c => c.Star != 0).Count()); i++)
+        {
+<i style="color:#c94" class="fa-solid fa-star"></i>}
+                            @for (int i = 0; i < (5 - Math.Ceiling((decimal)item.Product.Rating / item.Product.Comments.Where(c => c.Star != 0).Count())); i++)
+                            {
+        <i class="fa-solid fa-star"></i>} }
+                        else
+                        {
+        <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+
+                                                <i class="fa-solid fa-star"></i>
+
+                                                                    <i class="fa-solid fa-star"></i>
+                                                                                        <i class="fa-solid fa-star"></i>}
+
+
+                    </div>
+                    <span class="ratings-text">( @item.Product.Comments.Where(c => c.IsAccepted == true).Count() Reviews )</span>
+                </div>
+
+                <div class="product-nav product-nav-thumbs">
+                    <a style="height:52px;width:40px" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).Id" class="active product-notMain">
+                        <img class="nmSrc" style="height:52px;width:40px" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).MainImage" alt="product desc">
+                    </a>
+
+
+
+                    @foreach (var prd in Model.ProductColors2.Where(p => p.ProductId == item.ProductId && p.ColorId != item.ColorId))
+                    {
+
+
+    <a style="height:52px;width:40px" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId==prd.ColorId).Id" class="product-notMain">
+        <img class="nmSrc" style="height:52px;width:40px" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId == prd.ColorId).MainImage" alt="product desc">
+
+    </a>}
+
+
+                </div>
+            </div>
+        </div>}
+                </div>
+            </div>
+
+            <div class="tab-pane p-0 fade" id="trending-men-tab" role="tabpanel" aria-labelledby="trending-men-link">
+                <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                     data-owl-options='{
+                                "nav": false,
+                                "dots": true,
+                                "margin": 20,
+                                "loop": false,
+                                "responsive": {
+                                    "0": {
+                                        "items":0
+                                    },
+                                    "480": {
+                                        "items":2
+                                    },
+                                    "768": {
+                                        "items":3
+                                    },
+                                    "992": {
+                                        "items":4
+                                    },
+                                    "1200": {
+                                        "items":4,
+                                        "nav": true,
+                                        "dots": false
+                                    }
+                                }
+                            }'>
+                    @foreach (var item in Model.ProductColors.Where(p => p.Product.GenderId == 1).OrderByDescending(c => c.Product.AvgStar).Take(8))
+                    {
+
+        <div class="product product-7 text-center">
+            <figure class="product-media">
+                @if (item.Product.CreatedDate.AddDays(3) >= DateTime.Now)
+                {
+<span class="product-label label-new">New</span>}
+                <a class="until" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">
+                    <img style="height:353px ;object-fit:cover" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).MainImage" alt="Product image" class="product-image product-main">
+                </a>
+
+                <div class="product-action-vertical">
+                    <a asp-controller="wishlist" asp-action="SetWishlist" asp-route-id="@item.Id" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                    <a class="btn-product-icon btn-quickview " title="Quick view" data-target="#productModal" data-toggle="modal" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">
+                        <span>Quick view</span>
+                    </a>
+                    <input hidden value="@item.Product.Gender.Name" />
+                    <input hidden value="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id" />
+
+                </div>
+
+            </figure>
+
+            <div class="product-body">
+
+                <h3 class="product-title"><a asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">@item.Product.Name</a></h3>
+                <div class="product-price">
+
+                    @if (item.Product.Discount != null && item.Product.Discount != 0)
+                    {
+    <span class="new-price" style="color:orangered">@((item.Product.Price - (item.Product.Price * item.Product.Discount / 100) ) ) $ </span> <span class="old-price" style="text-decoration:line-through">was @item.Product.Price$</span> }
+else
+{
+<span style="color: #e64747">@item.Product.Price $</span>}
+                </div>
+
+
+                <div class="ratings-container">
+                    <div class="rating">
+
+                        @if (item.Product.Rating != null && item.Product.Comments.Count != 0)
+                        {
+        @for (int i = 0; i < Math.Ceiling((decimal)item.Product.Rating / item.Product.Comments.Where(c => c.Star != 0).Count()); i++)
+        {
+<i style="color:#c94" class="fa-solid fa-star"></i>}
+                            @for (int i = 0; i < (5 - Math.Ceiling((decimal)item.Product.Rating / item.Product.Comments.Where(c => c.Star != 0).Count())); i++)
+                            {
+        <i class="fa-solid fa-star"></i>} }
+                        else
+                        {
+        <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+
+                                                <i class="fa-solid fa-star"></i>
+
+                                                                    <i class="fa-solid fa-star"></i>
+                                                                                        <i class="fa-solid fa-star"></i>}
+
+
+                    </div>
+                    <span class="ratings-text">( @item.Product.Comments.Where(c => c.IsAccepted == true).Count() Reviews )</span>
+                </div>
+
+                <div class="product-nav product-nav-thumbs">
+                    <a style="height:52px;width:40px" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).Id" class="active product-notMain">
+                        <img class="nmSrc" style="height:52px;width:40px" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).MainImage" alt="product desc">
+                    </a>
+
+
+
+                    @foreach (var prd in Model.ProductColors2.Where(p => p.ProductId == item.ProductId && p.ColorId != item.ColorId))
+                    {
+
+
+    <a style="height:52px;width:40px" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId==prd.ColorId).Id" class="product-notMain">
+        <img class="nmSrc" style="height:52px;width:40px" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId == prd.ColorId).MainImage" alt="product desc">
+
+    </a>}
+
+
+                </div>
+            </div>
+        </div>}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-5"></div>
+
+    <div class="pt-2 pb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="banner banner-overlay">
+                        <a asp-controller="woman" asp-action="index">
+                            <img src="~/assets/images/banners/banners/2.png" alt="Banner">
+                        </a>
+
+                        <div class="banner-content banner-content-center">
+                            <h4 class="banner-subtitle text-white"><a asp-controller="woman" asp-action="index">New in</a></h4>
+                            <h3 class="banner-title text-white"><a asp-controller="woman" asp-action="index"><strong>Women’s</strong></a></h3>
+
+                            <a asp-controller="woman" asp-action="index" class="btn btn-outline-white banner-link underline">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="banner banner-overlay">
+                        <a asp-controller="man" asp-action="index">
+                            <img src="~/assets/images/banners/banners/1.png" alt="Banner">
+                        </a>
+
+                        <div class="banner-content banner-content-center">
+                            <h4 class="banner-subtitle text-white"><a asp-controller="man" asp-action="index">New in</a></h4>
+                            <h3 class="banner-title text-white"><a asp-controller="man" asp-action="index"><strong>Men’s</strong></a></h3>
+                            <a asp-controller="man" asp-action="index" class="btn btn-outline-white banner-link underline">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-0 mb-0">
+        </div>
+    </div>
+    <div class="mb-5"></div>
+
+    <div class="deal bg-image pt-8 pb-8" style="background-image: url(assets/images/banners/deal/bg-1.png);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-8 col-lg-6">
+                    <div class="deal-content text-center">
+
+                        @if (Model.Product != null)
+                        {
+            <h4>Limited quantities. </h4>
+                            <h2>Deal of the Day</h2> }
+                        else
+                        {
+
+            <h2>No deal today :(</h2>}
+                    </div>
+
+
+                    @if (Model.Product != null)
+                    {
+        <div class="row deal-products" style="justify-content:center">
+            <div class="col-6 deal-product text-center">
+                <figure class="product-media">
+                    <a asp-controller="@Model.Product.Gender.Name" asp-action="details" asp-route-id="@Model.Product.ProductSizeColors.FirstOrDefault().Id">
+                        <img src="~/assets/images/products/@Model.Product.ProductSizeColors.FirstOrDefault().MainImage" alt="Product image" class="product-image">
+                    </a>
+
+                </figure>
+
+                <div class="product-body">
+                    <h3 class="product-title"><a asp-controller="@Model.Product.Gender.Name" asp-action="details" asp-route-id="@Model.Product.ProductSizeColors.FirstOrDefault().Id">@Model.Product.Name</a></h3>
+                    <div class="product-price">
+                        <span class="new-price">Now $@Model.Product.Price</span>
+                        <span class="old-price">Was $@(Model.Product.Price - (Model.Product.Price * (Model.Product.Discount / 100)))</span>
+                    </div>
+                </div>
+                <a asp-controller="@Model.Product.Gender.Name" asp-action="details" asp-route-id="@Model.Product.ProductSizeColors.FirstOrDefault().Id" class="action">shop now</a>
+            </div>
+
+        </div>}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-4 pb-3" style="background-color: #222;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="icon-box text-center">
+                        <span class="icon-box-icon">
+                            <i style="color: #ef0663" class="@Model.Settings.HomePageDeliveryIcon"></i>
+                        </span>
+                        <div class="icon-box-content">
+                            <h3 class="icon-box-title">Payment & Delivery</h3>
+                            <p>Free shipping for orders over $50</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="icon-box text-center">
+                        <span class="icon-box-icon">
+                            <i style="color: #ef0663" class="@Model.Settings.HomePageRefundIcon"></i>
+
+                        </span>
+                        <div class="icon-box-content">
+                            <h3 class="icon-box-title">Return & Refund</h3>
+                            <p>Free 100% money back guarantee</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="icon-box text-center">
+                        <span class="icon-box-icon">
+                            <i style="color: #ef0663" class="@Model.Settings.HomePagePaymentIcon"></i>
+
+                        </span>
+                        <div class="icon-box-content">
+                            <h3 class="icon-box-title">Secure Payment</h3>
+                            <p>100% secure payment</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="icon-box text-center">
+                        <span class="icon-box-icon">
+                            <i style="color: #ef0663" class="@Model.Settings.HomePageSupportIcon"></i>
+
+                        </span>
+                        <div class="icon-box-content">
+                            <h3 class="icon-box-title">Quality Support</h3>
+                            <p>Alway online feedback 24/7</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-6"></div>
+
+    <div class="container">
+        <h2 class="title text-center mb-4">New Arrivals</h2>
+
+        <div class="products">
+            <div class="row justify-content-center">
+
+                @foreach (var item in Model.ProductColors.OrderByDescending(p => p.Product.CreatedDate).Take(8))
+                {
+
+    <div class="col-6 col-md-4 col-lg-3">
+        <div class="product product-7 text-center">
+            <figure class="product-media">
+                @if (item.Product.CreatedDate.AddDays(3) >= DateTime.Now)
+                {
+<span class="product-label label-new">New</span>}
+                <a class="until" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">
+                    <img style="height:353px ;object-fit:cover" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).MainImage" alt="Product image" class="product-image product-main">
+                </a>
+
+                <div class="product-action-vertical">
+                    <a asp-controller="wishlist" asp-action="SetWishlist" asp-route-id="@item.Id" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                    <a class="btn-product-icon btn-quickview " title="Quick view" data-target="#productModal" data-toggle="modal" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">
+                        <span>Quick view</span>
+                    </a>
+                    <input hidden value="@item.Product.Gender.Name" />
+                    <input hidden value="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id" />
+
+                </div>
+
+            </figure>
+
+            <div class="product-body">
+
+                <h3 class="product-title"><a asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">@item.Product.Name</a></h3>
+                <div class="product-price">
+
+                    @if (item.Product.Discount != null && item.Product.Discount != 0)
+                    {
+    <span class="new-price" style="color:orangered">@((item.Product.Price - (item.Product.Price * item.Product.Discount / 100) ) ) $ </span> <span class="old-price" style="text-decoration:line-through">was @item.Product.Price$</span> }
+else
+{
+<span style="color: #e64747">@item.Product.Price $</span>}
+                </div>
+
+
+                <div class="ratings-container">
+                    <div class="rating">
+
+                        @if (item.Product.Rating != null && item.Product.Comments.Count != 0)
+                        {
+        @for (int i = 0; i < Math.Ceiling((decimal)item.Product.Rating / item.Product.Comments.Where(c => c.Star != 0).Count()); i++)
+        {
+<i style="color:#c94" class="fa-solid fa-star"></i>}
+                            @for (int i = 0; i < (5 - Math.Ceiling((decimal)item.Product.Rating / item.Product.Comments.Where(c => c.Star != 0).Count())); i++)
+                            {
+        <i class="fa-solid fa-star"></i>} }
+                        else
+                        {
+        <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+
+                                                <i class="fa-solid fa-star"></i>
+
+                                                                    <i class="fa-solid fa-star"></i>
+                                                                                        <i class="fa-solid fa-star"></i>}
+
+
+                    </div>
+                    <span class="ratings-text">( @item.Product.Comments.Where(c => c.IsAccepted == true).Count() Reviews )</span>
+                </div>
+
+
+                <div class="product-nav product-nav-thumbs">
+                    <a style="height:52px;width:40px" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).Id" class="active product-notMain">
+                        <img class="nmSrc" style="height:52px;width:40px" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).MainImage" alt="product desc">
+                    </a>
+
+
+
+                    @foreach (var prd in Model.ProductColors2.Where(p => p.ProductId == item.ProductId && p.ColorId != item.ColorId))
+                    {
+
+
+    <a style="height:52px;width:40px" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId==prd.ColorId).Id" class="product-notMain">
+        <img class="nmSrc" style="height:52px;width:40px" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId == prd.ColorId).MainImage" alt="product desc">
+
+    </a>}
+
+
+                </div>
+            </div>
+        </div>
+    </div>}
+
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="pb-3">
+        <div class="container brands pt-5 pt-lg-7 ">
+
+            <h2 class="title text-center mb-4">shop by brands</h2>
+
+            <div class="owl-carousel owl-simple" data-toggle="owl"
+                 data-owl-options='{
+                            "nav": false,
+                            "dots": true,
+                            "autoplay":true,
+                            "autoplayTimeout": 2000,
+                            "margin": 30,
+                            "loop": true,
+                            "responsive": {
+                                "0": {
+                                    "items":2
+                                },
+                                "420": {
+                                    "items":3
+                                },
+                                "600": {
+                                    "items":4
+                                },
+                                "900": {
+                                    "items":5
+                                },
+                                "1024": {
+                                    "items":6
+                                }
+                            }
+                        }'>
+
+                @foreach (var item in Model.Brands)
+                {
+    <a class="brand">
+        <img src="assets/images/logos/@item.Image" alt="Brand Name">
+    </a>}
+
+
+
+
+            </div>
+        </div>
+
+        <div class="mb-5 mb-lg-7"></div>
+
+        <div class="container newsletter">
+            <div class="row">
+                <div class="col-lg-6 banner-overlay-div">
+                    <div class="banner banner-overlay">
+                        <a asp-controller="woman" asp-action="index">
+                            <img src="~/assets/images/banners/banners/banner-3.png" alt="Banner">
+                        </a>
+
+                        <div class="banner-content banner-content-center">
+                            <h4 class="banner-subtitle text-white"><a asp-controller="woman" asp-action="index">Limited time only.</a></h4>
+                            <h3 class="banner-title text-white"><a asp-controller="woman" asp-action="index">End of Season<br>save 50% off</a></h3>
+                            <a asp-controller="woman" asp-action="index" class="btn btn-outline-white banner-link underline">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 d-flex align-items-stretch subscribe-div">
+                    <div class="cta cta-box">
+                        <div class="cta-content">
+                            <h3 class="cta-title">Subscribe To Our Newsletter</h3>
+                            <p>Sign up now for <span class="primary-color">20% discount</span> on first order. Customise my news:</p>
+
+                            <form method="post">
+                                <input class="form-control emailValue" type="email" required placeholder="Subscribe with email"/>
+
+                                <div class="text-center">
+                                    <button class="btn btn-outline-dark-2 forSubscribe" type="submit"><span>subscribe</span></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-2"></div>
+
+    <div class="container">
+    </div>
+
+    <div class="blog-posts mb-5">
+        <div class="container">
+            <h2 class="title text-center mb-4">From Our Blog</h2>
+
+            <div class="owl-carousel owl-simple mb-3" data-toggle="owl"
+                 data-owl-options='{
+                            "nav": false,
+                            "dots": true,
+                            "items": 3,
+                            "margin": 20,
+                            "loop": true,
+                            "responsive": {
+                                "0": {
+                                    "items":1
+                                },
+                                "600": {
+                                    "items":2
+                                },
+                                "992": {
+                                    "items":3
+                                }
+                            }
+                        }'>
+
+                @foreach (var item in Model.Blogs)
+                {
+    <article class="entry">
+        <figure class="entry-media">
+            <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">
+                <img style="width:376px;height:250px;object-fit:cover" src="~/assets/images/blog/@item.Image" alt="image desc">
+            </a>
+        </figure>
+
+        <div class="entry-body text-center">
+            <div class="entry-meta">
+                <a>@item.CreatedTime.ToString("dd MMMM yyyy")</a>, @item.Comments.Where(c => c.IsAccepted == true).Count() Comments
+            </div>
+
+            <h3 class="entry-title">
+                <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">@item.Name</a>
+            </h3>
+
+            <div class="entry-content">
+                <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id" class="read-more">Read More</a>
+            </div>
+        </div>
+    </article>}
+
+
+            </div>
+        </div>
+    </div>
+</main>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(document).on("click", ".forSubscribe", function (e) {
+
+
+                e.preventDefault();
+                var value = $(".emailValue").val();
+                var base = window.location.origin;
+
+
+                if ($(".emailValue").is(':valid')) {
+                    var url = `${base}/home/subscribe?email=${value}`
+                    console.log(url)
+
+                    fetch(url).then(res => res.json()).then(data => {
+                        console.log(data)
+                        if (data.status == 200) {
+                            swal({
+                                title: "Thank you for subscribing",
+                                icon: "success",
+                                buttons: false,
+                                timer: 1000,
+
+                            });
+
+                            $(".emailValue").val('')
+                        } else {
+                            if (data.status == 500) {
+                                swal({
+                                    title: "You have already subscribed!",
+                                    icon: "error",
+                                    buttons: false,
+                                    timer: 1000,
+
+                                });
+                                $(".emailValue").val('')
+
+                            }
+                        }
+                    })
+                }
+                else {
+                    swal({
+                        title: "Enter valid email!",
+                        icon: "warning",
+                        buttons: false,
+                        timer: 1000,
+
+                    });
+                }
+
+            })
+
+            if ($("#toastrJs").length) {
+                if ($("#toastrJs").attr("data-succeed").toLowerCase() == "true") {
+                    Command: toastr["success"]("Your order has been succesfully created")
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                } else {
+                    Command: toastr["error"]("Basket is empty")
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                }
+            }
+
+            if ($("#TokenFailed").length) {
+                Command: toastr["error"]("Invalid token!")
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+
+
+            if ($("#VerifyEmail").length) {
+                Command: toastr["success"]("Please check your email!")
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+
+
+            if ($("#VerifiedEmail").length) {
+                Command: toastr["success"]("Successfully verified")
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+            if ($("#Reseted").length) {
+                Command: toastr["success"]("Password reseted successfully!")
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+
+
+            $(".product-notMain").click(function (e) {
+
+                e.preventDefault();
+                var parent = $(this).closest(".product-body").prev().children(".until").children(".product-main")
+                var newHref = $(this).attr("href")
+                $(parent).closest(".until").removeAttr("href").attr("href", newHref)
+                var closestNav = $(this).closest(".product-nav");
+                $(closestNav.children(".product-notMain")).not(this).removeClass("active");
+
+                $(this).addClass("active")
+                var notmain = $(this).children(".nmSrc").attr("src")
+                $(parent).attr("src", notmain)
+
+
+            })
+        })
+    </script>
+}

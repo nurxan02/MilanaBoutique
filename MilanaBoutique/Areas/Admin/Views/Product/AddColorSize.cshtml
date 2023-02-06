@@ -1,0 +1,66 @@
+﻿@model ProdCreateVM
+
+<div class="container mt-3">
+    <h1 class="text text-success">Create product</h1>
+    <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
+    <form method="post" class="mt-2" enctype="multipart/form-data">
+
+        @*<h1>@Model.Product.Name</h1>
+        <h1>@Model.Product.Id</h1>*@
+
+        <div class="form-row col-12" id="social">
+            <div class="form-group col-12" data-index="0">
+                <label asp-for="@Model.ProductSizeColor.SizeId">Size</label>
+                <select asp-for="@Model.ProductSizeColor.SizeId" class="form-select">
+                    <option value="0">Select size</option>
+                    @foreach (var item in ViewBag.Sizes)
+                    {
+                        <option value=@item.Id> @item.Name </option>
+                    }
+                </select>
+                <span class="mt-2 text text-" asp-validation-for="@Model.ProductSizeColor.SizeId"></span>
+
+
+                <label asp-for="@Model.ProductSizeColor.ColorId">Color</label>
+                <select asp-for="@Model.ProductSizeColor.ColorId" class="form-select">
+                    <option value="0">Select color</option>
+                    @foreach (var item in ViewBag.Colors)
+                    {
+                        
+                        <option value=@item.Id> @item.Name </option>
+                    }
+                </select>
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.ProductSizeColor.ColorId"></span>
+                <div class="mb-2">
+                    <label asp-for="@Model.ProductSizeColor.TotalStock" class="form-label">Totalstock</label>
+                    <input asp-for="@Model.ProductSizeColor.TotalStock" class="form-control">
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.ProductSizeColor.TotalStock"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="@Model.ProductSizeColor.MainImageFile" class="form-label">Main image</label>
+                    <input asp-for="@Model.ProductSizeColor.MainImageFile" accept="image/*" class="form-control">
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.ProductSizeColor.MainImageFile"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="@Model.ProductSizeColor.ImageFiles" class="form-label">Other images</label>
+                    <input asp-for="@Model.ProductSizeColor.ImageFiles" class="form-control">
+                    <span class="mt-2 text text-danger" asp-validation-for="@Model.ProductSizeColor.ImageFiles"></span>
+                </div>
+                <input hidden asp-for="@Model.Product.Id" />
+
+
+
+
+           
+            </div>
+        </div>
+       
+
+
+
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+

@@ -1,0 +1,86 @@
+﻿@model Order
+
+
+<h3>Customer`s info :</h3>
+<ul>
+    <li>
+        First name : @Model.AppUser.Firstname
+    </li>
+    <li>
+        Last name : @Model.AppUser.Surname
+    </li>
+    <li>
+        Country : @Model.Country
+    </li>
+    <li>
+        City : @Model.City
+    </li>
+    <li>
+        Address : @Model.Address
+    </li>
+    <li>
+        Zip : @Model.Zip
+    </li>
+    <li>
+        Phone : @Model.Phone
+    </li>
+    <li>
+        Order notes : @Model.MessageToAdmin
+    </li>
+</ul>
+
+<h3>
+    Ordered products :
+</h3>
+
+<ul>
+    @foreach (var item in Model.OrderItems)
+    {
+        <li style="list-style:none">
+            <img src="~/assets/images/products/@item.ProductSizeColor.MainImage" style="width:65px;height:65px;object-fit:cover" />
+        </li>
+        <li>
+            Product name : @item.Name
+        </li>
+        <li>
+            Size : @item.ProductSizeColor.Size.Name
+        </li>
+        <li>
+            Color : @item.ProductSizeColor.Color.Name
+        </li>
+        <li>
+            Quantity : @item.Count
+        </li>
+        <hr />
+    }
+    <li>Total price : $@String.Format("{0:0.00}",Model.TotalPrice)</li>
+</ul>
+
+<form method="post">
+    <div class="mb-2">
+        <label asp-for="@Model.StatusId" class="form-label">Status:</label>
+        <select id="statusId" asp-for="@Model.StatusId" class="form-select" asp-items="@(new SelectList(ViewBag.Status,"Id","Name"))">
+        </select>
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.StatusId"></span>
+
+        @*<label asp-for="@Model.MessageToUser">Note for customer :</label><br />*@
+
+        <textarea class="mt-2 form-control" placeholder="Note for customer (optional)" asp-for="@Model.MessageToUser">
+
+</textarea>
+        <span class="mt-2 text text-danger" asp-validation-for="@Model.MessageToUser"></span>
+
+    </div>
+
+    <button class="btn-success btn" type="submit">Submit</button>
+</form>
+
+
+
+
+
+
+
+
+
+

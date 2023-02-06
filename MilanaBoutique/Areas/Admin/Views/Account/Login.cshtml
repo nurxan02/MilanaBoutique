@@ -1,0 +1,85 @@
+﻿@{
+    Layout = null;
+}
+@model LoginVM
+
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from bhulua.thememinister.com/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Oct 2019 13:14:21 GMT -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Bootstrap 4 Admin &amp; Dashboard Template">
+    <meta name="author" content="Bdtask">
+    <title>Milana Administration Panel</title>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/assets/images/icons/favicon-16x16.png">
+    <!--Global Styles(used by all pages)-->
+    <link href="~/admin/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+   
+    <link href="~/admin/assets/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="~/admin/assets/plugins/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="~/admin/assets/plugins/typicons/src/typicons.min.css" rel="stylesheet">
+    <link href="~/admin/assets/plugins/themify-icons/themify-icons.min.css" rel="stylesheet">
+    <!--Third party Styles(used by this page)-->
+    <!--Start Your Custom Style Now-->
+    <link href="~/admin/assets/dist/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-white">
+    <div class="d-flex align-items-center justify-content-center text-center h-100vh" style=" background-color: #ef0663;">
+        <div class="form-wrapper m-auto"  >
+            <div class="form-container my-4">
+                <div class="register-logo text-center mb-4">
+                    <img src="~/admin/assets/dist/img/logo2.html" alt="">
+                </div>
+                <div class="panel">
+                    <div class="panel-header text-center mb-3">
+                        <img  src="~/assets/images/logos/logo.png"/>
+                        <h3 class="fs-24"><b>Log in</b></h3>
+                        
+                        <p class="text-muted text-center mb-0">This is administration gateway! Please Login!</p>
+                    </div>
+                   
+                    
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger">
+
+                    </div>
+                    <form method="post" class="register-form">
+                        <div class="form-group">
+                           
+
+                            <input asp-for="Username" class="form-control"  placeholder="Username">
+                            <span asp-validation-for="Username" class="text text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Password" class="form-control"  placeholder="Password">
+                            <span asp-validation-for="Password" class="text text-danger"></span>
+
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                    </form>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+    <!-- /.End of form wrapper -->
+    <!--Global script(used by all pages)-->
+    <script src="~/admin/assets/plugins/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="~/admin/assets/dist/js/popper.min.js"></script>
+    <script src="~/admin/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/admin/assets/plugins/metisMenu/metisMenu.min.js"></script>
+    <script src="~/admin/assets/plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <!-- Third Party Scripts(used by this page)-->
+    <!--Page Active Scripts(used by this page)-->
+    <!--Page Scripts(used by all page)-->
+    <script src="~/admin/assets/dist/js/sidebar.js"></script>
+</body>
+
+<!-- Mirrored from bhulua.thememinister.com/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 12 Oct 2019 13:14:22 GMT -->
+</html>
+

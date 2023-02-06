@@ -1,0 +1,50 @@
+﻿@model ShopVM
+
+@foreach (var item in Model.Products)
+{
+    <style>
+        .product:hover {
+            background-color: #dfe4ea !important;
+        }
+    </style>
+
+    
+    <div  class="product" style="background-color:transparent !important;padding:10px;display: flex; align-items: center; justify-content: space-between;width:275px;margin:0 !important">
+        <figure style="margin:0 !important;display:flex" class="product-image-container">
+            <a style="width:45px;height:50px" asp-controller="@item.Gender.Name" asp-action="details" asp-route-id="@item.ProductSizeColors.FirstOrDefault().Id" class="product-image">
+                <img style="width:45px;height:50px !important;object-fit:cover" src="~/assets/images/products/@item.ProductSizeColors.FirstOrDefault().MainImage" alt="product">
+            </a>
+            <div  style="width:115px;margin-left:5px" class="product-cart-details">
+                <span class="product-title">
+                    <a style="font-size:14px" asp-controller="@item.Gender.Name" asp-action="details" asp-route-id="@item.ProductSizeColors.FirstOrDefault().Id">@item.Name</a>
+                </span>
+
+
+
+            </div>
+        </figure>
+        
+        <div>
+            @if (item.Discount != null && item.Discount != 0)
+            {
+                <span style="font-size:14px;color: #e64747">@((item.Price - (item.Price * item.Discount / 100) ) )$ </span> <span class="old-price" style="text-decoration:line-through;font-size:11px">was @item.Price$</span>
+
+            }
+            else
+            {
+                <span style="font-size:14px;margin-right:10px" class="product-title">
+                    $@item.Price
+                </span>
+            }
+        </div>
+
+
+
+       
+
+
+
+    </div>
+}
+
+

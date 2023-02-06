@@ -1,0 +1,182 @@
+﻿@model ContactVM
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<main class="main">
+    <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Contact us</li>
+            </ol>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="page-header page-header-big text-center" style="background-image: url('assets/images/@Model.Contact.BannerImage')">
+            <h1 class="page-title text-white">@Model.Contact.BannerTitle<span class="text-white">@Model.Contact.BannerDesc</span></h1>
+        </div>
+    </div>
+
+    <div style="overflow:hidden !important" class="page-content pb-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-2 mb-lg-0">
+                    <h2 class="title mb-1">Contact Information</h2>
+                    <p class="mb-3">@Model.Contact.ContactInformation</p>
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <div class="contact-info">
+                                <h3>The Office</h3>
+
+                                <ul class="contact-list">
+                                    <li>
+                                        <i class="@Model.Contact.LocationIcon"></i>
+                                        @Model.Contact.OfficeLocation
+                                    </li>
+                                    <li>
+                                        <i class="@Model.Contact.PhoneIcon"></i>
+                                        <a>@Model.Contact.Phone</a>
+                                    </li>
+                                    <li>
+                                        <i class="@Model.Contact.MailIcon"></i>
+                                        <a>@Model.Contact.Mail</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <div class="contact-info">
+                                <h3>The Office</h3>
+
+                                <ul class="contact-list">
+                                    <li>
+                                        <i class="@Model.Contact.OclockIcon"></i>
+                                        <span class="text-dark">Monday-Saturday</span> <br>@Model.Contact.OpenTime am-@Model.Contact.CloseTime pm ET
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="title mb-1">Got Any Questions?</h2>
+                    <p class="mb-2">Use the form below to get in touch with the sales team</p>
+
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label asp-for="@Model.Question.Name" class="sr-only">Name</label>
+                                <input class="form-control nameInput" asp-for="@Model.Question.Name" placeholder="Name *">
+                                <span class="text text-danger" asp-validation-for="@Model.Question.Name"></span>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label asp-for="@Model.Question.Mail" class="sr-only">Mail</label>
+                                <input class="form-control mailInput" asp-for="@Model.Question.Mail" placeholder="Mail *">
+                                <span class="text text-danger" asp-validation-for="@Model.Question.Mail"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label asp-for="@Model.Question.Phone" class="sr-only">Phone</label>
+                                <input class="form-control phoneInput" asp-for="@Model.Question.Phone" placeholder="Phone *">
+                                <span class="text text-danger" asp-validation-for="@Model.Question.Phone"></span>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label asp-for="@Model.Question.Subject" class="sr-only">Subject</label>
+                                <input class="form-control subjectInput" asp-for="@Model.Question.Subject" placeholder="Subject *">
+                                <span class="text text-danger" asp-validation-for="@Model.Question.Subject"></span>
+                            </div>
+                        </div>
+
+                        <label for="cmessage" class="sr-only">Message</label>
+                        <textarea class="form-control messageInput" cols="30" rows="4" asp-for="@Model.Question.Message" placeholder="Message *"></textarea>
+                        <span class="text text-danger" asp-validation-for="@Model.Question.Message"></span>
+
+                        <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm btn-post-message">
+                            <span>SUBMIT</span>
+                            <i class="icon-long-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <hr class="mt-4 mb-5">
+
+            <div class="stores mb-4 mb-lg-5">
+                <h2 class="title text-center mb-3">Our Stores</h2>
+
+                <div class="row">
+                    @foreach (var item in Model.Stores)
+                    {
+                        <div class="col-lg-6">
+                            <div class="store">
+                                <div class="row">
+                                    <div class="col-sm-5 col-xl-6">
+                                        <figure class="store-media mb-2 mb-lg-0">
+                                            <img src="assets/images/stores/@item.StoreImage" alt="image">
+                                        </figure>
+                                    </div>
+                                    <div class="col-sm-7 col-xl-6">
+                                        <div class="store-content">
+                                            <h3 class="store-title">@item.Name</h3>
+                                            <address>@item.Address</address>
+                                            <div><a href="tel:#">@item.Phone</a></div>
+
+                                            <h4 class="store-subtitle">Store Hours:</h4>
+                                            <div>Monday - Saturday @item.StoreOpenTime.ToString("HH:mm")am to @item.StoreCloseTime.ToString("HH:mm")pm</div>
+                                            @*<div>Sunday 11am to 6pm</div>*@
+
+                                            <a href="@item.StoreLink" class="btn btn-link" target="_blank"><span>View Map</span><i class="icon-long-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+
+                </div>
+            </div>
+        </div>
+        <div id="map">
+            <div class="mapouter">
+                <div class="gmap_canvas">
+                    <iframe width="1263" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=code%20academy%20baku&t=&z=19&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org">123movies</a><br>
+                    <style>
+                        .mapouter {
+                            position: relative;
+                            text-align: right;
+                            height: 500px;
+                            width: 1263px;
+                        }
+                    </style><a href="https://www.embedgooglemap.net">add google maps to html</a>
+                    <style>
+                        .gmap_canvas {
+                            overflow: hidden;
+                            background: none !important;
+                            height: 500px;
+                            width: 1263px;
+                        }
+                    </style>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+
+    </script>
+}

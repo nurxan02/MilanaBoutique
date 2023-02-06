@@ -1,0 +1,647 @@
+﻿@inject MilanaBoutique.Services.LayoutService layoutService
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Milana Boutique</title>
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Final Project">
+    <meta name="author" content="p-themes">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="~/assets/images/icons/site.html">
+    <link rel="mask-icon" href="~/assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="~/assets/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Milana">
+    <meta name="application-name" content="Milana">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="~/assets/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="~/assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="~/assets/css/plugins/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/assets/css/plugins/nouislider/nouislider.css" />
+    <link rel="stylesheet" href="~/assets/css/image-zoom.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="header">
+            <div class="header-top" style="background-color: #ef0663;">
+                <div class="container">
+                    <div class="header-right">
+                        <ul class="top-menu">
+                            <li>
+                                <a href="#" style="color: lightpink">Links</a>
+                                <ul style="color:white;">
+                                    <li style="color: lightpink"><a href="tel:+994 77 972 99 70"><i class="@layoutService.getSettingDatas().PhoneIcon"></i>Call: @layoutService.getSettingDatas().Phone</a></li>
+                                    <li style="color: lightpink"><a asp-controller="wishlist" asp-action="index"><i class="@layoutService.getSettingDatas().LittleWishlist"></i>Wishlist <span style="color: lightpink" class="wishCount">(3)</span></a></li>
+
+                                    @if (!User.Identity.IsAuthenticated)
+                                    {
+                                        <li style="color: lightpink"><a asp-controller="account" asp-action="login"><i class="@layoutService.getSettingDatas().UserIcon"></i>Login</a></li>
+
+
+                                    }
+                                    else
+                                    {
+                                        <li style="color: lightpink"><a asp-controller="account" asp-action="edit">@User.Identity.Name</a></li>
+                                        <li style="color: lightpink"><a asp-controller="account" asp-action="logout">Logout</a></li>
+
+                                    }
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-middle sticky-header">
+                <div class="container">
+                    <div class="header-left">
+                        <button style="color:black" class="mobile-menu-toggler">
+                            <span class="sr-only">Toggle mobile menu</span>
+                            <i class="icon-bars"></i>
+                        </button>
+
+                        <a asp-controller="home" asp-action="index" class="logo">
+                            <img src="~/assets/images/logos/@layoutService.getSettingDatas().HeaderLogoImage" alt="Milana Loogo" width="105" height="25">
+                        </a>
+
+                        <nav class="main-nav">
+                            <ul class="menu sf-arrows">
+                                <li>
+                                    <a asp-controller="home" asp-action="index">Home</a>
+
+
+                                </li>
+                                <li>
+                                    <a asp-controller="man" asp-action="index">Man</a>
+
+
+                                </li>
+                                <li>
+                                    <a asp-controller="woman" asp-action="index">Woman</a>
+
+
+                                </li>
+                                <li>
+                                    <a asp-controller="contact" asp-action="index">Contact us</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="blog" asp-action="index">Blog</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="about" asp-action="index">About us</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="header-right">
+                        <div class="header-search">
+                            <a href="#" class="search-toggle" role="button" title="Search"><i style="font-size:22px;" class="@layoutService.getSettingDatas().SearchIcon"></i></a>
+                           
+                                <div class="header-search-wrapper">
+                                    <label for="q" class="sr-only">Search</label>
+                                    <input autocomplete="off" type="search" class="form-control search-input" name="q" id="q" placeholder="Search in..." required>
+                                </div>
+
+
+                            
+                            <div style="background-color:white;border-top:none;border-bottom-left-radius:5px;border-bottom-right-radius:5px; max-height: 275px !important;overflow-y:scroll; position: absolute; top: 65px; z-index: 1000000; right: -18px; width: max-content; box-shadow: 11px 13px 17px 0px rgba(0,0,0,0.75); -webkit-box-shadow: 11px 13px 17px 0px rgba(0,0,0,0.75); -moz-box-shadow: 11px 13px 17px 0px rgba(0,0,0,0.75);" class="searchProducts">
+
+                            </div>
+
+                        </div>
+
+                        <div class="dropdown cart-dropdown">
+                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                <i style="font-size:22px;" class="@layoutService.getSettingDatas().BasketIcon"></i>
+                                <span class="cart-count">@layoutService.ShowBasket().Result.Count</span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right">
+
+                                <div style="max-height:220px!important;overflow-y:scroll!important" class="dropdown-cart-products">
+
+                                    @await Html.PartialAsync("_basketProductPartialView", layoutService)
+
+                                </div>
+
+                                <div class="dropdown-cart-total">
+                                    <span>Total</span>
+
+                                    <span class="cart-total-price">$@String.Format("{0:0.00}", @layoutService.ShowBasket().Result.TotalPrice)     </span>
+                                </div>
+
+                                <div class="dropdown-cart-action">
+                                    <a asp-controller="order" asp-action="cart" class="btn btn-primary">View Cart</a>
+                                    <a asp-controller="order" asp-action="checkout" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+
+        <main>@RenderBody()</main>
+
+        <footer style="background-color: #ffd3e4;">
+
+
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget widget-about">
+                                <img src="~/assets/images/logos/@layoutService.getSettingDatas().FooterLogoImage" class="footer-logo" alt="Footer Logo" width="105" height="25">
+                                <p>@layoutService.getSettingDatas().FooterDesc</p>
+                                <div class="social-icons">
+                                    <a href="@layoutService.getSettingDatas().FbLink" class="social-icon" target="_blank" title="Facebook"><i class="@layoutService.getSettingDatas().FbIcon"></i></a>
+                                    <a href="@layoutService.getSettingDatas().TwitLink" class="social-icon" target="_blank" title="Twitter"><i class="@layoutService.getSettingDatas().TwitIcon"></i></a>
+                                    <a href="@layoutService.getSettingDatas().InstaLink" class="social-icon" target="_blank" title="Instagram"><i class="@layoutService.getSettingDatas().InstaIcon"></i></a>
+                                    <a href="@layoutService.getSettingDatas().YtLink" class="social-icon" target="_blank" title="Youtube"><i class="@layoutService.getSettingDatas().YoutubeIcon"></i></a>
+                                    <a href="@layoutService.getSettingDatas().PinterestLink" class="social-icon" target="_blank" title="Pinterest"><i class="@layoutService.getSettingDatas().PinterestIcon"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Useful Links</h4>
+
+                                <ul class="widget-list">
+                                    <li><a asp-controller="man" asp-action="index">Man</a></li>
+
+                                    <li><a asp-controller="woman" asp-action="index">Woman</a></li>
+
+                                    <li><a asp-controller="account" asp-action="login">Log in</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Customer Service</h4>
+
+                                <ul class="widget-list">
+
+                                    <li><a asp-controller="account" asp-action="edit">Account</a></li>
+                                    <li><a asp-controller="contact" asp-action="index">Contact us</a></li>
+                                    <li><a asp-controller="about" asp-action="index">About Molla</a></li>
+                                    <li><a asp-controller="blog" asp-action="index">Blog</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">My Account</h4>
+
+                                <ul class="widget-list">
+                                    <li><a asp-controller="account" asp-action="login">Sign In</a></li>
+                                    <li><a asp-controller="order" asp-action="cart">View Cart</a></li>
+                                    <li><a asp-controller="wishlist" asp-action="index">My Wishlist</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="footer-copyright">@layoutService.getSettingDatas().Copyright</p>
+                    <figure class="footer-payments">
+                        <img src="~/assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                    </figure>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <button style=" border-radius: 50%; background-color:#fbe7e7;" id="scroll-top-button" title="Back to Top"><i style="color: #ef0663; font-size:25px;" class="bi bi-chevron-double-up"></i></button>
+
+
+    <div class="mobile-menu-overlay"></div>
+
+    <div class="mobile-menu-container">
+        <div class="mobile-menu-wrapper">
+            <span class="mobile-menu-close"><i class="icon-close"></i></span>
+
+            <form action="#" method="get" class="mobile-search">
+                <label for="mobile-search" class="sr-only">Search</label>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required="">
+                <button class="btn btn-primary" type="submit"><i class="@layoutService.getSettingDatas().SearchIcon"></i></button>
+            </form>
+
+            <nav class="mobile-nav">
+                <ul class="mobile-menu">
+                    <li >
+                        <a  asp-controller="home" asp-action="index">Home</a>
+
+
+                    </li>
+
+                    <li><a asp-controller="man" asp-action="index">Men</a></li>
+                    <li><a asp-controller="woman" asp-action="index">Women</a></li>
+
+                    <li><a asp-controller="about" asp-action="index">About us</a></li>
+                    <li><a asp-controller="contact" asp-action="index">Contact us</a></li>
+                    <li><a asp-controller="blog" asp-action="index">Blog</a></li>
+
+
+                </ul>
+            </nav>
+
+            <div class="social-icons">
+                <a href="@layoutService.getSettingDatas().FbLink" class="social-icon" target="_blank" title="Facebook"><i class="@layoutService.getSettingDatas().FbIcon"></i></a>
+                <a href="@layoutService.getSettingDatas().TwitLink" class="social-icon" target="_blank" title="Twitter"><i class="@layoutService.getSettingDatas().TwitIcon"></i></a>
+                <a href="@layoutService.getSettingDatas().InstaLink" class="social-icon" target="_blank" title="Instagram"><i class="@layoutService.getSettingDatas().InstaIcon"></i></a>
+                <a href="@layoutService.getSettingDatas().YtLink" class="social-icon" target="_blank" title="Youtube"><i class="@layoutService.getSettingDatas().YoutubeIcon"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="productModal" style="max-height:max-content !important" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered   modalProductLayout" style="background-color:white;max-height:100px !important;max-width:820px !important" role="document">
+            <div class="modal-content cntforme" style="box-shadow:none !important">
+
+            </div>
+        </div>
+    </div>
+    <div id="preLoader" style="background-color:white;width:100%;height:100%;position:fixed;z-index:10000012432344343243156341630000;top:0;display:flex;justify-content:center;align-items:center">
+        <img style="width:75px;height:75px" src="~/assets/preloader.gif" />
+    </div>
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="~/assets/js/jquery.waypoints.min.js"></script>
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <script src="~/assets/js/wNumb.js"></script>
+    <script src="~/assets/js/bootstrap-input-spinner.js"></script>
+    <script src="~/assets/js/nouislider.min.js"></script>
+    <script src="~/assets/js/jquery.elevateZoom.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="~/assets/js/image-zoom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="~/assets/js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            
+            setTimeout(function () {
+                $("#preLoader").fadeOut();
+            }, 520)
+
+            var $scrollTop = $('#scroll-top-button');
+
+            $(window).on('load scroll', function () {
+                if ($(window).scrollTop() >= 400) {
+                    $scrollTop.addClass('show');
+                } else {
+                    $scrollTop.removeClass('show');
+                }
+            });
+
+
+
+            $scrollTop.on('click', function (e) {
+                $('html, body').animate({
+                    'scrollTop': 0
+                }, 800);
+                e.preventDefault();
+            });
+
+
+            $(document).on("click", ".btn-quickview", function (e) {
+                e.preventDefault();
+
+                var base = window.location.origin;
+                var gender = $(this).next().val();
+                var id = $(this).next().next().val()
+                var url = `${base}/${gender}/changecolor/${id}`
+                fetch(url).then(res => res.text()).then(data => {
+                    $(".cntforme").empty();
+                    $(".cntforme").append(data);
+
+                    var minus = `<i class="icon-minus"></i>`
+                    var plus = `<i class="icon-plus"></i>`
+
+                    $("input[type='number']").inputSpinner();
+                    $("input[type='number']").next().addClass("input-spinner")
+                    $("input[type='number']").next().children().last().children().removeClass("btn-outline-secondary").addClass("btn-spinner").empty().html(plus)
+                    $("input[type='number']").next().children().first().children().removeClass("btn-outline-secondary").addClass("btn-spinner").empty().html(minus)
+
+
+                    $(".formodal").css("display", "block");
+                    $(".forheight").css("height", "457px");
+
+                    $("#product-zoom-gallery").css("display", "none")
+                    $(".size-guide").css("display", "none")
+                    $(".product-main-image").css("max-width", "100%")
+
+                    $("#btn-product-gallery").css("display", "none")
+
+
+                    $(document).on('click', ".noMainForColorChange", function (e) {
+
+                        e.preventDefault();
+                        var base = window.location.origin
+                        var href = $(this).children(".hiddenId").val()
+                        var link = `${base}/${gender}/changecolor/${href}`
+
+                        $(".zoomContainer").remove();
+
+                        fetch(link).then(res => res.text()).then(data => {
+
+
+
+                            $(".cntforme").html('');
+                            $(".cntforme").html(data)
+
+                            var minus = `<i class="icon-minus"></i>`
+                            var plus = `<i class="icon-plus"></i>`
+
+                            $("input[type='number']").inputSpinner();
+                            $("input[type='number']").next().addClass("input-spinner")
+                            $("input[type='number']").next().children().last().children().removeClass("btn-outline-secondary").addClass("btn-spinner").empty().html(plus)
+                            $("input[type='number']").next().children().first().children().removeClass("btn-outline-secondary").addClass("btn-spinner").empty().html(minus)
+                            $("#product-zoom-gallery").css("display", "none")
+                            $("#btn-product-gallery").css("display", "none")
+                            $(".size-guide").css("display", "none")
+                            $(".formodal").css("display", "block");
+                            $(".forheight").css("height", "457px");
+
+                            $(".product-main-image").css("max-width", "100%")
+
+
+                        })
+
+                    })
+
+
+                })
+
+
+            })
+            var base = window.location.origin;
+            var url = `${base}/wishlist/test`
+            var partialwish = `${base}/wishlist/getpartial`
+            fetch(url).then(res => res.text()).then(data => {
+
+                $(".wishCount").empty();
+                $(".wishCount").append(`(${data})`);
+                console.log(data);
+
+            })
+
+            fetch(partialwish).then(res => res.text()).
+                then(data => {
+
+
+                    fetch(partialwish).then(res => res.text()).
+                        then(dt => {
+
+
+
+                            $(".forWishes").empty();
+                            $(".forWishes").append(dt);
+
+                        })
+                })
+            $(document).on("click", ".btn-wishlist", function (e) {
+                e.preventDefault()
+                var href = $(this).attr("href");
+
+                var base = window.location.origin;
+                var url = `${base}${href}`
+                fetch(url).then(res => res.text()).then(data => {
+                    if (data == `{"status":500}`) {
+                        swal({
+                            title: "This product already exists in your wishlist!",
+                            icon: "error",
+                            buttons: false,
+                            timer: 1000,
+
+                        });
+                    } else {
+                        $(".wishCount").empty();
+                        $(".wishCount").append(`(${data})`);
+
+
+                        swal({
+                            title: "Added to wishlist!",
+                            icon: "success",
+                            buttons: false,
+                            timer: 1000,
+                        });
+                    }
+                })
+            })
+            $(document).on("click", ".removeWish", function (e) {
+                e.preventDefault()
+                var href = $(this).attr("href");
+
+                var base = window.location.origin;
+                var urll = `${base}/wishlist/test`
+                var url = `${base}${href}`
+                fetch(url).then(res => res.text()).then(data => {
+                    $(".forWishes").empty();
+                    $(".forWishes").append(data);
+
+
+
+                    fetch(urll).then(res => res.text()).then(data => {
+
+                        $(".wishCount").empty();
+                        $(".wishCount").append(`(${data})`);
+
+
+                    })
+                })
+            })
+
+            var urlstrt = window.location.origin;
+            var urlforcount = `${urlstrt}/Basket/ForTotalCount`
+            var urlforpartial = `${urlstrt}/Basket/GetPartial`
+            var urlforprice = `${urlstrt}/Basket/GetTotalPrice`
+        })
+        $(".forSizeId").val()
+        $(document).on("change", "#size", function (e) {
+
+            $(".forSizeId").val(e.target.value)
+
+        })
+        $(document).on("change", ".qtyforme", function (e) {
+            $(".forCount").val(e.target.value)
+        })
+        $(document).on("click", ".add-to-cart", function (e) {
+            e.preventDefault();
+            $(this).css("background-color", "white")
+            $(this).css("color", "#c94")
+            $(".add-to-cart span").css("color", "#c94f")
+            var sizeId = $(".forSizeId").val();
+            var colorId = $(".forColorId").val();
+            var productId = $(".forProductId").val();
+            var link = $(this).attr("href")
+            var uruuul = window.location.origin;
+
+            var quantity = $(".forCount").val();
+            if (!quantity) {
+                quantity = 1;
+            }
+
+            var url = uruuul + '/Basket/SetBasket' + '?sizeId=' + sizeId + '&colorId=' + colorId + '&productId=' + productId + '&quantity=' + quantity
+            var urlstrt = window.location.origin;
+            var urlforcount = `${urlstrt}/Basket/ForTotalCount`
+            var urlforpartial = `${urlstrt}/Basket/GetPartial`
+            var urlforprice = `${urlstrt}/Basket/GetTotalPrice`
+
+            if (sizeId == 0) {
+                swal({
+                    title: "Select a size!",
+                    icon: "error",
+                    buttons: false,
+                    timer: 1000,
+
+                });
+            }
+            else {
+                fetch(url).then(res => res.text()).then(data => {
+                    Command: toastr["success"]("Successfully added to basket!")
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-bottom-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    fetch(urlforcount).then(res => res.text()).then(data => {
+
+                        $(".cart-count").empty();
+                        $(".cart-count").append(data);
+
+                    })
+                    fetch(urlforpartial).then(res => res.text()).then(data => {
+
+                        $(".dropdown-cart-products").empty();
+                        $(".dropdown-cart-products").append(data);
+                    })
+                    fetch(urlforprice).then(res => res.text()).then(data => {
+                        $(".cart-total-price").empty();
+                        var monet = parseFloat(data).toFixed(2)
+                        $(".cart-total-price").append(`$${monet}`);
+                    })
+                })
+            }
+        })
+        $(document).on("click", ".btn-remove", function (e) {
+            e.preventDefault();
+            var linkk = $(this).attr("href");
+            var base = window.location.origin
+
+            var comp = `${base}${linkk}`
+            var urlstrt = window.location.origin;
+            var urlforcount = `${urlstrt}/Basket/ForTotalCount`
+            var urlforpartial = `${urlstrt}/Basket/GetPartial`
+            var urlforprice = `${urlstrt}/Basket/GetTotalPrice`
+            fetch(comp).then(res => res.text()).then(data => {
+
+                fetch(urlforcount).then(res => res.text()).then(data => {
+
+                    $(".cart-count").empty();
+                    $(".cart-count").append(data);
+                })
+                fetch(urlforpartial).then(res => res.text()).then(data => {
+                    $(".dropdown-cart-products").empty();
+                    $(".dropdown-cart-products").append(data);
+                })
+                fetch(urlforprice).then(res => res.text()).then(data => {
+                    $(".cart-total-price").empty();
+                    var monet = parseFloat(data).toFixed(2)
+                    $(".cart-total-price").append(`$${monet}`);
+                })
+            })
+        })
+        $(document).on("click", "#2col", function (e) {
+            e.preventDefault();
+            $(".btn-layout").not(this).removeClass("active");
+            $(this).addClass("active")
+            $(".productClass").removeClass("col-lg-4");
+            $(".productClass").addClass("col-lg-6");
+            $(".productClass").removeClass("col-md-4");
+            $(".productClass").addClass("col-md-6");
+            $(".product-main").css("height", "430px")
+        })
+        $(document).on("click", "#3col", function (e) {
+            e.preventDefault();
+            $(".btn-layout").not(this).removeClass("active");
+            $(this).addClass("active")
+            $(".productClass").removeClass("col-lg-6");
+            $(".productClass").addClass("col-lg-4");
+            $(".productClass").removeClass("col-md-6");
+            $(".productClass").addClass("col-md-4");
+            $(".product-main").css("height", "353px")
+        })
+        if (!$(".search-toggle").hasClass("active")) {
+            $(".search-input").val('')
+            $(".searchProducts").empty()
+            console.log("sa")
+        }
+        $(document).on("click", function () {
+            if (!$(".search-toggle").hasClass("active")) {
+                $(".search-input").val('')
+                $(".searchProducts").empty()
+            }
+        })
+        $(document).on("keyup", ".search-input", function (e) {
+         
+            if (e.keyCode === 13 || e.which === 13) {
+                e.preventDefault();
+                return false;
+            }
+            var text = $(this).val()
+            var base = window.location.origin;
+            var fetchUrl = `${base}/search/SearchPartial?word=${text}`
+
+            if (text.length >= 3) {
+                fetch(fetchUrl).then(res => res.text()).then(data => {
+                    $(".searchProducts").empty();
+                    $(".searchProducts").append(data);
+                })
+            }
+            if (text.length < 3) {
+                $(".searchProducts").empty()
+            }
+        })
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

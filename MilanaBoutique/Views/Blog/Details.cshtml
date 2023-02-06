@@ -1,0 +1,311 @@
+﻿@model BlogVM
+
+
+<div class="page-header text-center" style="background-image: url('../../assets/images/page-header-bg.jpg')">
+    <div class="container">
+        <h1 class="page-title">Blog</h1>
+    </div>
+</div>
+<nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="home" asp-action="index">Home</a></li>
+            <li class="breadcrumb-item"><a asp-controller="blog" asp-action="index">Blog</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Details</li>
+        </ol>
+    </div>
+</nav>
+
+<div class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <article class="entry single-entry">
+                    <figure class="entry-media">
+                        <img style="width:871px;height:419px;object-fit:cover" src="~/assets/images/blog/@Model.Blog.Image" alt="image desc">
+                    </figure>
+
+                    <div class="entry-body">
+                        <div class="entry-meta">
+                            <span class="entry-author">
+                                by <a>@Model.Blog.Author</a>
+                            </span>
+                            <span class="meta-separator">|</span>
+                            <a>@Model.Blog.CreatedTime.ToString("dd MMMM yyyy, HH:mm")</a>
+                            <span class="meta-separator">|</span>
+                            <a>@Model.Blog.Comments.Where(c=>c.IsAccepted==true).Count() Comments</a>
+                        </div>
+
+                        <h2 class="entry-title">
+                            <a asp-controller="blog" asp-action="details" asp-route-id="@Model.Blog.Id">@Model.Blog.Name</a>
+                        </h2>
+
+                        <div class="entry-cats">
+                            in @foreach (var itvarem in Model.Blog.BlogTags)
+                            {
+                                <a asp-controller="blog" asp-action="index" asp-route-tagid="@itvarem.TagId">@itvarem.Tag.Name</a>
+                            }
+                        </div>
+
+                        <div class="entry-content editor-content">
+                            <p>@Model.Blog.Description</p>
+
+
+                            <blockquote>
+                                <p>" @Model.Blog.BlackQuote "</p>
+                            </blockquote>
+
+                        </div>
+
+                        <div class="entry-footer row no-gutters flex-column flex-md-row">
+                            <div class="col-md">
+                                <div class="entry-tags">
+                                    <span>Tags:</span>
+                                    @foreach (var itvarem in Model.Blog.BlogTags)
+                                    {
+                                        <a asp-controller="blog" asp-action="index" asp-route-tagid="@itvarem.TagId">@itvarem.Tag.Name</a>
+                                    }
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </article>
+
+
+
+                <div class="related-posts">
+                    <h3 class="title">Related Posts</h3>
+
+                    <div class="owl-carousel owl-simple" data-toggle="owl"
+                         data-owl-options='{
+                                        "nav": false,
+                                        "dots": true,
+                                        "margin": 20,
+                                        "loop": false,
+                                        "responsive": {
+                                            "0": {
+                                                "items":1
+                                            },
+                                            "480": {
+                                                "items":2
+                                            },
+                                            "768": {
+                                                "items":3
+                                            }
+                                        }
+                                    }'>
+                        @foreach (var item in Model.Blogs.Where(c => c.BlogTags.Any(c => Model.Blog.BlogTags.Any(d => d.TagId == c.TagId)) && c.Id != Model.Blog.Id))
+                        {
+                            <article class="entry entry-grid">
+                                <figure class="entry-media">
+                                    <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">
+                                        <img style="width:277px;height:185px;object-fit:cover" src="~/assets/images/blog/@item.Image" alt="image desc">
+                                    </a>
+                                </figure>
+
+                                <div class="entry-body">
+                                    <div class="entry-meta">
+
+
+                                        <a>@item.CreatedTime.ToString("dd MMMM yyyy, HH:mm")</a>
+                                        <span class="meta-separator">|</span>
+                                        <a>@item.Comments.Where(c=>c.IsAccepted==true).Count() Comments</a>
+                                    </div>
+
+                                    <h2 class="entry-title">
+                                        <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">@item.Name</a>
+                                    </h2>
+
+                                    <div class="entry-cats">
+                                        in @foreach (var itvarem in item.BlogTags)
+                                        {
+                                            <a asp-controller="blog" asp-action="index" asp-route-tagid="@itvarem.TagId">@itvarem.Tag.Name</a>
+                                        }
+                                    </div>
+                                </div>
+                            </article>
+                        }
+
+
+
+
+                    </div>
+                </div>
+
+                <div class="comments">
+                    <h3 class="title blog-comment-count">@Model.Blog.Comments.Where(c=>c.IsAccepted==true).Count() Comments</h3>
+
+                    <ul class="blog-comments">
+
+                        @await Html.PartialAsync("_blogCommentPartial", Model)
+
+
+
+                    </ul>
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="reply">
+                        <div class="heading">
+                            <h3 class="title">Leave A Reply</h3>
+                            <p class="title-desc">Your email address will not be published. Required fields are marked *</p>
+                        </div>
+
+                        <form method="post">
+                            <label for="reply-message" class="sr-only">Comment</label>
+                            <textarea asp-for="@Model.Blog.Comments.FirstOrDefault().Message" name="reply-message" id="reply-message" cols="30" rows="4" class="form-control" required placeholder="Comment *"></textarea>
+                            <span class="for-alert text text-danger"></span>
+                            <input hidden class="hiddenBlogId" value="@Model.Blog.Id" />
+
+
+                            <button type="submit" class="btn btn-outline-primary-2 blog-comment-btn">
+                                <span>POST COMMENT</span>
+                                <i class="icon-long-arrow-right"></i>
+                            </button>
+                        </form>
+                    </div>
+                }
+
+            </div>
+
+            <aside class="col-lg-3">
+                <div class="sidebar">
+                   
+                    <div class="widget">
+                        <h3 class="widget-title">Browse Tags</h3>
+
+                        <div class="tagcloud">
+                            @foreach (var item in Model.Tags)
+                            {
+                                <a asp-controller="blog" asp-action="index" asp-route-tagid="@item.Id">@item.Name</a>
+
+                            }
+                        </div>
+                    </div>
+
+
+                    <div class="widget">
+                        <h3 class="widget-title">Latest Posts</h3>
+
+                        <ul class="posts-list">
+
+                            @foreach (var item in Model.Blogs.OrderByDescending(c => c.Id).Take(3))
+                            {
+                                <li>
+                                    <figure>
+                                        <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">
+                                            <img style="object-fit:cover;width:80px;height:80px" src="~/assets/images/blog/@item.Image " alt="post">
+                                        </a>
+                                    </figure>
+
+                                    <div>
+                                        <span>@item.CreatedTime.ToString("dd MMMM yyyy, HH:mm")</span>
+                                        <h4><a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                    </div>
+                                </li>
+
+                            }
+
+                        </ul>
+                    </div>
+
+
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#reply-message").val('')
+            var base = window.location.origin;
+
+            $(document).on("click", ".blog-comment-btn", function (e) {
+
+                e.preventDefault();
+
+                var message = $("#reply-message").val();
+                var blogid = $(".hiddenBlogId").val();
+                var url = `${base}/comment/addblogcomment?message=${message}&blogid=${blogid}`
+
+                console.log(url)
+                $(".for-alert").empty()
+
+                if (message.trim() == '' || !message) {
+                    $(".for-alert").append("Fill this field!")
+
+                }
+                else {
+
+                    if (message.length > 350) {
+
+                        let timerInterval;
+                        Swal.fire({
+
+                            title: 'Dont mess with inputs :)',
+                            width: 600,
+                            padding: '3em',
+                            color: '#716add',
+                            background: '#fff url(/assets/images/tree-image.png)',
+                            backdrop: `
+            rgba(0,0,123,0.4)
+            url("/assets/images/nyannn.gif")
+            left top
+            no-repeat
+          `
+
+                            , html: 'I will close in <b></b> milliseconds.',
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.showLoading()
+                                const b = Swal.getHtmlContainer().querySelector('b')
+                                timerInterval = setInterval(() => {
+                                    b.textContent = Swal.getTimerLeft()
+                                }, 100)
+                            },
+                            willClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                        }).then((result) => {
+
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                console.log('I was closed by the timer')
+                            }
+                        })
+                        setTimeout(window.location.reload.bind(window.location), 2000);
+                    }
+                    else {
+                        fetch(url).then(res => res.text()).then(data => {
+                            $(".blog-comments").empty()
+                            $(".blog-comments").append(data)
+                            $("#reply-message").val('');
+
+                            fetch(`${base}/comment/blogcountpartial?blogid=${blogid}`).then(res => res.json()).then(data => {
+                                $(".blog-comment-count").empty();
+                                $(".blog-comment-count").append(`${data} COMMENTS`)
+                            })
+
+
+                        })
+                    }
+
+
+
+                }
+
+
+
+
+            })
+
+
+        })
+    </script>
+}

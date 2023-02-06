@@ -1,0 +1,41 @@
+﻿@model AboutUs
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container">
+
+    <table class="mt-3 table table-dark">
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+               
+
+                <th>
+                    Settings
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Model.Id
+                </td>
+               
+
+                <td>
+                    <a asp-controller="aboutus" asp-action="edit" asp-route-id="@Model.Id" class="btn btn-warning btn-icon-text">
+                        <i class="mdi mdi-file-check btn-icon-append"></i>
+                        Edit
+                    </a>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+

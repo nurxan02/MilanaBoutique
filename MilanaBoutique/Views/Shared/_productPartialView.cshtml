@@ -1,0 +1,111 @@
+﻿@model ShopVM
+@foreach (var item in Model.ProductColors)
+{
+    <div  class="col-6 col-md-4 col-lg-4 productClass">
+        <div class="product product-7 text-center">
+            <figure class="product-media">
+                @if (item.Product.CreatedDate.AddDays(3) >= DateTime.Now)
+                {
+                    <span class="product-label label-new">New</span>
+                }
+                <a class="until" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">
+                    <img style="height:353px ;object-fit:cover" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).MainImage" alt="Product image" class="product-image product-main">
+                </a>
+
+                <div class="product-action-vertical">
+                    <a asp-controller="wishlist" asp-action="SetWishlist" asp-route-id="@item.Id" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                    <a class="btn-product-icon btn-quickview " title="Quick view" data-target="#productModal" data-toggle="modal" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">
+                        <span>Quick view</span>
+                    </a>
+                    <input hidden value="@item.Product.Gender.Name" />
+                    <input  hidden value="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id" />
+
+                </div>
+
+              
+
+            </figure>
+
+            <div class="product-body">
+
+                <h3 class="product-title"><a asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId==item.ColorId).Id">@item.Product.Name</a></h3>
+                <div class="product-price">
+
+                    @if (item.Product.Discount != null && item.Product.Discount != 0)
+                    {
+                        <span class="new-price" style="color:orangered">@((item.Product.Price - (item.Product.Price * item.Product.Discount / 100) ) ) $ </span> <span class="old-price" style="text-decoration:line-through">was @item.Product.Price$</span>
+
+                    }
+                    else
+                    {
+                        <span style="color: #e64747">@item.Product.Price $</span>
+                    }
+                </div>
+
+
+                <div class="ratings-container">
+                    <div class="rating">
+
+                        @if (item.Product.Rating != null && item.Product.Comments.Count != 0)
+                        {
+                            @for (int i = 0; i < Math.Ceiling((decimal)item.Product.Rating / item.Product.Comments.Where(c => c.Star != 0).Count()); i++)
+                            {
+                                <i style="color:#c94" class="fa-solid fa-star"></i>
+
+                            }
+                            @for (int i = 0; i < (5 - Math.Ceiling((decimal)item.Product.Rating / item.Product.Comments.Where(c=>c.Star != 0).Count())); i++)
+                            {
+                                <i class="fa-solid fa-star"></i>
+
+                            }
+
+                        }
+                        else
+                        {
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+
+                            <i class="fa-solid fa-star"></i>
+
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+
+
+                        }
+
+
+                    </div>
+                    <span class="ratings-text">( @item.Product.Comments.Where(c=>c.IsAccepted==true).Count() Reviews )</span>
+                </div>
+                
+                @*<div class="product-size">
+                  
+                    @foreach (var prodForSize in Model.ProductSizeColors.Where(p => p.ProductId == item.ProductId && p.ColorId == item.ColorId))
+                    {
+                        <a href="#"  class="@(prodForSize.TotalStock < 5 ? "disabled" : "") sizeClick"    >@prodForSize.Size.Name</a>
+                    }
+                  
+                </div>*@
+                <div class="product-nav product-nav-thumbs">
+                    <a style="height:52px;width:40px" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).Id" class="active product-notMain">
+                        <img class="nmSrc" style="height:52px;width:40px" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == item.ProductId && p.ColorId == item.ColorId).MainImage" alt="product desc">
+                    </a>
+
+
+
+                    @foreach (var prd in Model.ProductColors2.Where(p => p.ProductId == item.ProductId && p.ColorId != item.ColorId))
+                    {
+
+
+                        <a style="height:52px;width:40px" asp-controller="@item.Product.Category.Gender.Name" asp-action="details" asp-route-id="@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId==prd.ColorId).Id" class="product-notMain">
+                            <img class="nmSrc" style="height:52px;width:40px" src="~/assets/images/products/@item.Product.ProductSizeColors.FirstOrDefault(p=>p.ProductId == prd.ProductId && p.ColorId == prd.ColorId).MainImage" alt="product desc">
+
+                        </a>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

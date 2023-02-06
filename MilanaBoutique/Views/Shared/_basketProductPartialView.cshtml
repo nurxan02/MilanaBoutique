@@ -1,0 +1,30 @@
+﻿@inject MilanaBoutique.Services.LayoutService layoutService
+
+@foreach (var item in layoutService.ShowBasket().Result.BasketItems)
+{
+    <div class="product">
+        <div class="product-cart-details">
+            <h4 class="product-title">
+                <a asp-controller="@item.ProductSizeColor.Product.Gender.Name" asp-action="details" asp-route-id="@item.ProductSizeColor.Id"> @item.ProductSizeColor.Product.Name </a>
+            </h4>
+
+            <span class="cart-product-info">
+                <span class="cart-product-qty">@item.Count</span>
+            
+                x $@item.Price
+            </span><br />
+
+            <span class="cart-product-info">
+                Size : @item.ProductSizeColor.Size.Name
+            </span>
+        </div>
+
+        <figure class="product-image-container">
+            <a asp-controller="@item.ProductSizeColor.Product.Gender.Name" asp-action="details" asp-route-id="@item.ProductSizeColor.Id" class="product-image">
+                <img style="width:55px;height:60px !important;object-fit:cover" src="~/assets/images/products/@item.ProductSizeColor.MainImage" alt="product">
+            </a>
+        </figure>
+        <a asp-controller="basket" asp-action="Remove" asp-route-id="@item.ProductSizeColor.Id"  class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+        <input hidden class="hiddenProdId" value="@item.ProductSizeColor.Id" />
+    </div>
+}

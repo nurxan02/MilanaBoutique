@@ -1,0 +1,140 @@
+﻿@model List<Questions>
+
+<div class="container">
+
+    <div class="mt-2 d-flex" style="justify-content:flex-end">
+
+    </div>
+
+
+    <table class="table table-dark mt-3">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Message</th>
+
+                <th scope="col">Is Access</th>
+
+                <th scope="col">Settings</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Questions question in Model)
+            {
+                <tr>
+                    <td>@question.Id</td>
+
+                    <td>@question.Name</td>
+                    <td>@question.Mail</td>
+                    <td>@question.Message</td>
+                    @*<td>@System.Web.Security</td>*@
+
+                    <td>@question.IsAcces</td>
+
+
+
+
+                    <td>
+                        @if (!question.IsAcces == true)
+                        {
+                            <a asp-controller="contact" asp-action="questionstatus" asp-route-id="@question.Id" class="btn btn-success-soft btn-icon-text status">
+                                <i class="mdi mdi-file-check btn-icon-append"></i>
+                                Add to testimonial
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-controller="contact" asp-action="questionstatus" asp-route-id="@question.Id" class="btn btn-warning-soft btn-icon-text status">
+                                <i class="mdi mdi-file-check btn-icon-append"></i>
+                                Remove from testimonial
+                            </a>
+                        }
+
+                        <a asp-controller="contact" asp-action="deletequestion" asp-route-id="@question.Id" class="btn btn-danger btn-icon-text delete-btn ">
+                            <i class="mdi mdi-file-check btn-icon-append"></i>
+                            Delete question
+                        </a>
+
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+    <div class="row justify-content-center mt-4">
+        <nav aria-label="...">
+            <ul class="pagination" style="justify-content:center">
+
+                <li class="page-item @(ViewBag.Currentpage == 1 ? "disabled" : "")">
+                    <a class="page-link" asp-controller="contact" asp-action="questions" asp-route-page="@(ViewBag.CurrentPage-1)">Previous</a>
+                </li>
+
+                @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                {
+                    <li class="page-item  @(ViewBag.CurrentPage == i ? "active" : "")" style="pointer-events: @(ViewBag.CurrentPage == i ? "none" : "")"><a class="page-link" asp-controller="contact" asp-action="questions" asp-route-page="@i">@i</a></li>
+                }
+
+                <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPage ? "disabled" : "")">
+                    <a class="page-link" asp-controller="contact" asp-action="questions" asp-route-page="@(ViewBag.CurrentPage +1)">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $(document).ready(function () {
+        $(document).on("click", ".status", function (e) {
+            e.preventDefault();
+            var base = window.location.origin;
+            var href = $(this).attr("href");
+
+            var url = `${base}${href}`
+            console.log(url);
+            fetch(url).then(res => res.json()).then(data => {
+                location.reload(true);
+            })
+        })
+    })
+</script>
+    <script>
+        $(".delete-btn").click(function (e) {
+            e.preventDefault()
+            console.log($(this).attr("href"))
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var link = $(this).attr("href");
+                    fetch(link).then(response => response.json()).then(data => {
+                        if (data.status == 200) {
+                            location.reload(true)
+                        } else {
+                            Swal.fire(
+                                'Not found!',
+                                'Your file can not be deleted.',
+                                'Failed'
+                            )
+                        }
+                    }
+                    );
+                }
+            })
+        })
+    </script>
+}
+

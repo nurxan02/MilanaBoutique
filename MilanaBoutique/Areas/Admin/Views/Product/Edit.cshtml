@@ -1,0 +1,198 @@
+﻿@model Product
+
+
+
+<div class="container mt-3">
+    <h1 class="text text-success">Create product</h1>
+    <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
+    <form method="post" class="mt-2" enctype="multipart/form-data">
+
+        <div class="mb-2">
+            <label asp-for="@Model.Name" class="form-label">Name</label>
+            <input asp-for="@Model.Name" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.Name"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.Price" class="form-label">Price</label>
+            <input asp-for="@Model.Price" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.Price"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.Description" class="form-label">Description</label>
+            <input asp-for="@Model.Description" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.Description"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.Discount" class="form-label">Discount</label>
+            <input asp-for="@Model.Discount" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.Discount"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.Subtitle" class="form-label">Subtitle</label>
+            <input asp-for="@Model.Subtitle" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.Subtitle"></span>
+        </div>
+       
+
+        <div class="mb-2">
+            <label asp-for="@Model.GenderId" class="form-label">Gender:</label>
+            <select id="genderId" asp-for="@Model.GenderId" class="form-select" asp-items="@(new SelectList(ViewBag.Genders,"Id","Name"))">
+                <option value="0">Select gender</option>
+
+            </select>
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.GenderId"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.CategoryId" class="form-label">Category</label><br />
+            <select id="categoryId" asp-for="@Model.CategoryId" class="form-select">
+                <option value="0">Select category</option>
+                @foreach (var item in ViewBag.Categories)
+                {
+                    <option value=@item.Id>@item.Gender.Name - @item.Name </option>
+                    <option class="hiddenCategoryGender" hidden value="@item.GenderId"></option>
+                }
+            </select>
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.CategoryId"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.SubCategoryId" class="form-label">Subcategory</label><br />
+            <select id="subcatSelect" asp-for="@Model.SubCategoryId" class="form-select">
+                <option value="0">Select subcategory</option>
+                @foreach (var item in ViewBag.Subcategories)
+                {
+                    <option value=@item.Id>@item.Category.Gender.Name - @item.Name </option>
+                    <option hidden value="@item.CategoryId" class="hiddenCategoryId"></option>
+                }
+            </select>
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.SubCategoryId"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.BrandId" class="form-label">Brand</label><br />
+            <select asp-for="@Model.BrandId" class="form-select">
+                <option value="0">Select brand</option>
+                @foreach (var item in ViewBag.Brands)
+                {
+                    <option value=@item.Id> @item.Name </option>
+                }
+            </select>
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.BrandId"></span>
+        </div>
+
+        @*<div class="mb-2">
+                <label asp-for="@Model.ColorId" class="form-label">Color</label><br />
+                <select asp-for="@Model.ColorId" class="form-select">
+                    <option value="0">Select color</option>
+                    @foreach (var item in ViewBag.Colors)
+                    {
+                        <option value=@item.Id> @item.Name </option>
+                    }
+                </select>
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.ColorId"></span>
+            </div>*@
+        @*<div class="mb-2">
+                <label asp-for="@Model.SizeId" class="form-label">Size</label><br />
+                <select asp-for="@Model.SizeId" class="form-select">
+                    <option value="0">Select size</option>
+                    @foreach (var item in ViewBag.Sizes)
+                    {
+                        <option value=@item.Id> @item.Name </option>
+                    }
+                </select>
+                <span class="mt-2 text text-danger" asp-validation-for="@Model.SizeId"></span>
+            </div>*@
+
+
+
+      
+
+
+
+
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function () {
+            let inputs = $("#categoryId").children();
+            let subInputs = $("#subcatSelect").children();
+
+            let startValue = $("#genderId").val();
+            let startCat = $("#categoryId").val();
+            console.log(startValue)
+
+            let hiddenInputs = $(inputs).filter(".hiddenCategoryGender")
+            let filteredInputs = hiddenInputs.toArray().filter(x => $(x).val() != startValue)
+            let backUpInputs = hiddenInputs.toArray().filter(x => $(x).val() == startValue)
+            for (var i = 0; i < 100; i++) {
+                let filtered = filteredInputs[i]
+                let removable = $(filtered).prev();
+                let backuped = backUpInputs[i]
+                let back = $(backuped).prev();
+                $(removable).hide();
+                $(back).show();
+            }
+
+            let chiddenInputs = $(subInputs).filter(".hiddenCategoryId");
+            let cfilteredInputs = chiddenInputs.toArray().filter(x => $(x).val() != startCat)
+            let cbackupInputs = chiddenInputs.toArray().filter(x => $(x).val() == startCat)
+
+            for (var i = 0; i < 100; i++) {
+                let cfiltered = cfilteredInputs[i];
+                let cremovable = $(cfiltered).prev();
+                let cbackups = cbackupInputs[i]
+                let cbackUped = $(cbackups).prev();
+                $(cremovable).hide();
+                $(cbackUped).show();
+            }
+            $("#genderId").change(function () {
+                let genderValue = $(this).val()
+                let hiddenInputs = $(inputs).filter(".hiddenCategoryGender")
+                let filteredInputs = hiddenInputs.toArray().filter(x => $(x).val() != genderValue)
+                let backUpInputs = hiddenInputs.toArray().filter(x => $(x).val() == genderValue)
+                for (var i = 0; i < 100; i++) {
+                    let filtered = filteredInputs[i]
+                    let removable = $(filtered).prev();
+                    let backuped = backUpInputs[i]
+                    let back = $(backuped).prev();
+                    $(removable).hide();
+                    $(back).show();
+                    }
+            })
+
+            $("#categoryId").change(function () {
+
+                let categoryValue = $(this).val();
+                let chiddenInputs = $(subInputs).filter(".hiddenCategoryId");
+                let cfilteredInputs = chiddenInputs.toArray().filter(x => $(x).val() != categoryValue)
+                let cbackupInputs = chiddenInputs.toArray().filter(x => $(x).val() == categoryValue)
+
+                for (var i = 0; i < 100; i++) {
+                    let cfiltered = cfilteredInputs[i];
+                    let cremovable = $(cfiltered).prev();
+                    let cbackups = cbackupInputs[i]
+                    let cbackUped = $(cbackups).prev();
+                    $(cremovable).hide();
+                    $(cbackUped).show();
+                }
+
+            })
+
+
+
+
+
+
+        })
+    </script>
+}
+
+
+
+

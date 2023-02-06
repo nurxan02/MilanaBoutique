@@ -1,0 +1,227 @@
+﻿@model UserEditVM
+@{ 
+    var cnt = 0;
+}
+<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+    <div class="container">
+        <h1 class="page-title">My Account</h1>
+    </div>
+</div>
+
+
+<div class="page-content">
+    <div class="dashboard">
+        <div class="container">
+            <div class="row">
+                <aside class="col-md-4 col-lg-3">
+                    <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+
+                        <li class="nav-item">
+                            <a class="nav-link active" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Account Details</a>
+                        </li>
+                       
+                        <li class="nav-item">
+                            <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="account" asp-action="logout">Sign Out</a>
+                        </li>
+                    </ul>
+                </aside>
+
+                <div class="col-md-8 col-lg-9">
+                    <div class="tab-content">
+                        
+
+                        <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+                            @if (Model.Order.Count == 0)
+                            {
+
+
+                                <p>No order has been made yet.</p>
+
+                            }
+                            else
+                            {
+                                @foreach (var item in Model.Order)
+                                {
+                                    {
+                                        cnt += 1;
+                                    }
+
+                        <div>
+                            <div class="accordion accordion-icon" id="@cnt">
+
+
+                                <div class="card">
+                                    <div class="card-header" id="heading3-2">
+                                        <h2 class="card-title">
+                                            @if (item.StatusId == 1)
+                                            {
+                                                <a class="collapsed" style="color:orange !important" role="button" data-toggle="collapse" href="#collapse3-2" aria-expanded="false" aria-controls="collapse3-2">
+                                                    <i class="icon-info-circle"></i> Date : @item.Date.ToString("dd MMMM yyyy")      Status : @item.Status.Name
+
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                if (item.StatusId == 2)
+                                                {
+                                                    <a class="collapsed" role="button" style="color:green !important" data-toggle="collapse" href="#collapse3-2" aria-expanded="false" aria-controls="collapse3-2">
+                                                        <i class="icon-info-circle"></i> Date : @item.Date.ToString("dd MMMM yyyy")      Status : @item.Status.Name
+
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    if (item.StatusId == 3)
+                                                    {
+                                                        <a class="collapsed" role="button" style="color:darkred !important" data-toggle="collapse" href="#collapse3-2" aria-expanded="false" aria-controls="collapse3-2">
+                                                            <i class="icon-info-circle"></i> Date : @item.Date.ToString("dd MMMM yyyy")      Status : @item.Status.Name
+
+                                                        </a>
+                                                    }
+                                                }
+                                            }
+
+
+
+                                        </h2>
+                                    </div>
+                                    <div id="collapse3-2" class="collapse" aria-labelledby="heading3-2" data-parent="#@cnt">
+                                        @foreach (var orderitem in item.OrderItems)
+                                        {
+
+                                            <div style="display:flex;justify-content:space-between;align-items:center" class="card-body">
+                                                <a asp-controller="@orderitem.ProductSizeColor.Product.Gender.Name" asp-action="details" asp-route-id="@orderitem.ProductSizeColor.Id">
+
+
+                                                    <img src="~/assets/images/products/@orderitem.ProductSizeColor.MainImage" style="width:60px;height:60px;object-fit:cover" />
+
+
+
+
+                                                </a>
+                                                <p style="margin:0 !important">Count : @orderitem.Count</p>
+                                                <p style="margin:0 !important">Size : @orderitem.ProductSizeColor.Size.Name</p>
+
+                                                <p style="margin:0 !important">Color : @orderitem.ProductSizeColor.Color.Name</p>
+
+
+                                            </div>
+
+
+
+                                        }
+                                        @if (item.MessageToUser != null)
+                                        {
+                                            <h3>Note for customer:</h3>
+                                            <p>@item.MessageToUser</p>
+                                        }
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                       
+                        </div>
+                                }
+
+                            }
+                        </div>
+
+
+
+
+
+                        <div class="tab-pane fade show active" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+                            <div style="color:red;background-color:white" asp-validation-summary="ModelOnly"></div>
+
+                            <form method="post">
+
+                                <label>Username *</label>
+                                <input asp-for="Username" class="form-control">
+                                <span asp-validation-for="Username" class="text text-danger"></span>
+
+
+
+                                <label>First name *</label>
+                                <input asp-for="Firstname" class="form-control">
+                                <span asp-validation-for="Firstname" class="text text-danger"></span>
+
+
+                                <label>Last name *</label>
+                                <input asp-for="Surname" class="form-control">
+                                <span asp-validation-for="Surname" class="text text-danger"></span>
+
+
+                                <label>Email address *</label>
+                                <input asp-for="Email" class="form-control">
+                                <span asp-validation-for="Email" class="text text-danger"></span>
+
+
+                                <label>Country</label>
+                                <input asp-for="Country" class="form-control mb-2">
+                                <span asp-validation-for="Country" class="text text-danger"></span>
+
+
+                                <label>City</label>
+                                <input asp-for="City" class="form-control mb-2">
+                                <span asp-validation-for="City" class="text text-danger"></span>
+
+                                <label>Zip</label>
+                                <input asp-for="Zip" class="form-control mb-2">
+                                <span asp-validation-for="Zip" class="text text-danger"></span>
+
+                                <label>Adress</label>
+                                <input asp-for="Address" class="form-control mb-2">
+                                <span asp-validation-for="Address" class="text text-danger"></span>
+
+                                <label>Phone</label>
+                                <input asp-for="Phone" class="form-control mb-2">
+                                <span asp-validation-for="Phone" class="text text-danger"></span>
+
+
+                                <label>Current password (leave blank to leave unchanged)</label>
+                                <input asp-for="CurrentPassword" class="form-control">
+                                <span asp-validation-for="CurrentPassword" class="text text-danger"></span>
+
+
+                                <label>New password (leave blank to leave unchanged)</label>
+                                <input asp-for="Password" class="form-control">
+                                <span asp-validation-for="Password" class="text text-danger"></span>
+
+
+                                <label>Confirm new password</label>
+                                <input asp-for="ConfirmPassword" class="form-control mb-2">
+                                <span asp-validation-for="ConfirmPassword" class="text text-danger"></span>
+
+
+                                <button type="submit" class="btn btn-outline-primary-2">
+                                    <span>SAVE CHANGES</span>
+                                    <i class="icon-long-arrow-right"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+<script>
+    $(document).ready(function () {
+        $(".accordion").click(function (e) {
+            console.log("salam")
+            $(this).children().children().last().slideToggle();
+            $(".collapse").not($(this).children().children().last()).slideUp()
+        })
+    })
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+}

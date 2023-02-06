@@ -1,0 +1,43 @@
+﻿@model Category
+
+
+<div class="container mt-3">
+    <h1 class="text text-success">Create category</h1>
+    <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
+    <form method="post" class="mt-2" enctype="multipart/form-data">
+        <div class="mb-2">
+            <label asp-for="@Model.ImageFile" class="form-label">Category image</label>
+            <input asp-for="@Model.ImageFile" accept="image/*" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.ImageFile"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.SizeGuideFile" class="form-label">Size guide image</label>
+            <input asp-for="@Model.SizeGuideFile" accept="image/*" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.SizeGuideFile"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.Name" class="form-label">Name</label>
+            <input asp-for="@Model.Name" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.Name"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.GenderId" class="form-label">Gender:</label>
+            <select asp-for="@Model.GenderId" class="form-select" asp-items="@(new SelectList(ViewBag.Genders,"Id","Name"))">
+                <option value="0">Select gender</option>
+            </select>
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.GenderId"></span>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+}
+
+
+
+

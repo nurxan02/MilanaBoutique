@@ -1,0 +1,103 @@
+﻿@model Contact
+
+
+<div class="container mt-3">
+    <h1 class="text text-success">Edit contact</h1>
+    <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
+
+    <div>
+        <h1>Current banner image :</h1>
+        <img style="width:120px;height:90px" src="~/assets/images/@Model.BannerImage" />
+        @*<img style="width:120px;height:90px" src="~/assets/images/contact-header-bg.jpg" />*@
+
+    </div>
+    <form method="post" class="mt-2" enctype="multipart/form-data">
+
+
+
+        <div class="mb-2">
+            <label asp-for="@Model.BannerFile" class="form-label">Banner image</label>
+            <input asp-for="@Model.BannerFile" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.BannerFile"></span>
+        </div>
+
+
+        <div class="mb-2">
+            <label asp-for="@Model.BannerTitle" class="form-label">Banner title</label>
+            <input asp-for="@Model.BannerTitle" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.BannerTitle"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.BannerDesc" class="form-label">Banner description</label>
+            <input asp-for="@Model.BannerDesc" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.BannerDesc"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.Phone" class="form-label">Phone</label>
+            <input asp-for="@Model.Phone" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.Phone"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.ContactInformation" class="form-label">Contact info</label>
+            <input asp-for="@Model.ContactInformation" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.ContactInformation"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.OfficeLocation" class="form-label">Office location</label>
+            <input asp-for="@Model.OfficeLocation" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.OfficeLocation"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.LocationIcon" class="form-label">LocationIcon</label>
+            <input asp-for="@Model.LocationIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.LocationIcon"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.Phone" class="form-label">Phone</label>
+            <input asp-for="@Model.Phone" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.Phone"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.PhoneIcon" class="form-label">PhoneIcon</label>
+            <input asp-for="@Model.PhoneIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.PhoneIcon"></span>
+        </div>    <div class="mb-2">
+            <label asp-for="@Model.Mail" class="form-label">Mail</label>
+            <input asp-for="@Model.Mail" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.Mail"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.MailIcon" class="form-label">MailIcon</label>
+            <input asp-for="@Model.MailIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.MailIcon"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.OpenTime" class="form-label">OpenTime</label>
+            <input asp-for="@Model.OpenTime" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.OpenTime"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="@Model.CloseTime" class="form-label">CloseTime</label>
+            <input asp-for="@Model.CloseTime" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.CloseTime"></span>
+        </div>
+      
+        <div class="mb-2">
+            <label asp-for="@Model.OclockIcon" class="form-label">OclockIcon</label>
+            <input asp-for="@Model.OclockIcon" class="form-control">
+            <span class="mt-2 text text-danger" asp-validation-for="@Model.OclockIcon"></span>
+        </div>
+        
+
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+}
+
+

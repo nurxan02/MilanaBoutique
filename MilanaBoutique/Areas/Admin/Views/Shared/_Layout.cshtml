@@ -1,0 +1,339 @@
+﻿
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Bdtask">
+    <title>Milana Administration Panel</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="~/assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="~/assets/images/icons/site.html">
+    <link rel="mask-icon" href="~/assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="~/assets/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Milana">
+    <meta name="application-name" content="Milana">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="~/assets/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="shortcut icon" href="~/assets/images/video/c0d829f1-b57f-47c0-9e24-267fb45e595flogo.png">
+    <link href="~/admin/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/admin/assets/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="~/admin/assets/plugins/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="~/admin/assets/plugins/typicons/src/typicons.min.css" rel="stylesheet">
+    <link href="~/admin/assets/plugins/themify-icons/themify-icons.min.css" rel="stylesheet">
+    <link href="~/admin/assets/plugins/morris/morris.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="~/admin/assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    @RenderSection("Styles", false)
+    <link href="~/admin/assets/dist/css/style.css" rel="stylesheet">
+</head>
+<body class="fixed">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav class="sidebar sidebar-bunker" style="background-color: #362000;">
+            <div class="sidebar-header">
+                <!--<a href="index.html" class="logo"><span>bd</span>task</a>-->
+                <a asp-action="index" class="logo"><img style="width:170px;height:170px" src="~/assets/images/nurkhannet.png" alt=""></a>
+            </div><!--/.sidebar header-->
+            <div class="profile-element d-flex align-items-center flex-shrink-0">
+
+                <div class="profile-text" style="border:1px solid white; border-radius:10px; padding:20px;">
+                    <h6 class="m-0">@User.Identity.Name</h6>
+                 
+                </div>
+            </div>
+         
+            <div class="sidebar-body">
+                <nav class="sidebar-nav">
+                    <ul class="metismenu">
+                        <li class="nav-label">Main Menu</li>
+                        <li>
+                            <a class="material-ripple" asp-controller="dashboard" asp-action="index">
+                                <i class="typcn typcn-home-outline mr-2"></i>
+                                Dashboard
+                            </a>
+
+                        </li>
+
+
+                        <li><a asp-controller="slider" asp-action="index"><i class="typcn typcn-messages mr-2"></i> Slider</a></li>
+
+
+
+
+                        <li>
+                            <a href="#" class="has-arrow">
+                                <i class="typcn typcn-chart-pie-outline mr-2 "></i>
+                                Categories
+                            </a>
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a asp-controller="subcategory" asp-action="index">
+                                        <i class="typcn typcn-chart-pie-outline mr-2"></i>
+                                        Subcategory
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="category" asp-action="index">
+                                        <i class="typcn typcn-chart-pie-outline mr-2"></i>
+                                        Category
+                                    </a>
+                                </li>
+                            </ul>
+
+
+                        </li>
+
+                        <li>
+                            <a asp-controller="order" asp-action="index">
+                                <i class="typcn typcn-clipboard mr-2"></i>
+                                Orders
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="product" asp-action="index">
+                                <i class="typcn typcn-chart-bar mr-2"></i>
+                                Products
+                            </a>
+
+                        </li>
+                        <li>
+                            <a asp-controller="brand" asp-action="index">
+                                <i class="typcn typcn-calendar-outline mr-2"></i>
+                                Brands
+                            </a>
+                        </li>
+
+                        <li><a asp-controller="settings" asp-action="index"><i class="typcn typcn-support mr-2"></i>Settings</a></li>
+                        <li><a asp-controller="subscriber" asp-action="index"><i class="typcn typcn-mail mr-2"></i>Subscribers</a></li>
+                        <li>
+                            <a href="#" class="has-arrow">
+                                <i class="typcn typcn-chart-pie-outline mr-2 "></i>
+                                Contact-Store
+                            </a>
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a asp-controller="contact" asp-action="index">
+                                        <i class="typcn typcn-chart-pie-outline mr-2"></i>
+                                        Contact
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="contact" asp-action="stores">
+                                        <i class="typcn typcn-chart-pie-outline mr-2"></i>
+                                        Stores
+                                    </a>
+                                    <a asp-controller="contact" asp-action="questions">
+                                        <i class="typcn typcn-chart-pie-outline mr-2"></i>
+                                        Questions
+                                    </a>
+                                </li>
+                            </ul>
+
+
+                        </li>
+                        <li><a asp-controller="account" asp-action="userlist"><i class="typcn typcn-user-add-outline mr-2"></i>Users</a></li>
+                        <li>
+                            <a asp-controller="blog" asp-action="index">
+                                <i class="fa fa-blog mr-2"></i>
+                                Blogs
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="aboutus" asp-action="index">
+                                <i class="fa fa-info mr-2"></i>
+                                About us
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="aboutus" asp-action="members">
+                                <i class="fa fa-user-friends mr-2"></i>
+                                Team members
+                            </a>
+                        </li>
+                      
+</nav>
+            </div><!-- sidebar-body -->
+        </nav>
+        <!-- Page Content  -->
+        <div class="content-wrapper">
+            <div class="main-content">
+                <nav class="navbar-custom-menu navbar navbar-expand-lg m-0">
+                    <div class="bi bi-database" style="font-size: 40px; color: #362000;" id="sidebarCollapse">
+                       <span></span>
+                    </div><!--/.sidebar toggle icon-->
+                    <div class="d-flex flex-grow-1">
+                        <ul class="navbar-nav flex-row align-items-center ml-auto">
+                            <li class="nav-item dropdown quick-actions">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                                    <i class="typcn typcn-th-large-outline"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="nav-grid-row row">
+                                      
+                                        <a asp-controller="account" asp-action="userlist" class="icon-menu-item col-4">
+                                            <i class="typcn typcn-group-outline d-block"></i>
+                                            <span>Users</span>
+                                        </a>
+                                        
+                                        <a asp-controller="dashboard" asp-action="index" class="icon-menu-item col-4">
+                                            <i class="typcn typcn-chart-bar-outline d-block"></i>
+                                            <span>Profits</span>
+                                        </a>
+                                        
+                                    </div>
+                                </div>
+                            </li><!--/.dropdown-->
+
+                            <li class="nav-item dropdown notification">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                                    <i class="typcn typcn-bell"></i>
+                                    <div style=" width:25px;background-color:red;border-radius: 50%; position: absolute; top: 0px; right: 0px; transform: scale(0.7);">
+                                        <span class="pendingLive" style="color:white">5</span>
+
+                                    </div>
+
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <h6 class="notification-title">Notifications</h6>
+                                    <p class="notification-text">You have 2 unread notification</p>
+                                    <div class="notification-list">
+                                        
+                                       
+
+
+
+                                        @*!--/.media -->*@
+                                    </div><!--/.notification -->
+                                    <div class="dropdown-footer"><a asp-controller="order" asp-action="index">View All Notifications</a></div>
+                                </div><!--/.dropdown-menu -->
+                            </li><!--/.dropdown-->
+                            <li class="nav-item dropdown user-menu">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                                    <!--<img src="~/admin/assets/dist/img/user2-160x160.png" alt="">-->
+                                    <i class="typcn typcn-user-add-outline"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-header d-sm-none">
+                                        <a href="#" class="header-arrow"><i class="icon ion-md-arrow-back"></i></a>
+                                    </div>
+                                    <div class="user-header">
+
+                                        <h6>@User.Identity.Name</h6>
+                                        <span><a href="cdn-cgi/l/email-protection.html" class="__cf_email__" data-cfemail="caafb2aba7baa6af8aada7aba3a6e4a9a5a7">[email&#160;protected]</a></span>
+                                    </div><!-- user-header -->
+                                    @*<a href="#" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>*@
+                                    <a asp-controller="account" asp-action="edit" class="dropdown-item"><i class="typcn typcn-edit"></i> Edit Profile</a>
+                                    @*<a href="#" class="dropdown-item"><i class="typcn typcn-arrow-shuffle"></i> Activity Logs</a>*@
+                                    @*<a href="#" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account Settings</a>*@
+                                    <a asp-controller="account" asp-action="logout" class="dropdown-item"><i class="typcn typcn-key-outline"></i> Sign Out</a>
+                                </div><!--/.dropdown-menu -->
+                            </li>
+                        </ul><!--/.navbar nav-->
+                        <div class="nav-clock">
+                            <div class="time">
+                                <span class="time-hours"></span>
+                                <span class="time-min"></span>
+                                <span class="time-sec"></span>
+                            </div>
+                        </div><!-- nav-clock -->
+                    </div>
+                </nav><!--/.navbar-->
+                <!--Content Header (Page header)-->
+
+                <!--/.Content Header (Page header)-->
+                <div class="body-content">
+                    <div>
+
+                        <main>@RenderBody()</main>
+
+
+                    </div>
+                </div><!--/.body content-->
+            </div><!--/.main content-->
+            <footer class="footer-content">
+                <div class="footer-text d-flex align-items-center justify-content-between">
+                    <div class="copy">© 2023 NurkhanNet Administration</div>
+                    <div class="credit">Created by <a href="https://nurxanmasimzade.netlify.app">Nurkhannet</a></div>
+                </div>
+            </footer><!--/.footer content-->
+            <div class="overlay"></div>
+        </div><!--/.wrapper-->
+    </div>
+    <!--Global script(used by all pages)-->
+    @*<script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>*@
+
+    <script src="~/admin/assets/plugins/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="~/admin/assets/dist/js/popper.min.js"></script>
+    <script src="~/admin/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/admin/assets/plugins/metisMenu/metisMenu.min.js"></script>
+    <script src="~/admin/assets/plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <!-- Third Party Scripts(used by this page)-->
+    @*<script src="~/admin/assets/plugins/chartJs/Chart.min.js"></script>*@
+    <script src="~/admin/assets/plugins/sparkline/sparkline.min.js"></script>
+    <script src="~/admin/assets/plugins/datatables/dataTables.min.js"></script>
+    <script src="~/admin/assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!--Page Active Scripts(used by this page)-->
+    @*<script src="~/admin/assets/dist/js/pages/dashboard.js"></script>*@
+    <!--Page Scripts(used by all page)-->
+    <script src="~/admin/assets/dist/js/sidebar.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script>
+        $(document).ready(function (e) {
+            var base = window.location.origin;
+            var url = `${base}/admin/order/improving`
+            fetch(url).then(res => res.json()).then(data => {
+                console.log("improved successfully!")
+                if (data.status == 201) {
+                    $(".dailySellerDiv").html('<span style="color:white; font-size:20px;"><i class="bi bi-bag-x"></i> You do not have order for today!</span>')
+
+                }
+            })
+
+            
+
+            var pendingurl = `${base}/admin/order/pendingcount`
+            fetch(pendingurl).then(res => res.text()).then(data => {
+                $(".notification-text").empty();
+                $(".notification-text").append(`You have ${data} pending orders!`);
+                $(".pendingLive").empty();
+                $(".pendingLive").append(data)
+
+            })
+
+            var url = `${base}/admin/order/pendingpartial`
+            fetch(url).then(res => res.text()).then(data => {
+                $(".notification-list").empty();
+                $(".notification-list").append(data);
+            })
+        })
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+

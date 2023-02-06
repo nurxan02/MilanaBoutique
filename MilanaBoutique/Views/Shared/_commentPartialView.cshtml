@@ -1,0 +1,37 @@
+﻿@model ShopVM
+@foreach (var item in Model.Comments.OrderByDescending(p=>p.CreatedTime).Where(c=>c.IsAccepted == true))
+{
+    <div class="review">
+        <div class="row no-gutters">
+            <div class="col-auto">
+                <h4><a href="#">@item.AppUser.Firstname @item.AppUser.Surname</a></h4>
+
+                <div class="rating">
+                    
+                    @for (int i = 0; i < item.Star; i++)
+                    {
+                        <i style="color:#c94" class="fa-solid fa-star"></i>
+
+                    }
+                    @for (int i = 0; i < (5 - item.Star); i++)
+                    {
+                        <i class="fa-solid fa-star"></i>
+                        
+                    }
+
+                </div>
+                <span class="review-date">@item.CreatedTime.ToString("MM dd yyyy")</span>
+            </div>
+            <div class="col">
+                <h4>@item.Subject</h4>
+
+                <div class="review-content">
+                    <p>@item.Message</p>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+}

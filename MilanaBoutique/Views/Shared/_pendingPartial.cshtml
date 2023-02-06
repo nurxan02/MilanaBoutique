@@ -1,0 +1,16 @@
+﻿@model List<Order>
+
+@foreach (var item in Model)
+{
+    <div class="media">
+        @*<div class="img-user"><img src="~/assets/dist/img/avatar3.png" alt=""></div>*@
+        <a asp-controller="order" asp-action="edit" asp-route-id="@item.Id"> 
+            <div class="media-body">
+                <h6><strong>@item.AppUser.UserName</strong> just ordered</h6>
+                <span>@item.Date.ToString("dd MMMM HH:mm")</span>
+                
+            </div>
+        </a>
+       
+    </div>
+}
