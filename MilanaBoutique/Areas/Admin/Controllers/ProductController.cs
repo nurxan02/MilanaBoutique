@@ -1,8 +1,6 @@
 ﻿using MilanaBoutique.DAL;
 using MilanaBoutique.Extensions;
-using MilanaBoutique.Helpers;
 using MilanaBoutique.Models;
-using MilanaBoutique.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
