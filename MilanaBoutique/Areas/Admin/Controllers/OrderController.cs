@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MilanaBoutique.DAL;
-using MilanaBoutique.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MilanaBoutique.DAL;
+using MilanaBoutique.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MilanaBoutique.Areas.Admin.Controllers
 {

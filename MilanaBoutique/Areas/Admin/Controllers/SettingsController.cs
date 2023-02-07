@@ -1,18 +1,15 @@
-﻿using MilanaBoutique.DAL;
-using MilanaBoutique.Models;
-using MilanaBoutique.Extensions;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+using MilanaBoutique.DAL;
+using MilanaBoutique.Extensions;
+using MilanaBoutique.Models;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MilanaBoutique.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin,SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class SettingsController : Controller
     {
         private readonly AppDbContext _context;

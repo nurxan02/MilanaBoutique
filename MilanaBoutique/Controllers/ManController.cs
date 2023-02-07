@@ -1,13 +1,10 @@
-﻿using MilanaBoutique.DAL;
-using MilanaBoutique.Models;
-using MilanaBoutique.ViewModels;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using MilanaBoutique.Services;
+using MilanaBoutique.DAL;
+using MilanaBoutique.Models;
+using MilanaBoutique.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 

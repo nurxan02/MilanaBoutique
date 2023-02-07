@@ -1,9 +1,9 @@
-﻿using MilanaBoutique.DAL;
-using MilanaBoutique.Models;
-using MilanaBoutique.ViewModels;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MilanaBoutique.DAL;
+using MilanaBoutique.Models;
+using MilanaBoutique.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

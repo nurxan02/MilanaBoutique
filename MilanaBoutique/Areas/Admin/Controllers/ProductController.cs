@@ -1,10 +1,11 @@
-﻿using MilanaBoutique.DAL;
-using MilanaBoutique.Extensions;
-using MilanaBoutique.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MilanaBoutique.DAL;
+using MilanaBoutique.Extensions;
+using MilanaBoutique.Models;
+using MilanaBoutique.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -177,11 +178,7 @@ namespace MilanaBoutique.Controllers
                 ColorId = prodVM.ProductSizeColor.ColorId,
                 ProductId = prodVM.Product.Id
             };
-
-
-
             prodVM.Product.ProductColors.Add(productColor);
-           
             context.Products.Add(prodVM.Product);
             context.SaveChanges();
             string prodlink = $"https://localhost:44388/{prodVM.Product.Gender.Name}/Details/" + $"{productSizeColor.Id}";
@@ -189,10 +186,7 @@ namespace MilanaBoutique.Controllers
             MailMessage mail = new MailMessage();
             byte[] imageArray = System.IO.File.ReadAllBytes($"wwwroot/assets/images/products/{productSizeColor.MainImage}");
             string base64ImageRepresentation = Convert.ToBase64String(imageArray);
-
-
             string body = string.Empty;
-          
             using (StreamReader reader = new StreamReader("wwwroot/assets/template/NewProduct.html"))
             {
                 body = reader.ReadToEnd();

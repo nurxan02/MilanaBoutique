@@ -1,11 +1,8 @@
-﻿using MilanaBoutique.DAL;
-using MilanaBoutique.ViewModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+using MilanaBoutique.DAL;
+using MilanaBoutique.ViewModels;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MilanaBoutique.Controllers
 {

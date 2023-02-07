@@ -1,12 +1,11 @@
-﻿using MilanaBoutique.DAL;
-using MilanaBoutique.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MilanaBoutique.DAL;
+using MilanaBoutique.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MilanaBoutique.Areas.Admin
 {

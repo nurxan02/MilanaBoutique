@@ -1,5 +1,3 @@
-using System;
-
 namespace MilanaBoutique.Models
 {
     public class ErrorViewModel

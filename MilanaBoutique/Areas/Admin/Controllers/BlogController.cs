@@ -1,11 +1,11 @@
-﻿using MilanaBoutique.DAL;
-using MilanaBoutique.Extensions;
-using MilanaBoutique.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MilanaBoutique.DAL;
+using MilanaBoutique.Extensions;
+using MilanaBoutique.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +35,7 @@ namespace MilanaBoutique.Areas.Admin.Controllers
             return View(blogs);
         }
 
-        [Authorize(Roles ="SuperAdmin")]
+        [Authorize(Roles ="Admin,SuperAdmin")]
         public IActionResult Create()
         {
             ViewBag.Tags = _context.Tags.ToList();
