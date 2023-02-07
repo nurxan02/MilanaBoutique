@@ -368,18 +368,17 @@
                         newarr.push(`&brandvals=${brandvals[i]}`)
                     
                 }
-                //var url = `${base}/woman/testing?catvals=${newarr.join("")}&id=${catid}`
+               
                 brandfilters = newarr;
             })
 
             $(document).on("click", ".colorClick", function (e) {
-                //e.preventDefault();
-                //console.log("sa")
+                
                 e.preventDefault();
                 $(this).toggleClass("selected")
 
                 var colorid = $(this).next().val();
-                console.log(colorid)
+               
                 if ($(this).hasClass("selected")) {
                     colorvals.push(Number(colorid))
                 }
@@ -396,7 +395,7 @@
                     
                 }
                 colorfilters = newarr;
-                console.log(newarr);
+              
             })
 
             $(document).on("click", ".filterLink", function (e) {
@@ -433,7 +432,7 @@
                         $(".productClass").addClass("col-lg-6");
                         $(".productClass").removeClass("col-md-4");
                         $(".productClass").addClass("col-md-6");
-                        console.log("3col")
+                       
 
                         $(".product-main").css("height", "430px")
                     }
@@ -443,11 +442,11 @@
                         $(".productclass").removeClass("col-md-6");
                         $(".productclass").addClass("col-md-4");
                         $(".product-main").css("height", "353px")
-                        console.log("2col")
+                    
                     }
 
                     $(".product-notMain").click(function (e) {
-                        console.log("sa")
+                    
                         e.preventDefault();
                         var parent = $(this).closest(".product-body").prev().children(".until").children(".product-main")
                         var newHref = $(this).attr("href")
@@ -462,7 +461,7 @@
                     })
                 })
 
-                console.log(url);
+            
 
 
             })
@@ -485,7 +484,7 @@
 
 
             var idVal = $(".page-item").next().val();
-            console.log(idVal)
+           
 
 
             var base = window.location.origin;
@@ -527,7 +526,7 @@
 
 
                 var lnk = `${b}/woman/Sorting?catid=${catid}&sortval=${sortval}&page=${page}`
-                console.log(lnk)
+             
 
                 fetch(lnk).then(res => res.text()).then(data => {
                     $(".rowprods").empty();
@@ -542,7 +541,7 @@
                         $(".productClass").addClass("col-lg-6");
                         $(".productClass").removeClass("col-md-4");
                         $(".productClass").addClass("col-md-6");
-                        console.log("3col")
+                       
 
                         $(".product-main").css("height", "430px")
                     }
@@ -552,11 +551,11 @@
                         $(".productclass").removeClass("col-md-6");
                         $(".productclass").addClass("col-md-4");
                         $(".product-main").css("height", "353px")
-                        console.log("2col")
+                      
                     }
 
                     $(".product-notMain").click(function (e) {
-                        console.log("sa")
+                      
                         e.preventDefault();
                         var parent = $(this).closest(".product-body").prev().children(".until").children(".product-main")
                         var newHref = $(this).attr("href")
@@ -601,7 +600,7 @@
                         $(".productClass").addClass("col-lg-6");
                         $(".productClass").removeClass("col-md-4");
                         $(".productClass").addClass("col-md-6");
-                        console.log("3col")
+                       
 
                         $(".product-main").css("height", "430px")
                     }
@@ -611,11 +610,11 @@
                         $(".productclass").removeClass("col-md-6");
                         $(".productclass").addClass("col-md-4");
                         $(".product-main").css("height", "353px")
-                        console.log("2col")
+                     
                     }
 
                     $(".product-notMain").click(function (e) {
-                        console.log("sa")
+                     
                         e.preventDefault();
                         var parent = $(this).closest(".product-body").prev().children(".until").children(".product-main")
                         var newHref = $(this).attr("href")
@@ -650,7 +649,7 @@
 
 
             $(".product-notMain").click(function (e) {
-                console.log("sa")
+               
                 e.preventDefault();
                 var parent = $(this).closest(".product-body").prev().children(".until").children(".product-main")
                 var newHref = $(this).attr("href")

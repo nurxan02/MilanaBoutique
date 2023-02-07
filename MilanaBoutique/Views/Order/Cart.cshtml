@@ -106,7 +106,6 @@
     $(document).ready(function () {
         var base = window.location.origin;
 
-        console.log("cart ready")
 
 
         var partialurl = `${base}/Basket/CartPartial`
@@ -119,7 +118,7 @@
 
 
         fetch(partialurl).then(res => res.text()).then(data => {
-            console.log(data)
+           
 
             fetch(partialurl).then(res => res.text()).then(data => {
                 $(".forPartial").empty();
@@ -180,7 +179,7 @@
 
         $(document).on("click", ".quantityClick", function (e) {
 
-            console.log("hey")
+          
             $(".input-group-prepend").next().attr("readonly", "true")
 
         })
@@ -190,8 +189,8 @@
 
 
         $(document).on("change", ".quantityClick", function (e) {
-            //console.log(e.keyCode)
-            console.log("salam")
+           
+            
 
             var sizeId = $(this).next().next().val();
             var colorId = $(this).next().next().next().val();
@@ -266,7 +265,7 @@
                     $(".dropdown-cart-products").append(data);
 
                 })
-                //console.log(updatedPrice)
+               
                 $(".input-group-prepend").next().attr("readonly","true")
 
             })
@@ -281,7 +280,7 @@
             var linkk = $(this).parent().attr("href");
             var base = window.location.origin
             //var prodid = $(".hiddenProdId").val();
-            console.log(`${base}${linkk}`)
+           
             var comp = `${base}${linkk}`
 
             $(".quantityClick").attr("readonly")
@@ -294,7 +293,7 @@
 
 
             fetch(comp).then(res => res.text()).then(data => {
-                console.log(data)
+          
                 $(".quantityClick").attr("readonly")
 
 

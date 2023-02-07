@@ -513,7 +513,7 @@ $(document).ready(function () {
     
     //$(window).on('load scroll', function() {
     //    if ($(window).scrollTop() >= 400) {
-    //        console.log("reached")
+    //      
     //        $scrollTop.addClass('show');
     //    } else {
     //        $scrollTop.removeClass('show');

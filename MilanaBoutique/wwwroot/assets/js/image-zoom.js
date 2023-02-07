@@ -105,7 +105,6 @@ perfect for store products and galleries
     }
 
     let newElm;
-    console.log(this[0].nodeName);
 
     if (this[0].nodeName === "IMG") {
       newElm = $(this).replaceWith(String(imageObj.template));

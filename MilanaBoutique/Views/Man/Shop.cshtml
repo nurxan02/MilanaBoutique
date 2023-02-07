@@ -414,13 +414,12 @@
             })
 
             $(document).on("click", ".colorClick", function (e) {
-                //e.preventDefault();
-                //console.log("sa")
+
                 e.preventDefault();
                 $(this).toggleClass("selected")
 
                 var colorid = $(this).next().val();
-                console.log(colorid)
+
                 if ($(this).hasClass("selected")) {
                     colorvals.push(Number(colorid))
                 }
@@ -437,21 +436,15 @@
 
                 }
                 colorfilters = newarr;
-                console.log(newarr);
+
             })
 
             $(document).on("click", ".filterLink", function (e) {
                 e.preventDefault();
                 var min = parseInt($(".noUi-handle-lower").attr("aria-valuenow"))
                 var max = parseInt($(".noUi-handle-upper").attr("aria-valuenow"))
-                //console.log("filtered")
-                //if (catfilters.length > 0) {
-                //    console.log(catfilters)
-                //}
-                //console.log(colorfilters)
-                //console.log(brandfilters)
-                //console.log(`min : ${min}`)
-                //console.log(`max : ${max}`)
+
+
 
 
 
@@ -461,7 +454,7 @@
                 var catid = $(".hiddenCategoryId").val()
 
                 var url = `${base}/man/testing?id=${catid}${catfilters.join("")}${colorfilters.join("")}${brandfilters.join("")}&min=${min}&max=${max}`
-                console.log(url);
+
 
                 fetch(url).then(res => res.text()).then(data => {
                     $(".rowprods").empty();
@@ -476,7 +469,7 @@
                         $(".productClass").addClass("col-lg-6");
                         $(".productClass").removeClass("col-md-4");
                         $(".productClass").addClass("col-md-6");
-                        console.log("3col")
+
 
                         $(".product-main").css("height", "430px")
                     }
@@ -486,11 +479,11 @@
                         $(".productclass").removeClass("col-md-6");
                         $(".productclass").addClass("col-md-4");
                         $(".product-main").css("height", "353px")
-                        console.log("2col")
+
                     }
 
                     $(".product-notMain").click(function (e) {
-                        console.log("sa")
+
                         e.preventDefault();
                         var parent = $(this).closest(".product-body").prev().children(".until").children(".product-main")
                         var newHref = $(this).attr("href")
@@ -505,14 +498,13 @@
                     })
                 })
 
-                console.log(url);
 
 
             })
 
 
             var idVal = $(".page-item").next().val();
-            console.log(idVal)
+
 
 
             var base = window.location.origin;
@@ -524,12 +516,7 @@
 
             var url = `${base}/man/Sorting?catid=${catid}&sortval=${val}`
 
-          
 
-
-
-            //console.log(idVal)
-            //$(page)
 
             var vll = $(".activeInput").val();
             var nrmlzd = Number(vll) + 1
@@ -557,7 +544,7 @@
 
 
                 var lnk = `${b}/man/Sorting?catid=${catid}&sortval=${sortval}&page=${page}`
-                console.log(lnk)
+
 
                 fetch(lnk).then(res => res.text()).then(data => {
                     $(".rowprods").empty();
@@ -572,7 +559,7 @@
                         $(".productClass").addClass("col-lg-6");
                         $(".productClass").removeClass("col-md-4");
                         $(".productClass").addClass("col-md-6");
-                        console.log("3col")
+
 
                         $(".product-main").css("height", "430px")
                     }
@@ -582,11 +569,11 @@
                         $(".productclass").removeClass("col-md-6");
                         $(".productclass").addClass("col-md-4");
                         $(".product-main").css("height", "353px")
-                        console.log("2col")
+
                     }
 
                     $(".product-notMain").click(function (e) {
-                        console.log("sa")
+
                         e.preventDefault();
                         var parent = $(this).closest(".product-body").prev().children(".until").children(".product-main")
                         var newHref = $(this).attr("href")
@@ -630,7 +617,7 @@
                         $(".productClass").addClass("col-lg-6");
                         $(".productClass").removeClass("col-md-4");
                         $(".productClass").addClass("col-md-6");
-                        console.log("3col")
+
 
                         $(".product-main").css("height", "430px")
                     }
@@ -640,11 +627,11 @@
                         $(".productclass").removeClass("col-md-6");
                         $(".productclass").addClass("col-md-4");
                         $(".product-main").css("height", "353px")
-                        console.log("2col")
+
                     }
 
                     $(".product-notMain").click(function (e) {
-                        console.log("sa")
+
                         e.preventDefault();
                         var parent = $(this).closest(".product-body").prev().children(".until").children(".product-main")
                         var newHref = $(this).attr("href")
@@ -686,13 +673,13 @@
             //$(".colorClick").click(function (e) {
             //    e.preventDefault();
             //    $(this).toggleClass("selected")
-            //    //console.log("clicked");
+
             //})
 
 
 
             $(".product-notMain").click(function (e) {
-                console.log("sa")
+
                 e.preventDefault();
                 var parent = $(this).closest(".product-body").prev().children(".until").children(".product-main")
                 var newHref = $(this).attr("href")

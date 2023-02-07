@@ -216,7 +216,7 @@
 <script>
     $(document).ready(function () {
         $(".accordion").click(function (e) {
-            console.log("salam")
+
             $(this).children().children().last().slideToggle();
             $(".collapse").not($(this).children().children().last()).slideUp()
         })

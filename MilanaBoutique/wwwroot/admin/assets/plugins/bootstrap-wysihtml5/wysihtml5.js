@@ -8612,7 +8612,7 @@ rangy.createModule("DomRange", function (api, module) {
                                                             data;
 
 
-                                                    console.log('PASTED', event);
+                                                    
                                                     if (dataTransfer && browser.supportsDataTransfer()) {
                                                         data = dataTransfer.getData("text/html") || dataTransfer.getData("text/plain");
                                                     }

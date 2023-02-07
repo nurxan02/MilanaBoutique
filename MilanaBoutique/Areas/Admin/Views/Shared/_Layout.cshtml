@@ -10,7 +10,6 @@
     <link rel="apple-touch-icon" sizes="180x180" href="~/assets/images/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="~/assets/images/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="~/assets/images/icons/site.html">
     <link rel="mask-icon" href="~/assets/images/icons/safari-pinned-tab.svg" color="#666666">
     <link rel="shortcut icon" href="~/assets/images/icons/favicon.ico">
     <meta name="apple-mobile-web-app-title" content="Milana">
@@ -19,7 +18,6 @@
     <meta name="msapplication-config" content="~/assets/images/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link rel="shortcut icon" href="~/assets/images/video/c0d829f1-b57f-47c0-9e24-267fb45e595flogo.png">
     <link href="~/admin/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/admin/assets/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
     <link href="~/admin/assets/plugins/fontawesome/css/all.min.css" rel="stylesheet">
@@ -308,7 +306,7 @@
             var base = window.location.origin;
             var url = `${base}/admin/order/improving`
             fetch(url).then(res => res.json()).then(data => {
-                console.log("improved successfully!")
+
                 if (data.status == 201) {
                     $(".dailySellerDiv").html('<span style="color:white; font-size:20px;"><i class="bi bi-bag-x"></i> You do not have order for today!</span>')
 

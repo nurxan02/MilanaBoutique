@@ -824,10 +824,10 @@ else
 
                 if ($(".emailValue").is(':valid')) {
                     var url = `${base}/home/subscribe?email=${value}`
-                    console.log(url)
+
 
                     fetch(url).then(res => res.json()).then(data => {
-                        console.log(data)
+
                         if (data.status == 200) {
                             swal({
                                 title: "Thank you for subscribing",

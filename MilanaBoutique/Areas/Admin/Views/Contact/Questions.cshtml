@@ -98,7 +98,7 @@
             var href = $(this).attr("href");
 
             var url = `${base}${href}`
-            console.log(url);
+
             fetch(url).then(res => res.json()).then(data => {
                 location.reload(true);
             })
@@ -108,7 +108,7 @@
     <script>
         $(".delete-btn").click(function (e) {
             e.preventDefault()
-            console.log($(this).attr("href"))
+
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",

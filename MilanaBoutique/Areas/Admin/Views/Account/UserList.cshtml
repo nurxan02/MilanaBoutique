@@ -111,7 +111,7 @@
             var href = $(this).attr("href");
             var base = window.location.origin;
             var url = `${base}${href}`
-            console.log(url);
+
 
             fetch(url).then(res => res.json()).then(data => {
                 if (data.status == 500) {
@@ -135,7 +135,7 @@
             var href = $(this).attr("href");
             var base = window.location.origin;
             var url = `${base}${href}`
-            console.log(url);
+
 
             fetch(url).then(res => res.json()).then(data => {
                 if (data.status == 500) {

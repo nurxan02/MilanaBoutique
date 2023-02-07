@@ -346,7 +346,7 @@
             })
 
             $(".product-notMain").click(function (e) {
-                console.log("sa")
+             
                 e.preventDefault();
                 var parent = $(this).closest(".product-body").prev().children(".until").children(".product-main")
                 var newHref = $(this).attr("href")
@@ -367,13 +367,13 @@
                 var base = window.location.origin
                 var href = $(this).children(".hiddenId").val()
                 var link = `${base}/woman/changecolor/${href}`
-                //console.log(link)
+              
                 $(".zoomContainer").remove();
                 fetch(link).then(res => res.text()).then(data => {
 
                
 
-                    console.log('fie')
+                  
                     $(".product-details-top").html('');
                     $(".product-details-top").html(data)
                        
@@ -538,7 +538,7 @@
                         }).then((result) => {
 
                             if (result.dismiss === Swal.DismissReason.timer) {
-                                console.log('I was closed by the timer')
+                             
                             }
                         })
                         setTimeout(window.location.reload.bind(window.location), 2000);
@@ -555,7 +555,7 @@
                             if (data != "exist") {
                                 $(".review-place").empty();
                                 $(".review-place").append(data);
-                                //console.log(data)
+                             
 
                                 $(".starRate").removeClass("active-star");
 

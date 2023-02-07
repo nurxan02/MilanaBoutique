@@ -379,7 +379,7 @@
             })
 
             $(".product-notMain").click(function (e) {
-                /* console.log("sa")*/
+
                 e.preventDefault();
                 var parent = $(this).closest(".product-body").prev().children(".until").children(".product-main")
                 var newHref = $(this).attr("href")
@@ -400,13 +400,13 @@
                 var base = window.location.origin
                 var href = $(this).children(".hiddenId").val()
                 var link = `${base}/man/changecolor/${href}`
-                /* console.log(link)*/
+
                 $(".zoomContainer").remove();
 
                 fetch(link).then(res => res.text()).then(data => {
 
 
-                    console.log('fetched')
+
                     $(".product-details-top").html('');
                     $(".product-details-top").html(data)
                     //$(".page-content").append(data)
@@ -559,7 +559,7 @@
                         }).then((result) => {
                            
                             if (result.dismiss === Swal.DismissReason.timer) {
-                                console.log('I was closed by the timer')
+
                             }
                         })
                         setTimeout(window.location.reload.bind(window.location), 2000);
@@ -568,7 +568,7 @@
                         var url = `${base}/man/AddComment?Subject=${subject}&Message=${message}&ProductId=${productit}&Star=${star}`
                         var forpartial = base + '/Comment/GetPartial' + '?id=' + productit
                         var link = base + '/Comment/AddComment' + '?Subject=' + subject + '&Message=' + message + '&ProductId=' + productit + '&Star=' + star
-                        console.log(link)
+
 
 
                         fetch(link).then(res => res.text()).then(data => {
@@ -578,7 +578,7 @@
                                     if (data != "exist") {
                                         $(".review-place").empty();
                                         $(".review-place").append(data);
-                                        //console.log(data)
+
 
                                         $(".starRate").removeClass("active-star");
 
@@ -648,7 +648,6 @@
 
                 //var link = `${subject}${message}${productit}${star}`
 
-                //console.log(link)
             })
 
 
