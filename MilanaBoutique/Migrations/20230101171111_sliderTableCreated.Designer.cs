@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MilanaBoutique.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220310171111_sliderTableCreated")]
+    [Migration("20230310171111_sliderTableCreated")]
     partial class sliderTableCreated
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

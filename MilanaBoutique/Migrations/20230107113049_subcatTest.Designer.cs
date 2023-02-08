@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MilanaBoutique.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220314113049_subcatTest")]
+    [Migration("20230314113049_subcatTest")]
     partial class subcatTest
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

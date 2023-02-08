@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MilanaBoutique.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220404143945_imageAdedToBrand")]
+    [Migration("20230404143945_imageAdedToBrand")]
     partial class imageAdedToBrand
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

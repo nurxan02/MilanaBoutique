@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MilanaBoutique.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220314093355_categoryIdsAddedToProduct")]
+    [Migration("20230314093355_categoryIdsAddedToProduct")]
     partial class categoryIdsAddedToProduct
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

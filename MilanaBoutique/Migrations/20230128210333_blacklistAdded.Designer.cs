@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MilanaBoutique.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220411210333_blacklistAdded")]
+    [Migration("20230411210333_blacklistAdded")]
     partial class blacklistAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

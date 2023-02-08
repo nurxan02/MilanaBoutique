@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MilanaBoutique.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220416194225_isblocked")]
+    [Migration("20230416194225_isblocked")]
     partial class isblocked
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

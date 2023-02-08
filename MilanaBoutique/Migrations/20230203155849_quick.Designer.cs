@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MilanaBoutique.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220417155849_quick")]
+    [Migration("20230417155849_quick")]
     partial class quick
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

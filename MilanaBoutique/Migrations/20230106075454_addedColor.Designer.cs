@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MilanaBoutique.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220314075454_addedColor")]
+    [Migration("20230314075454_addedColor")]
     partial class addedColor
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
