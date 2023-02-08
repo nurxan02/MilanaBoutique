@@ -1,7 +1,5 @@
-﻿
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -51,12 +49,11 @@
         <!-- Sidebar  -->
         <nav class="sidebar sidebar-bunker" style="background-color: #362000;">
             <div class="sidebar-header">
-                <!--<a href="index.html" class="logo"><span>bd</span>task</a>-->
                 <a asp-action="index" class="logo"><img style="width:170px;height:170px" src="~/assets/images/milanadashboard.png" alt=""></a>
             </div><!--/.sidebar header-->
             <div class="profile-element d-flex align-items-center flex-shrink-0">
 
-                <div class="profile-text" style="border:1px solid white; border-radius:10px; padding:20px;">
+                <div class="profile-text" style="border:2px solid white; border-radius:10px; padding:20px;">
                     <h6 class="m-0">@User.Identity.Name</h6>
                  
                 </div>
@@ -74,11 +71,7 @@
 
                         </li>
 
-
                         <li><a asp-controller="slider" asp-action="index"><i class="typcn typcn-messages mr-2"></i> Slider</a></li>
-
-
-
 
                         <li>
                             <a href="#" class="has-arrow">
@@ -127,23 +120,23 @@
                         <li><a asp-controller="subscriber" asp-action="index"><i class="typcn typcn-mail mr-2"></i>Subscribers</a></li>
                         <li>
                             <a href="#" class="has-arrow">
-                                <i class="typcn typcn-chart-pie-outline mr-2 "></i>
+                                <i class="typcn typcn-phone-outline mr-2 "></i>
                                 Contact-Store
                             </a>
                             <ul class="nav-second-level">
                                 <li>
                                     <a asp-controller="contact" asp-action="index">
-                                        <i class="typcn typcn-chart-pie-outline mr-2"></i>
+                                        <i class="typcn typcn-phone-outline mr-2"></i>
                                         Contact
                                     </a>
                                 </li>
                                 <li>
                                     <a asp-controller="contact" asp-action="stores">
-                                        <i class="typcn typcn-chart-pie-outline mr-2"></i>
+                                        <i class="typcn typcn-home-outline mr-2"></i>
                                         Stores
                                     </a>
                                     <a asp-controller="contact" asp-action="questions">
-                                        <i class="typcn typcn-chart-pie-outline mr-2"></i>
+                                        <i class="typcn typcn-message-typing mr-2"></i>
                                         Questions
                                     </a>
                                 </li>
@@ -154,19 +147,19 @@
                         <li><a asp-controller="account" asp-action="userlist"><i class="typcn typcn-user-add-outline mr-2"></i>Users</a></li>
                         <li>
                             <a asp-controller="blog" asp-action="index">
-                                <i class="fa fa-blog mr-2"></i>
+                                <i class="typcn typcn-pen mr-2"></i>
                                 Blogs
                             </a>
                         </li>
                         <li>
                             <a asp-controller="aboutus" asp-action="index">
-                                <i class="fa fa-info mr-2"></i>
+                                <i class="typcn typcn-info-large-outline mr-2 "></i>
                                 About us
                             </a>
                         </li>
                         <li>
                             <a asp-controller="aboutus" asp-action="members">
-                                <i class="fa fa-user-friends mr-2"></i>
+                                <i class="typcn typcn-group-outline mr-2"></i>
                                 Team members
                             </a>
                         </li>
@@ -178,7 +171,7 @@
         <div class="content-wrapper">
             <div class="main-content">
                 <nav class="navbar-custom-menu navbar navbar-expand-lg m-0">
-                    <div class="bi bi-database" style="font-size: 40px; color: #362000;" id="sidebarCollapse">
+                    <div class="bi bi-justify" style="font-size: 35px; color: #362000;" id="sidebarCollapse">
                        <span></span>
                     </div><!--/.sidebar toggle icon-->
                     <div class="d-flex flex-grow-1">
@@ -239,12 +232,9 @@
                                     <div class="user-header">
 
                                         <h6>@User.Identity.Name</h6>
-                                        <span><a asp-controller="dashboard" class="__cf_email__" data-cfemail="caafb2aba7baa6af8aada7aba3a6e4a9a5a7">[email&#160;protected]</a></span>
+                                        <span><a asp-controller="dashboard" class="__cf_email__" data-cfemail="caafb2aba7baa6af8aada7aba3a6e4a9a5a7">[ Dashboard ]</a></span>
                                     </div><!-- user-header -->
-                                    @*<a href="#" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>*@
-                                    <a asp-controller="account" asp-action="edit" class="dropdown-item"><i class="typcn typcn-edit"></i> Edit Profile</a>
-                                    @*<a href="#" class="dropdown-item"><i class="typcn typcn-arrow-shuffle"></i> Activity Logs</a>*@
-                                    @*<a href="#" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account Settings</a>*@
+                                    <a asp-controller="account" asp-action="edit" class="dropdown-item"><i class="typcn typcn-edit"></i> Edit Profile</a>                            
                                     <a asp-controller="account" asp-action="logout" class="dropdown-item"><i class="typcn typcn-key-outline"></i> Sign Out</a>
                                 </div><!--/.dropdown-menu -->
                             </li>
@@ -279,22 +269,14 @@
             <div class="overlay"></div>
         </div><!--/.wrapper-->
     </div>
-    <!--Global script(used by all pages)-->
-    @*<script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>*@
-
     <script src="~/admin/assets/plugins/jQuery/jquery-3.4.1.min.js"></script>
     <script src="~/admin/assets/dist/js/popper.min.js"></script>
     <script src="~/admin/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/admin/assets/plugins/metisMenu/metisMenu.min.js"></script>
     <script src="~/admin/assets/plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
-    <!-- Third Party Scripts(used by this page)-->
-    @*<script src="~/admin/assets/plugins/chartJs/Chart.min.js"></script>*@
     <script src="~/admin/assets/plugins/sparkline/sparkline.min.js"></script>
     <script src="~/admin/assets/plugins/datatables/dataTables.min.js"></script>
     <script src="~/admin/assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-    <!--Page Active Scripts(used by this page)-->
-    @*<script src="~/admin/assets/dist/js/pages/dashboard.js"></script>*@
-    <!--Page Scripts(used by all page)-->
     <script src="~/admin/assets/dist/js/sidebar.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
