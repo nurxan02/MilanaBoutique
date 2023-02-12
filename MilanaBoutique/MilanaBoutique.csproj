@@ -8,19 +8,15 @@
     <Compile Remove="Areas\Admin\Data\**" />
     <Compile Remove="Areas\Admin\Models\**" />
     <Compile Remove="Views\Comment\**" />
-    <Compile Remove="wwwroot\assets\images\mainlogos\**" />
     <Content Remove="Areas\Admin\Data\**" />
     <Content Remove="Areas\Admin\Models\**" />
     <Content Remove="Views\Comment\**" />
-    <Content Remove="wwwroot\assets\images\mainlogos\**" />
     <EmbeddedResource Remove="Areas\Admin\Data\**" />
     <EmbeddedResource Remove="Areas\Admin\Models\**" />
     <EmbeddedResource Remove="Views\Comment\**" />
-    <EmbeddedResource Remove="wwwroot\assets\images\mainlogos\**" />
     <None Remove="Areas\Admin\Data\**" />
     <None Remove="Areas\Admin\Models\**" />
     <None Remove="Views\Comment\**" />
-    <None Remove="wwwroot\assets\images\mainlogos\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,11 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\assets\images\slider\61c4498a16fd0.jpg" />
-    <_ContentIncludedByDefault Remove="wwwroot\assets\images\slider\IMG_1863.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MailKit" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.22" />
@@ -64,17 +55,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
     <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="wwwroot\assets\images\slider\slide-1.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="wwwroot\assets\images\slider\slide-2.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
   </ItemGroup>
 
 </Project>
