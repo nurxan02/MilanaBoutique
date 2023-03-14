@@ -6,6 +6,7 @@
 ## Deploy
 
 <a href="https://smarterasp.net/"><img src="https://www.smarterasp.net/images/logo1.png" height="32"></a>
+Link : <a href="http://nurxan02-001-site1.atempurl.com/">Click here for go to published site</a> 
 
 ## Features
 
